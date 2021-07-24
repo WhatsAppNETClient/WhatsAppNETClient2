@@ -49,21 +49,23 @@ Public Class FrmStartUp
 
     Public Sub OnStartupHandler(ByVal message As String)
 
-        ' update UI dari thread yang berbeda
-        lstLog.Invoke(
-            Sub()
-                lstLog.Items.Add(message)
-                lstLog.SelectedIndex = lstLog.Items.Count - 1
-
-                If message.IndexOf("OPEN-WA ready") >= 0 OrElse message.IndexOf("SUCCESS") >= 0 _
+        If message.IndexOf("OPEN-WA ready") >= 0 OrElse message.IndexOf("SUCCESS") >= 0 _
                     OrElse message.IndexOf("App Offline") >= 0 OrElse message.IndexOf("Timeout") >= 0 _
                     OrElse message.IndexOf("ERR_NAME") >= 0 Then
 
-                    Me.Invoke(Sub() Me.Close())
+            If Me.IsHandleCreated Then Me.Invoke(Sub() Me.Close())
 
-                End If
-            End Sub
-        )
+        Else
+            ' update UI dari thread yang berbeda
+            lstLog.Invoke(
+                Sub()
+                    lstLog.Items.Add(message)
+                    lstLog.SelectedIndex = lstLog.Items.Count - 1
+
+
+                End Sub
+            )
+        End If
 
     End Sub
 

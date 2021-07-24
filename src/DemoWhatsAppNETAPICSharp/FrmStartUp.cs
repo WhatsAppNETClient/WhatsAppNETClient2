@@ -60,18 +60,23 @@ namespace DemoWhatsAppNETAPICSharp
 
         public void OnStartupHandler(string message)
         {
-            // update UI dari thread yang berbeda
-            lstLog.Invoke(new MethodInvoker(() =>
-            {
-                lstLog.Items.Add(message);
-                lstLog.SelectedIndex = lstLog.Items.Count - 1;
-            }
-            ));
-
             if (message.IndexOf("OPEN-WA ready") >= 0 || message.IndexOf("SUCCESS") >= 0
                 || message.IndexOf("App Offline") >= 0 || message.IndexOf("Timeout") >= 0
                 || message.IndexOf("ERR_NAME") >= 0)
-                this.Invoke(new MethodInvoker(() => this.Close()));
+            {
+                if (this.IsHandleCreated)
+                    this.Invoke(new MethodInvoker(() => this.Close()));
+            }
+            else
+            {
+                // update UI dari thread yang berbeda
+                lstLog.Invoke(new MethodInvoker(() =>
+                {
+                    lstLog.Items.Add(message);
+                    lstLog.SelectedIndex = lstLog.Items.Count - 1;
+                }
+                ));
+            }
         }        
     }
 }
