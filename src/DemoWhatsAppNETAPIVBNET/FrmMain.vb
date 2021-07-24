@@ -280,11 +280,19 @@ Public Class FrmMain
     End Sub
 
     Private Sub btnDeleteChat_Click(sender As Object, e As EventArgs) Handles btnDeleteChat.Click
-        _wa.DeleteChat()
+        Dim msg = "Fungsi ini akan MENGHAPUS semua pesan." + Environment.NewLine +
+                  "Apakah ingin dilanjutkan"
+        If MessageBox.Show(msg, "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            _wa.DeleteChat()
+        End If
     End Sub
 
     Private Sub btnArchiveChat_Click(sender As Object, e As EventArgs) Handles btnArchiveChat.Click
-        _wa.ArchiveChat()
+        Dim msg = "Fungsi ini akan MENGARSIPKAN semua pesan." + Environment.NewLine +
+                  "Apakah ingin dilanjutkan"
+        If MessageBox.Show(msg, "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            _wa.ArchiveChat()
+        End If
     End Sub
 
     Private Sub btnUnreadMessages_Click(sender As Object, e As EventArgs) Handles btnUnreadMessages.Click

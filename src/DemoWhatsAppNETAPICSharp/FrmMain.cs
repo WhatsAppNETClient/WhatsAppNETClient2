@@ -296,12 +296,24 @@ namespace DemoWhatsAppNETAPICSharp
 
         private void btnDeleteChat_Click(object sender, EventArgs e)
         {
-            _wa.DeleteChat();
+            var msg = "Fungsi ini akan MENGHAPUS semua pesan.\n" +
+                      "Apakah ingin dilanjutkan";
+
+            if (MessageBox.Show(msg, "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                _wa.DeleteChat();
+            }            
         }
 
         private void btnArchiveChat_Click(object sender, EventArgs e)
         {
-            _wa.ArchiveChat();
+            var msg = "Fungsi ini akan MENGARSIPKAN semua pesan.\n" +
+                      "Apakah ingin dilanjutkan";
+
+            if (MessageBox.Show(msg, "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                _wa.ArchiveChat();
+            }                
         }
 
         private void btnUnreadMessages_Click(object sender, EventArgs e)
