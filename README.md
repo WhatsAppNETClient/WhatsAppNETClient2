@@ -8,6 +8,7 @@ Bisa Anda cek di http://wa-net.coding4ever.net/
 
 ## Persyaratan Sistem
 
+* Windows 8.x, 10 atau versi terbaru
 * .NET Framework 4.5 dan .NET versi terbaru
 *  Node.js versi 14.x.x
 
