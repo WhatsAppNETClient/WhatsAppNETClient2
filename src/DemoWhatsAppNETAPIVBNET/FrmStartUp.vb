@@ -61,8 +61,6 @@ Public Class FrmStartUp
                 Sub()
                     lstLog.Items.Add(message)
                     lstLog.SelectedIndex = lstLog.Items.Count - 1
-
-
                 End Sub
             )
         End If
