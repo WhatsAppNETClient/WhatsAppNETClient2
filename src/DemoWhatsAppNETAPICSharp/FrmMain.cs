@@ -48,9 +48,12 @@ namespace DemoWhatsAppNETAPICSharp
                 return;
             }
 
-            _wa.WaAutomatePath = txtLokasiWhatsAppNETAPINodeJs.Text;
+            _wa.WaNetApiNodeJsPath = txtLokasiWhatsAppNETAPINodeJs.Text;
 
-            if (!_wa.IsWaAutomatePathExists)
+            // TODO: aktifkan kode ini agar bisa mengirimkan file dalam format video
+            // _wa.ChromePath = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe";
+
+            if (!_wa.IsWaNetApiNodeJsPathExists)
             {
                 MessageBox.Show("Maaf, lokasi folder 'WhatsApp NET API NodeJs' tidak ditemukan !!!", "Peringatan", 
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -205,7 +208,7 @@ namespace DemoWhatsAppNETAPICSharp
             using (var dlgOpen = new OpenFileDialog())
             {
                 dlgOpen.Filter = fileImageOnly ? "File gambar (*.bmp, *.jpg, *.jpeg, *.png)|*.bmp;*.jpg;*.jpeg;*.png"
-                                               : "File dokumen (*.pdf)|*.pdf";
+                                               : "File dokumen (*.*)|*.*";
                 dlgOpen.Title = title;
 
                 var result = dlgOpen.ShowDialog();
@@ -326,7 +329,7 @@ namespace DemoWhatsAppNETAPICSharp
         private void OnStartupHandler(string message)
         {
             // koneksi ke WA berhasil
-            if (message.IndexOf("OPEN-WA ready") >= 0 || message.IndexOf("SUCCESS") >= 0)
+            if (message.IndexOf("Ready") >= 0)
             {
                 btnStart.Invoke(new MethodInvoker(() => btnStart.Enabled = false));
                 btnStop.Invoke(new MethodInvoker(() => btnStop.Enabled = true));
@@ -345,7 +348,7 @@ namespace DemoWhatsAppNETAPICSharp
             }
 
             // koneksi ke WA GAGAL, bisa dicoba lagi
-            if (message.IndexOf("App Offline") >= 0 || message.IndexOf("Timeout") >= 0
+            if (message.IndexOf("Failure") >= 0 || message.IndexOf("Timeout") >= 0
                 || message.IndexOf("ERR_NAME") >= 0)
             {
                 // unsubscribe event
@@ -360,8 +363,8 @@ namespace DemoWhatsAppNETAPICSharp
 
                 this.UseWaitCursor = false;
 
-                MessageBox.Show("Koneksi ke WA gagal, silahkan dicoba lagi.", "Peringatan", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                var msg = string.Format("{0}\n\nKoneksi ke WA gagal, silahkan cek koneksi internet Anda", message);
+                MessageBox.Show(msg, "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -372,11 +375,18 @@ namespace DemoWhatsAppNETAPICSharp
 
         private void OnReceiveMessageHandler(WhatsAppNETAPI.Message message)
         {
-            var msg = message.type == "chat" ? message.content : message.caption;
+            var msg = message.content;
             var pengirim = string.IsNullOrEmpty(message.sender.name) ? message.from : message.sender.name;
+            var fileName = message.filename;
 
-            var data = string.Format("[{0}] Pengirim: {1}, Isi pesan: {2}",
-                message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg);
+            var data = string.Empty;
+
+            if (string.IsNullOrEmpty(fileName))
+                data = string.Format("[{0}] Pengirim: {1}, Pesan teks: {2}",
+                    message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg);
+            else
+                data = string.Format("[{0}] Pengirim: {1}, Pesan gambar/dokumen: {2}, nama file: {3}",
+                    message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg, fileName);
 
             // update UI dari thread yang berbeda
             lstPesanMasuk.Invoke(() =>
@@ -398,7 +408,7 @@ namespace DemoWhatsAppNETAPICSharp
         {
             foreach (var message in messages)
             {
-                var msg = message.type == "chat" ? message.content : message.caption;
+                var msg = message.content;
                 var pengirim = string.IsNullOrEmpty(message.sender.name) ? message.from : message.sender.name;
 
                 var data = string.Format("[{0}] Pengirim: {1}, Isi pesan: {2}",

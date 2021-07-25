@@ -41,9 +41,12 @@ Public Class FrmMain
             Return
         End If
 
-        _wa.WaAutomatePath = txtLokasiWhatsAppNETAPINodeJs.Text
+        _wa.WaNetApiNodeJsPath = txtLokasiWhatsAppNETAPINodeJs.Text
 
-        If (Not _wa.IsWaAutomatePathExists) Then
+        ' TODO: aktifkan kode ini agar bisa mengirimkan file dalam format video
+        ' _wa.ChromePath = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+
+        If (Not _wa.IsWaNetApiNodeJsPathExists) Then
 
             MessageBox.Show("Maaf, lokasi folder 'WhatsApp NET API NodeJs' tidak ditemukan !!!", "Peringatan",
                 MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -201,7 +204,7 @@ Public Class FrmMain
             If fileImageOnly Then
                 dlgOpen.Filter = "File gambar (*.bmp, *.jpg, *.jpeg, *.png)|*.bmp;*.jpg;*.jpeg;*.png"
             Else
-                dlgOpen.Filter = "File dokumen (*.pdf)|*.pdf"
+                dlgOpen.Filter = "File dokumen (*.*)|*.*"
             End If
 
             dlgOpen.Title = title
@@ -304,7 +307,7 @@ Public Class FrmMain
     Private Sub OnStartupHandler(ByVal message As String)
 
         ' koneksi ke WA berhasil
-        If message.IndexOf("OPEN-WA ready") >= 0 OrElse message.IndexOf("SUCCESS") >= 0 Then
+        If message.IndexOf("Ready") >= 0 Then
 
             btnStart.Invoke(Sub() btnStart.Enabled = False)
             btnStop.Invoke(Sub() btnStop.Enabled = True)
@@ -322,7 +325,7 @@ Public Class FrmMain
         End If
 
         ' koneksi ke WA GAGAL, bisa dicoba lagi
-        If message.IndexOf("App Offline") >= 0 OrElse message.IndexOf("Timeout") >= 0 _
+        If message.IndexOf("Failure") >= 0 OrElse message.IndexOf("Timeout") >= 0 _
             OrElse message.IndexOf("ERR_NAME") >= 0 Then
 
             ' unsubscribe event
@@ -337,7 +340,10 @@ Public Class FrmMain
 
             Me.UseWaitCursor = False
 
-            MessageBox.Show("Koneksi ke WA gagal, silahkan dicoba lagi.", "Peringatan",
+            Dim msg = message + Environment.NewLine + Environment.NewLine +
+                      "Koneksi ke WA gagal, silahkan cek koneksi internet Anda"
+
+            MessageBox.Show(msg, "Peringatan",
                 MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
     End Sub
@@ -348,11 +354,19 @@ Public Class FrmMain
 
     Private Sub OnReceiveMessageHandler(ByVal message As WhatsAppNETAPI.Message)
 
-        Dim msg = IIf(message.type = "chat", message.content, message.caption)
+        Dim msg = message.content
         Dim pengirim = IIf(String.IsNullOrEmpty(message.sender.name), message.from, message.sender.name)
+        Dim fileName = message.filename
 
-        Dim data = String.Format("[{0}] Pengirim: {1}, Isi pesan: {2}",
-            message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg)
+        Dim data = String.Empty
+
+        If String.IsNullOrEmpty(fileName) Then
+            data = String.Format("[{0}] Pengirim: {1}, Pesan teks: {2}",
+                    message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg)
+        Else
+            data = String.Format("[{0}] Pengirim: {1}, Pesan gambar/dokumen: {2}, nama file: {3}",
+                    message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg, fileName)
+        End If
 
         ' update UI dari thread yang berbeda
         lstPesanMasuk.Invoke(
@@ -376,7 +390,7 @@ Public Class FrmMain
 
         For Each message As Message In messages
 
-            Dim msg = IIf(message.type = "chat", message.content, message.caption)
+            Dim msg = message.content
             Dim pengirim = IIf(String.IsNullOrEmpty(message.sender.name), message.from, message.sender.name)
 
             Dim data = String.Format("[{0}] Pengirim: {1}, Isi pesan: {2}",

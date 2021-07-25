@@ -358,17 +358,17 @@ Partial Class FrmMain
         Me.chkKirimFileAja.Dock = System.Windows.Forms.DockStyle.Left
         Me.chkKirimFileAja.Location = New System.Drawing.Point(3, 3)
         Me.chkKirimFileAja.Name = "chkKirimFileAja"
-        Me.chkKirimFileAja.Size = New System.Drawing.Size(88, 23)
+        Me.chkKirimFileAja.Size = New System.Drawing.Size(64, 23)
         Me.chkKirimFileAja.TabIndex = 0
-        Me.chkKirimFileAja.Text = "Kirim file (pdf)"
+        Me.chkKirimFileAja.Text = "Kirim file"
         Me.chkKirimFileAja.UseVisualStyleBackColor = True
         '
         'txtFileDokumen
         '
-        Me.txtFileDokumen.Location = New System.Drawing.Point(97, 3)
+        Me.txtFileDokumen.Location = New System.Drawing.Point(73, 3)
         Me.txtFileDokumen.Name = "txtFileDokumen"
         Me.txtFileDokumen.ReadOnly = True
-        Me.txtFileDokumen.Size = New System.Drawing.Size(571, 20)
+        Me.txtFileDokumen.Size = New System.Drawing.Size(595, 20)
         Me.txtFileDokumen.TabIndex = 1
         '
         'btnCariDokumen

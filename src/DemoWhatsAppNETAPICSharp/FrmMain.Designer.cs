@@ -374,18 +374,18 @@
             this.chkKirimFileAja.Dock = System.Windows.Forms.DockStyle.Left;
             this.chkKirimFileAja.Location = new System.Drawing.Point(3, 3);
             this.chkKirimFileAja.Name = "chkKirimFileAja";
-            this.chkKirimFileAja.Size = new System.Drawing.Size(88, 23);
+            this.chkKirimFileAja.Size = new System.Drawing.Size(95, 23);
             this.chkKirimFileAja.TabIndex = 0;
-            this.chkKirimFileAja.Text = "Kirim file (pdf)";
+            this.chkKirimFileAja.Text = "Kirim dokumen";
             this.chkKirimFileAja.UseVisualStyleBackColor = true;
             this.chkKirimFileAja.CheckedChanged += new System.EventHandler(this.chkKirimFileAja_CheckedChanged);
             // 
             // txtFileDokumen
             // 
-            this.txtFileDokumen.Location = new System.Drawing.Point(97, 3);
+            this.txtFileDokumen.Location = new System.Drawing.Point(104, 3);
             this.txtFileDokumen.Name = "txtFileDokumen";
             this.txtFileDokumen.ReadOnly = true;
-            this.txtFileDokumen.Size = new System.Drawing.Size(570, 20);
+            this.txtFileDokumen.Size = new System.Drawing.Size(563, 20);
             this.txtFileDokumen.TabIndex = 1;
             // 
             // btnCariDokumen

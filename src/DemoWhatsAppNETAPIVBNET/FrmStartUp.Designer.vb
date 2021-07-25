@@ -41,7 +41,7 @@ Partial Class FrmStartUp
         Me.tableLayoutPanel1.Name = "tableLayoutPanel1"
         Me.tableLayoutPanel1.RowCount = 1
         Me.tableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tableLayoutPanel1.Size = New System.Drawing.Size(549, 438)
+        Me.tableLayoutPanel1.Size = New System.Drawing.Size(563, 305)
         Me.tableLayoutPanel1.TabIndex = 1
         '
         'lstLog
@@ -52,7 +52,7 @@ Partial Class FrmStartUp
         Me.lstLog.Location = New System.Drawing.Point(10, 10)
         Me.lstLog.Margin = New System.Windows.Forms.Padding(10)
         Me.lstLog.Name = "lstLog"
-        Me.lstLog.Size = New System.Drawing.Size(187, 418)
+        Me.lstLog.Size = New System.Drawing.Size(353, 285)
         Me.lstLog.TabIndex = 0
         '
         'picQRCode
@@ -60,11 +60,11 @@ Partial Class FrmStartUp
         Me.picQRCode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.picQRCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.picQRCode.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.picQRCode.Location = New System.Drawing.Point(217, 10)
+        Me.picQRCode.Location = New System.Drawing.Point(383, 10)
         Me.picQRCode.Margin = New System.Windows.Forms.Padding(10)
         Me.picQRCode.Name = "picQRCode"
-        Me.picQRCode.Size = New System.Drawing.Size(322, 418)
-        Me.picQRCode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.picQRCode.Size = New System.Drawing.Size(170, 285)
+        Me.picQRCode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
         Me.picQRCode.TabIndex = 1
         Me.picQRCode.TabStop = False
         Me.picQRCode.Visible = False
@@ -73,7 +73,8 @@ Partial Class FrmStartUp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(549, 438)
+        Me.BackColor = System.Drawing.Color.White
+        Me.ClientSize = New System.Drawing.Size(563, 305)
         Me.Controls.Add(Me.tableLayoutPanel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
@@ -82,6 +83,7 @@ Partial Class FrmStartUp
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "FrmStartUp"
         Me.tableLayoutPanel1.ResumeLayout(False)
+        Me.tableLayoutPanel1.PerformLayout()
         CType(Me.picQRCode, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

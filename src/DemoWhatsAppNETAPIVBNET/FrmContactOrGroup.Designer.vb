@@ -53,16 +53,16 @@ Partial Class FrmContactOrGroup
         Me.btnClose.Text = "Close"
         Me.btnClose.UseVisualStyleBackColor = True
         '
-        'lstContact
+        'lstContactOrGroup
         '
         Me.lstContactOrGroup.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lstContactOrGroup.FormattingEnabled = True
         Me.lstContactOrGroup.Location = New System.Drawing.Point(3, 3)
-        Me.lstContactOrGroup.Name = "lstContact"
+        Me.lstContactOrGroup.Name = "lstContactOrGroup"
         Me.lstContactOrGroup.Size = New System.Drawing.Size(387, 388)
         Me.lstContactOrGroup.TabIndex = 0
         '
-        'FrmContact
+        'FrmContactOrGroup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -71,7 +71,7 @@ Partial Class FrmContactOrGroup
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "FrmContact"
+        Me.Name = "FrmContactOrGroup"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "FrmContact"
         Me.tableLayoutPanel1.ResumeLayout(False)

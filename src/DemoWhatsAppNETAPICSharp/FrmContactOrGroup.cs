@@ -26,10 +26,17 @@ namespace DemoWhatsAppNETAPICSharp
 {
     public partial class FrmContactOrGroup : Form
     {
+        private int noUrut = 1;
+
         public FrmContactOrGroup(string title)
         {
             InitializeComponent();
             this.Text = title;
+        }
+
+        private void FrmContactOrGroup_Load(object sender, EventArgs e)
+        {
+            this.UseWaitCursor = true;
         }
 
         public void OnReceiveContactsHandler(IList<Contact> contacts)
@@ -39,8 +46,19 @@ namespace DemoWhatsAppNETAPICSharp
             {
                 foreach (var contact in contacts)
                 {
-                    lstContactOrGroup.Items.Add(string.Format("{0}. {1} - {2}",
-                        lstContactOrGroup.Items.Count + 1, contact.id, contact.name));
+                    if (!(contact.id == "status@broadcast"))
+                    {
+                        lstContactOrGroup.Items.Add(string.Format("{0}. {1} - {2}",
+                        noUrut, contact.id, contact.name));
+
+                        noUrut++;
+                    }
+                    else // status@broadcast -> dummy contact, penanda load data contact selesai
+                    {
+                        if (this.IsHandleCreated)
+                            this.Invoke(new MethodInvoker(() => this.UseWaitCursor = false));
+                    }
+                        
                 }                
             });
         }
@@ -50,22 +68,28 @@ namespace DemoWhatsAppNETAPICSharp
             // update UI dari thread yang berbeda
             lstContactOrGroup.Invoke(() =>
             {
-                var noUrut = 1;
-
                 foreach (var group in groups)
                 {
-                    lstContactOrGroup.Items.Add(string.Format("{0}. {1} - {2}",
+                    if (!(group.id == "status@broadcast"))
+                    {
+                        lstContactOrGroup.Items.Add(string.Format("{0}. {1} - {2}",
                         noUrut, group.id, group.name));
 
-                    noUrut++;
+                        noUrut++;
 
-                    var noUrutMember = 1;
-                    foreach (var member in group.members)
+                        var noUrutMember = 1;
+                        foreach (var member in group.members)
+                        {
+                            lstContactOrGroup.Items.Add(string.Format("---> {0}. {1} - {2}",
+                                noUrutMember, member.id, member.name));
+
+                            noUrutMember++;
+                        }
+                    }
+                    else // status@broadcast -> dummy group, penanda load data group selesai
                     {
-                        lstContactOrGroup.Items.Add(string.Format("---> {0}. {1} - {2}",
-                            noUrutMember, member.id, member.name));
-
-                        noUrutMember++;
+                        if (this.IsHandleCreated)
+                            this.Invoke(new MethodInvoker(() => this.UseWaitCursor = false));
                     }
                 }
             });

@@ -60,16 +60,16 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // lstContact
+            // lstContactOrGroup
             // 
             this.lstContactOrGroup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstContactOrGroup.FormattingEnabled = true;
             this.lstContactOrGroup.Location = new System.Drawing.Point(3, 3);
-            this.lstContactOrGroup.Name = "lstContact";
+            this.lstContactOrGroup.Name = "lstContactOrGroup";
             this.lstContactOrGroup.Size = new System.Drawing.Size(387, 388);
             this.lstContactOrGroup.TabIndex = 0;
             // 
-            // FrmListContact
+            // FrmContactOrGroup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -78,9 +78,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FrmListContact";
+            this.Name = "FrmContactOrGroup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Contacts";
+            this.Load += new System.EventHandler(this.FrmContactOrGroup_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

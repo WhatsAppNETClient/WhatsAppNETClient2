@@ -19,6 +19,9 @@
 Imports WhatsAppNETAPI
 
 Public Class FrmContactOrGroup
+
+    Dim noUrut = 1
+
     Public Sub New(ByVal title As String)
 
         ' This call is required by the designer.
@@ -28,45 +31,59 @@ Public Class FrmContactOrGroup
         Me.Text = title
     End Sub
 
-    Public Sub OnReceiveContactsHandler(contacts As IList(Of Contact))
+    Private Sub FrmContactOrGroup_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.UseWaitCursor = True
+    End Sub
 
+    Public Sub OnReceiveContactsHandler(contacts As IList(Of Contact))
         ' update UI dari thread yang berbeda
         lstContactOrGroup.Invoke(
             Sub()
                 For Each contact As Contact In contacts
-                    lstContactOrGroup.Items.Add(String.Format("{0}. {1} - {2}",
-                        lstContactOrGroup.Items.Count + 1, contact.id, contact.name))
+
+                    If Not (contact.id = "status@broadcast") Then
+                        lstContactOrGroup.Items.Add(String.Format("{0}. {1} - {2}",
+                            noUrut, contact.id, contact.name))
+
+                        noUrut = noUrut + 1
+
+                    Else ' status@broadcast -> dummy contact, penanda load data contact selesai
+                        If Me.IsHandleCreated Then Me.Invoke(Sub() Me.UseWaitCursor = False)
+                    End If
                 Next
             End Sub
         )
-
     End Sub
 
     Public Sub OnReceiveGroupsHandler(groups As IList(Of Group))
-
         ' update UI dari thread yang berbeda
         lstContactOrGroup.Invoke(
             Sub()
-                Dim noUrut = 1
                 For Each group As Group In groups
-                    lstContactOrGroup.Items.Add(String.Format("{0}. {1} - {2}",
-                        noUrut, group.id, group.name))
-                    noUrut = noUrut + 1
+                    If Not (group.id = "status@broadcast") Then
+                        lstContactOrGroup.Items.Add(String.Format("{0}. {1} - {2}",
+                            noUrut, group.id, group.name))
 
-                    Dim noUrutMember = 1
+                        noUrut = noUrut + 1
 
-                    For Each member As Contact In group.members
-                        lstContactOrGroup.Items.Add(String.Format("---> {0}. {1} - {2}",
-                        noUrutMember, member.id, member.name))
-                        noUrutMember = noUrutMember + 1
-                    Next
+                        Dim noUrutMember = 1
+
+                        For Each member As Contact In group.members
+                            lstContactOrGroup.Items.Add(String.Format("---> {0}. {1} - {2}",
+                                noUrutMember, member.id, member.name))
+                            noUrutMember = noUrutMember + 1
+                        Next
+
+                    Else ' status@broadcast -> dummy group, penanda load data group selesai
+                        If Me.IsHandleCreated Then Me.Invoke(Sub() Me.UseWaitCursor = False)
+                    End If
                 Next
             End Sub
         )
-
     End Sub
 
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
         Me.Close()
     End Sub
+
 End Class

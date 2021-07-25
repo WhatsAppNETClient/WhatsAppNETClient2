@@ -60,9 +60,8 @@ namespace DemoWhatsAppNETAPICSharp
 
         public void OnStartupHandler(string message)
         {
-            if (message.IndexOf("OPEN-WA ready") >= 0 || message.IndexOf("SUCCESS") >= 0
-                || message.IndexOf("App Offline") >= 0 || message.IndexOf("Timeout") >= 0
-                || message.IndexOf("ERR_NAME") >= 0)
+            if (message.IndexOf("Ready") >= 0 || message.IndexOf("Failure") >= 0 
+                || message.IndexOf("Timeout") >= 0 || message.IndexOf("ERR_NAME") >= 0)
             {
                 if (this.IsHandleCreated)
                     this.Invoke(new MethodInvoker(() => this.Close()));
