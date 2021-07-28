@@ -30,3 +30,7 @@ Bisa Anda cek di http://wa-net.coding4ever.net/
 * Listen/subscribe pesan yang dikirim, dengan fitur ini kita bisa mengecek apakah pesan yang dikirim berhasil atau gagal
 * Otomatis menyimpan sesi login (jadi scan qr code WAnya cukup sekali saja)
 * Bisa dengan mudah diintegrasikan dengan semua jenis database
+
+## Melaporkan Bug atau Error
+
+Secara teknis dalam pengembangan sebuah aplikasi jelas tidak mungkin 100% bebas dari bug. Nah jika Anda menemukan bug atau error pada saat menggunakan library WhatsApp NET Client ini, silahkan Anda laporkan di halaman https://github.com/WhatsAppNETClient/WhatsAppNETClient2/issues
