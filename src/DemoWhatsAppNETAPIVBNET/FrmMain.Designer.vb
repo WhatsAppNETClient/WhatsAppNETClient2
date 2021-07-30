@@ -616,7 +616,6 @@ Partial Class FrmMain
         Me.txtLokasiWhatsAppNETAPINodeJs.ReadOnly = True
         Me.txtLokasiWhatsAppNETAPINodeJs.Size = New System.Drawing.Size(449, 20)
         Me.txtLokasiWhatsAppNETAPINodeJs.TabIndex = 1
-        Me.txtLokasiWhatsAppNETAPINodeJs.Text = "F:\Lab\WhatsAppNETAPINodeJs\whatsapp-web.js (dev)"
         '
         'label4
         '

@@ -610,7 +610,6 @@
             this.txtLokasiPenyimpananFileAtauGambar.ReadOnly = true;
             this.txtLokasiPenyimpananFileAtauGambar.Size = new System.Drawing.Size(448, 20);
             this.txtLokasiPenyimpananFileAtauGambar.TabIndex = 1;
-            this.txtLokasiPenyimpananFileAtauGambar.Text = "C:\\LokasiGambarDanDokumen";
             // 
             // label5
             // 
@@ -629,7 +628,6 @@
             this.txtLokasiWhatsAppNETAPINodeJs.ReadOnly = true;
             this.txtLokasiWhatsAppNETAPINodeJs.Size = new System.Drawing.Size(448, 20);
             this.txtLokasiWhatsAppNETAPINodeJs.TabIndex = 1;
-            this.txtLokasiWhatsAppNETAPINodeJs.Text = "F:\\Lab\\WhatsAppNETAPINodeJs\\whatsapp-web.js (dev)";
             // 
             // label4
             // 
