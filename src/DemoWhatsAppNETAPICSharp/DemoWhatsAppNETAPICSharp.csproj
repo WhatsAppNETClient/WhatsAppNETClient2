@@ -102,8 +102,9 @@
     <Reference Include="WaitCursor">
       <HintPath>..\..\libs\WaitCursor.dll</HintPath>
     </Reference>
-    <Reference Include="WhatsAppNETAPI">
-      <HintPath>..\..\libs\WhatsAppNETAPI.2.0.2\lib\net45\WhatsAppNETAPI.dll</HintPath>
+    <Reference Include="WhatsAppNETAPI, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\WhatsAppNETAPI.2.1.0\lib\net45\WhatsAppNETAPI.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

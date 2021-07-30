@@ -42,6 +42,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtKontak = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
+            this.chkKirimFileAja = new System.Windows.Forms.CheckBox();
+            this.txtFileDokumen = new System.Windows.Forms.TextBox();
+            this.btnCariDokumen = new System.Windows.Forms.Button();
             this.txtPesan = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnKirim = new System.Windows.Forms.Button();
@@ -51,10 +55,9 @@
             this.chkKirimPesanDgGambar = new System.Windows.Forms.CheckBox();
             this.txtFileGambar = new System.Windows.Forms.TextBox();
             this.btnCariGambar = new System.Windows.Forms.Button();
-            this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
-            this.chkKirimFileAja = new System.Windows.Forms.CheckBox();
-            this.txtFileDokumen = new System.Windows.Forms.TextBox();
-            this.btnCariDokumen = new System.Windows.Forms.Button();
+            this.flowLayoutPanel6 = new System.Windows.Forms.FlowLayoutPanel();
+            this.chkKirimGambarDariUrl = new System.Windows.Forms.CheckBox();
+            this.txtUrl = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -73,13 +76,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtLokasiWhatsAppNETAPINodeJs = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.lblState = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.flowLayoutPanel5.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
-            this.flowLayoutPanel5.SuspendLayout();
+            this.flowLayoutPanel6.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -97,15 +102,17 @@
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.tabControl1, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.groupBox2, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblState, 0, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 205F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 233F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(773, 578);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(773, 587);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // flowLayoutPanel1
@@ -205,7 +212,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(3, 114);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(767, 199);
+            this.groupBox1.Size = new System.Drawing.Size(767, 227);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " [ Kirim Pesan ] ";
@@ -218,20 +225,22 @@
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.txtKontak, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.label3, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel5, 1, 4);
             this.tableLayoutPanel2.Controls.Add(this.txtPesan, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel2, 1, 4);
+            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel2, 1, 5);
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel4, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel5, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel6, 1, 3);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 5;
+            this.tableLayoutPanel2.RowCount = 6;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 64F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 14F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(761, 180);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(761, 208);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label1
@@ -262,6 +271,49 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Pesan";
             // 
+            // flowLayoutPanel5
+            // 
+            this.flowLayoutPanel5.Controls.Add(this.chkKirimFileAja);
+            this.flowLayoutPanel5.Controls.Add(this.txtFileDokumen);
+            this.flowLayoutPanel5.Controls.Add(this.btnCariDokumen);
+            this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel5.Location = new System.Drawing.Point(47, 145);
+            this.flowLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
+            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(714, 28);
+            this.flowLayoutPanel5.TabIndex = 3;
+            // 
+            // chkKirimFileAja
+            // 
+            this.chkKirimFileAja.AutoSize = true;
+            this.chkKirimFileAja.Dock = System.Windows.Forms.DockStyle.Left;
+            this.chkKirimFileAja.Location = new System.Drawing.Point(3, 3);
+            this.chkKirimFileAja.Name = "chkKirimFileAja";
+            this.chkKirimFileAja.Size = new System.Drawing.Size(95, 23);
+            this.chkKirimFileAja.TabIndex = 0;
+            this.chkKirimFileAja.Text = "Kirim dokumen";
+            this.chkKirimFileAja.UseVisualStyleBackColor = true;
+            this.chkKirimFileAja.CheckedChanged += new System.EventHandler(this.chkKirimFileAja_CheckedChanged);
+            // 
+            // txtFileDokumen
+            // 
+            this.txtFileDokumen.Location = new System.Drawing.Point(104, 3);
+            this.txtFileDokumen.Name = "txtFileDokumen";
+            this.txtFileDokumen.ReadOnly = true;
+            this.txtFileDokumen.Size = new System.Drawing.Size(563, 20);
+            this.txtFileDokumen.TabIndex = 1;
+            // 
+            // btnCariDokumen
+            // 
+            this.btnCariDokumen.Enabled = false;
+            this.btnCariDokumen.Location = new System.Drawing.Point(673, 3);
+            this.btnCariDokumen.Name = "btnCariDokumen";
+            this.btnCariDokumen.Size = new System.Drawing.Size(34, 23);
+            this.btnCariDokumen.TabIndex = 2;
+            this.btnCariDokumen.Text = "...";
+            this.btnCariDokumen.UseVisualStyleBackColor = true;
+            this.btnCariDokumen.Click += new System.EventHandler(this.btnCariDokumen_Click);
+            // 
             // txtPesan
             // 
             this.txtPesan.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -278,7 +330,7 @@
             this.flowLayoutPanel2.Controls.Add(this.label2);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(50, 148);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(50, 176);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(708, 29);
             this.flowLayoutPanel2.TabIndex = 2;
@@ -356,58 +408,47 @@
             this.btnCariGambar.UseVisualStyleBackColor = true;
             this.btnCariGambar.Click += new System.EventHandler(this.btnCariGambar_Click);
             // 
-            // flowLayoutPanel5
+            // flowLayoutPanel6
             // 
-            this.flowLayoutPanel5.Controls.Add(this.chkKirimFileAja);
-            this.flowLayoutPanel5.Controls.Add(this.txtFileDokumen);
-            this.flowLayoutPanel5.Controls.Add(this.btnCariDokumen);
-            this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel5.Location = new System.Drawing.Point(47, 117);
-            this.flowLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
-            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(714, 28);
-            this.flowLayoutPanel5.TabIndex = 3;
+            this.flowLayoutPanel6.Controls.Add(this.chkKirimGambarDariUrl);
+            this.flowLayoutPanel6.Controls.Add(this.txtUrl);
+            this.flowLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel6.Location = new System.Drawing.Point(47, 117);
+            this.flowLayoutPanel6.Margin = new System.Windows.Forms.Padding(0);
+            this.flowLayoutPanel6.Name = "flowLayoutPanel6";
+            this.flowLayoutPanel6.Size = new System.Drawing.Size(714, 28);
+            this.flowLayoutPanel6.TabIndex = 4;
             // 
-            // chkKirimFileAja
+            // chkKirimGambarDariUrl
             // 
-            this.chkKirimFileAja.AutoSize = true;
-            this.chkKirimFileAja.Dock = System.Windows.Forms.DockStyle.Left;
-            this.chkKirimFileAja.Location = new System.Drawing.Point(3, 3);
-            this.chkKirimFileAja.Name = "chkKirimFileAja";
-            this.chkKirimFileAja.Size = new System.Drawing.Size(95, 23);
-            this.chkKirimFileAja.TabIndex = 0;
-            this.chkKirimFileAja.Text = "Kirim dokumen";
-            this.chkKirimFileAja.UseVisualStyleBackColor = true;
-            this.chkKirimFileAja.CheckedChanged += new System.EventHandler(this.chkKirimFileAja_CheckedChanged);
+            this.chkKirimGambarDariUrl.AutoSize = true;
+            this.chkKirimGambarDariUrl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkKirimGambarDariUrl.Location = new System.Drawing.Point(3, 3);
+            this.chkKirimGambarDariUrl.Name = "chkKirimGambarDariUrl";
+            this.chkKirimGambarDariUrl.Size = new System.Drawing.Size(177, 20);
+            this.chkKirimGambarDariUrl.TabIndex = 0;
+            this.chkKirimGambarDariUrl.Text = "Kirim pesan dengan gambar (url)";
+            this.chkKirimGambarDariUrl.UseVisualStyleBackColor = true;
+            this.chkKirimGambarDariUrl.CheckedChanged += new System.EventHandler(this.chkKirimGambarDariUrl_CheckedChanged);
             // 
-            // txtFileDokumen
+            // txtUrl
             // 
-            this.txtFileDokumen.Location = new System.Drawing.Point(104, 3);
-            this.txtFileDokumen.Name = "txtFileDokumen";
-            this.txtFileDokumen.ReadOnly = true;
-            this.txtFileDokumen.Size = new System.Drawing.Size(563, 20);
-            this.txtFileDokumen.TabIndex = 1;
-            // 
-            // btnCariDokumen
-            // 
-            this.btnCariDokumen.Enabled = false;
-            this.btnCariDokumen.Location = new System.Drawing.Point(673, 3);
-            this.btnCariDokumen.Name = "btnCariDokumen";
-            this.btnCariDokumen.Size = new System.Drawing.Size(34, 23);
-            this.btnCariDokumen.TabIndex = 2;
-            this.btnCariDokumen.Text = "...";
-            this.btnCariDokumen.UseVisualStyleBackColor = true;
-            this.btnCariDokumen.Click += new System.EventHandler(this.btnCariDokumen_Click);
+            this.txtUrl.Dock = System.Windows.Forms.DockStyle.Top;
+            this.txtUrl.Location = new System.Drawing.Point(186, 3);
+            this.txtUrl.Name = "txtUrl";
+            this.txtUrl.Size = new System.Drawing.Size(521, 20);
+            this.txtUrl.TabIndex = 1;
+            this.txtUrl.Text = "http://coding4ever.net/assets/images/avatar.png";
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(3, 319);
+            this.tabControl1.Location = new System.Drawing.Point(3, 347);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(767, 256);
+            this.tabControl1.Size = new System.Drawing.Size(767, 212);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -416,7 +457,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(759, 230);
+            this.tabPage1.Size = new System.Drawing.Size(759, 186);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Pesan Masuk";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -433,7 +474,7 @@
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(753, 224);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(753, 180);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // flowLayoutPanel3
@@ -475,7 +516,7 @@
             this.lstPesanMasuk.FormattingEnabled = true;
             this.lstPesanMasuk.Location = new System.Drawing.Point(3, 29);
             this.lstPesanMasuk.Name = "lstPesanMasuk";
-            this.lstPesanMasuk.Size = new System.Drawing.Size(747, 192);
+            this.lstPesanMasuk.Size = new System.Drawing.Size(747, 148);
             this.lstPesanMasuk.TabIndex = 1;
             // 
             // tabPage2
@@ -484,7 +525,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(759, 230);
+            this.tabPage2.Size = new System.Drawing.Size(759, 186);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Pesan Keluar";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -501,7 +542,7 @@
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(753, 224);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(753, 180);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // chkMessageSentSubscribe
@@ -523,7 +564,7 @@
             this.lstPesanKeluar.FormattingEnabled = true;
             this.lstPesanKeluar.Location = new System.Drawing.Point(3, 29);
             this.lstPesanKeluar.Name = "lstPesanKeluar";
-            this.lstPesanKeluar.Size = new System.Drawing.Size(747, 192);
+            this.lstPesanKeluar.Size = new System.Drawing.Size(747, 148);
             this.lstPesanKeluar.TabIndex = 1;
             // 
             // groupBox2
@@ -569,6 +610,7 @@
             this.txtLokasiPenyimpananFileAtauGambar.ReadOnly = true;
             this.txtLokasiPenyimpananFileAtauGambar.Size = new System.Drawing.Size(448, 20);
             this.txtLokasiPenyimpananFileAtauGambar.TabIndex = 1;
+            this.txtLokasiPenyimpananFileAtauGambar.Text = "C:\\LokasiGambarDanDokumen";
             // 
             // label5
             // 
@@ -587,6 +629,7 @@
             this.txtLokasiWhatsAppNETAPINodeJs.ReadOnly = true;
             this.txtLokasiWhatsAppNETAPINodeJs.Size = new System.Drawing.Size(448, 20);
             this.txtLokasiWhatsAppNETAPINodeJs.TabIndex = 1;
+            this.txtLokasiWhatsAppNETAPINodeJs.Text = "F:\\Lab\\WhatsAppNETAPINodeJs\\whatsapp-web.js (dev)";
             // 
             // label4
             // 
@@ -598,11 +641,23 @@
             this.label4.Text = "Lokasi WhatsApp NET API NodeJs";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // lblState
+            // 
+            this.lblState.AutoSize = true;
+            this.lblState.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.lblState.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblState.Location = new System.Drawing.Point(3, 562);
+            this.lblState.Name = "lblState";
+            this.lblState.Size = new System.Drawing.Size(767, 25);
+            this.lblState.TabIndex = 4;
+            this.lblState.Text = "State:";
+            this.lblState.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(773, 578);
+            this.ClientSize = new System.Drawing.Size(773, 587);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -611,16 +666,19 @@
             this.Text = "Demo WhatsAppAPI untuk .NET Developer (C#)";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.flowLayoutPanel5.ResumeLayout(false);
+            this.flowLayoutPanel5.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();
             this.flowLayoutPanel4.ResumeLayout(false);
             this.flowLayoutPanel4.PerformLayout();
-            this.flowLayoutPanel5.ResumeLayout(false);
-            this.flowLayoutPanel5.PerformLayout();
+            this.flowLayoutPanel6.ResumeLayout(false);
+            this.flowLayoutPanel6.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
@@ -682,6 +740,10 @@
         private System.Windows.Forms.TextBox txtLokasiPenyimpananFileAtauGambar;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnGrabGroupAndMembers;
+        private System.Windows.Forms.Label lblState;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel6;
+        private System.Windows.Forms.CheckBox chkKirimGambarDariUrl;
+        private System.Windows.Forms.TextBox txtUrl;
     }
 }
 

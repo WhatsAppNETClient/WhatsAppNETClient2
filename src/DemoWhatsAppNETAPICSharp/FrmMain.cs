@@ -78,6 +78,7 @@ namespace DemoWhatsAppNETAPICSharp
 
             // subscribe event
             _wa.OnStartup += OnStartupHandler;
+            _wa.OnChangeState += OnChangeStateHandler;
             _wa.OnReceiveMessages += OnReceiveMessagesHandler;
             _wa.OnClientConnected += OnClientConnectedHandler;
 
@@ -96,7 +97,7 @@ namespace DemoWhatsAppNETAPICSharp
                 _wa.OnStartup -= frm.OnStartupHandler;
                 _wa.OnScanMe -= frm.OnScanMeHandler;
             }
-        }
+        }        
 
         private void Disconnect()
         {
@@ -127,6 +128,7 @@ namespace DemoWhatsAppNETAPICSharp
             {
                 // unsubscribe event
                 _wa.OnStartup -= OnStartupHandler;
+                _wa.OnChangeState -= OnChangeStateHandler;
                 _wa.OnScanMe -= OnScanMeHandler;
                 _wa.OnReceiveMessage -= OnReceiveMessageHandler;
                 _wa.OnReceiveMessages -= OnReceiveMessagesHandler;
@@ -150,11 +152,13 @@ namespace DemoWhatsAppNETAPICSharp
                     MsgArgs msgArgs = null;
 
                     if (chkKirimPesanDgGambar.Checked)
-                        msgArgs = new MsgArgs(txtKontak.Text, txtPesan.Text, "image", txtFileGambar.Text);
+                        msgArgs = new MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.Image, txtFileGambar.Text);
+                    else if (chkKirimGambarDariUrl.Checked)
+                        msgArgs = new MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.Url, txtUrl.Text);
                     else if (chkKirimFileAja.Checked)
-                        msgArgs = new MsgArgs(txtKontak.Text, txtPesan.Text, "file", txtFileDokumen.Text);
+                        msgArgs = new MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.File, txtFileDokumen.Text);
                     else
-                        msgArgs = new MsgArgs(txtKontak.Text, txtPesan.Text, "text");
+                        msgArgs = new MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.Text);
 
                     list.Add(msgArgs);
                 }
@@ -166,11 +170,13 @@ namespace DemoWhatsAppNETAPICSharp
                 MsgArgs msgArgs = null;
 
                 if (chkKirimPesanDgGambar.Checked)
-                    msgArgs = new MsgArgs(txtKontak.Text, txtPesan.Text, "image", txtFileGambar.Text);
+                    msgArgs = new MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.Image, txtFileGambar.Text);
+                else if (chkKirimGambarDariUrl.Checked)
+                    msgArgs = new MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.Url, txtUrl.Text);
                 else if (chkKirimFileAja.Checked)
-                    msgArgs = new MsgArgs(txtKontak.Text, txtPesan.Text, "file", txtFileDokumen.Text);
+                    msgArgs = new MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.File, txtFileDokumen.Text);
                 else
-                    msgArgs = new MsgArgs(txtKontak.Text, txtPesan.Text, "text");
+                    msgArgs = new MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.Text);
 
                 _wa.SendMessage(msgArgs);
             }
@@ -241,10 +247,22 @@ namespace DemoWhatsAppNETAPICSharp
             if (chkKirimPesanDgGambar.Checked)
             {
                 chkKirimFileAja.Checked = false;
+                chkKirimGambarDariUrl.Checked = false;
                 txtFileDokumen.Clear();
             }
             else
                 txtFileGambar.Clear();
+        }
+
+        private void chkKirimGambarDariUrl_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkKirimGambarDariUrl.Checked)
+            {
+                chkKirimPesanDgGambar.Checked = false;
+                chkKirimFileAja.Checked = false;
+                txtFileGambar.Clear();
+                txtFileDokumen.Clear();
+            }            
         }
 
         private void chkKirimFileAja_CheckedChanged(object sender, EventArgs e)
@@ -254,6 +272,7 @@ namespace DemoWhatsAppNETAPICSharp
             if (chkKirimFileAja.Checked)
             {
                 chkKirimPesanDgGambar.Checked = false;
+                chkKirimGambarDariUrl.Checked = false;
                 txtFileGambar.Clear();
             }
             else
@@ -368,6 +387,11 @@ namespace DemoWhatsAppNETAPICSharp
             }
         }
 
+        private void OnChangeStateHandler(WhatsAppNETAPI.WAState state)
+        {
+            lblState.Invoke(new MethodInvoker(() => lblState.Text = string.Format("State: {0}", state.ToString())));
+        }
+
         private void OnScanMeHandler(string qrcodePath)
         {
             
@@ -382,8 +406,10 @@ namespace DemoWhatsAppNETAPICSharp
             var data = string.Empty;
 
             if (string.IsNullOrEmpty(fileName))
+            {
                 data = string.Format("[{0}] Pengirim: {1}, Pesan teks: {2}",
-                    message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg);
+                    message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg);                
+            }
             else
                 data = string.Format("[{0}] Pengirim: {1}, Pesan gambar/dokumen: {2}, nama file: {3}",
                     message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg, fileName);
@@ -392,6 +418,31 @@ namespace DemoWhatsAppNETAPICSharp
             lstPesanMasuk.Invoke(() =>
             {
                 lstPesanMasuk.Items.Add(data);
+
+                if (message.type == MessageType.Location)
+                {
+                    var location = message.location;
+                    var dataLocation = string.Format("--> latitude: {0}, longitude: {1}, description: {2}",
+                        location.latitude, location.longitude, location.description);
+
+                    lstPesanMasuk.Items.Add(dataLocation);
+                }
+                else if (message.type == MessageType.VCard || message.type == MessageType.MultiVCard)
+                {
+                    var vcards = message.vcards;
+                    var vcardFilenames = message.vcardFilenames;
+
+                    var index = 0;
+                    foreach (var vcard in vcards)
+                    {
+                        var dataVCard = string.Format("--> N: {0}, FN: {1}, WA Id: {2}, fileName: {3}",
+                            vcard.n, vcard.fn, vcard.waId, vcardFilenames[index]);
+
+                        lstPesanMasuk.Items.Add(dataVCard);
+                        index++;
+                    }
+                }
+
                 lstPesanMasuk.SelectedIndex = lstPesanMasuk.Items.Count - 1;
             });
 
@@ -400,7 +451,7 @@ namespace DemoWhatsAppNETAPICSharp
                 var msgReplay = string.Format("Bpk/Ibu *{0}*, pesan *{1}* sudah kami terima. Silahkan ditunggu.",
                         pengirim, msg);
 
-                _wa.SendMessage(new MsgArgs(message.from, msgReplay, "text"));
+                _wa.ReplyMessage(new ReplyMsgArgs(message.from, msgReplay, message.id));
             }
         }
 
@@ -428,7 +479,7 @@ namespace DemoWhatsAppNETAPICSharp
                     var msgReplay = string.Format("Bpk/Ibu *{0}*, pesan *{1}* sudah kami terima. Silahkan ditunggu.",
                             senderName, msg);
 
-                    _wa.SendMessage(new MsgArgs(message.from, msgReplay, "text"));
+                    _wa.ReplyMessage(new ReplyMsgArgs(message.from, msgReplay, message.id));
                 }
 
             }
@@ -473,7 +524,6 @@ namespace DemoWhatsAppNETAPICSharp
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             Disconnect();
-        }
-        
+        }        
     }
 }

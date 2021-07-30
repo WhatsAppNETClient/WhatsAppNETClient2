@@ -70,6 +70,7 @@ Public Class FrmMain
 
         ' subscribe event
         AddHandler _wa.OnStartup, AddressOf OnStartupHandler
+        AddHandler _wa.OnChangeState, AddressOf OnChangeStateHandler
         AddHandler _wa.OnReceiveMessages, AddressOf OnReceiveMessagesHandler
         AddHandler _wa.OnClientConnected, AddressOf OnClientConnectedHandler
 
@@ -123,6 +124,7 @@ Public Class FrmMain
         Using New StCursor(Cursors.WaitCursor, New TimeSpan(0, 0, 0, 0))
             ' unsubscribe event
             RemoveHandler _wa.OnStartup, AddressOf OnStartupHandler
+            RemoveHandler _wa.OnChangeState, AddressOf OnChangeStateHandler
             RemoveHandler _wa.OnScanMe, AddressOf OnScanMeHandler
             RemoveHandler _wa.OnReceiveMessage, AddressOf OnReceiveMessageHandler
             RemoveHandler _wa.OnReceiveMessages, AddressOf OnReceiveMessagesHandler
@@ -146,11 +148,13 @@ Public Class FrmMain
             For index = 1 To jumlahPesan
 
                 If chkKirimPesanDgGambar.Checked Then
-                    msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, "image", txtFileGambar.Text)
+                    msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.Image, txtFileGambar.Text)
+                ElseIf chkKirimGambarDariUrl.Checked Then
+                    msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.Url, txtUrl.Text)
                 ElseIf chkKirimFileAja.Checked Then
-                    msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, "file", txtFileDokumen.Text)
+                    msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.File, txtFileDokumen.Text)
                 Else
-                    msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, "text")
+                    msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.Text)
                 End If
 
                 list.Add(msgArgs)
@@ -161,11 +165,13 @@ Public Class FrmMain
         Else
 
             If chkKirimPesanDgGambar.Checked Then
-                msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, "image", txtFileGambar.Text)
+                msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.Image, txtFileGambar.Text)
+            ElseIf chkKirimGambarDariUrl.Checked Then
+                msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.Url, txtUrl.Text)
             ElseIf chkKirimFileAja.Checked Then
-                msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, "file", txtFileDokumen.Text)
+                msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.File, txtFileDokumen.Text)
             Else
-                msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, "text")
+                msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.Text)
             End If
 
             _wa.SendMessage(msgArgs)
@@ -240,9 +246,19 @@ Public Class FrmMain
 
         If chkKirimPesanDgGambar.Checked Then
             chkKirimFileAja.Checked = False
+            chkKirimGambarDariUrl.Checked = False
             txtFileDokumen.Clear()
         Else
             txtFileGambar.Clear()
+        End If
+    End Sub
+
+    Private Sub chkKirimGambarDariUrl_CheckedChanged(sender As Object, e As EventArgs) Handles chkKirimGambarDariUrl.CheckedChanged
+        If chkKirimGambarDariUrl.Checked Then
+            chkKirimPesanDgGambar.Checked = False
+            chkKirimFileAja.Checked = False
+            txtFileGambar.Clear()
+            txtFileDokumen.Clear()
         End If
     End Sub
 
@@ -252,6 +268,7 @@ Public Class FrmMain
 
         If chkKirimFileAja.Checked Then
             chkKirimPesanDgGambar.Checked = False
+            chkKirimGambarDariUrl.Checked = False
             txtFileGambar.Clear()
         Else
             txtFileDokumen.Clear()
@@ -348,11 +365,17 @@ Public Class FrmMain
         End If
     End Sub
 
+    Private Sub OnChangeStateHandler(ByVal state As WhatsAppNETAPI.WAState)
+        lblState.Invoke(Sub() lblState.Text = String.Format("State: {0}", state.ToString()))
+    End Sub
+
     Private Sub OnScanMeHandler(ByVal qrcodePath As String)
 
     End Sub
 
     Private Sub OnReceiveMessageHandler(ByVal message As WhatsAppNETAPI.Message)
+
+        System.Diagnostics.Debug.Print(message.type)
 
         Dim msg = message.content
         Dim pengirim = IIf(String.IsNullOrEmpty(message.sender.name), message.from, message.sender.name)
@@ -372,6 +395,32 @@ Public Class FrmMain
         lstPesanMasuk.Invoke(
             Sub()
                 lstPesanMasuk.Items.Add(data)
+
+                If message.type = MessageType.Location Then
+
+                    Dim location = message.location
+
+                    Dim dataLocation = String.Format("--> latitude: {0}, longitude: {1}, description: {2}",
+                        location.latitude, location.longitude, location.description)
+
+                    lstPesanMasuk.Items.Add(dataLocation)
+
+                ElseIf message.type = MessageType.VCard OrElse message.type = MessageType.MultiVCard Then
+                    Dim vcards = message.vcards
+                    Dim vcardFilenames = message.vcardFilenames
+
+                    Dim index = 0
+                    For Each vcard As VCard In vcards
+
+                        Dim dataVCard = String.Format("--> N: {0}, FN: {1}, WA Id: {2}, fileName: {3}",
+                            vcard.n, vcard.fn, vcard.waId, vcardFilenames(index))
+
+                        lstPesanMasuk.Items.Add(dataVCard)
+
+                        index = index + 1
+                    Next
+                End If
+
                 lstPesanMasuk.SelectedIndex = lstPesanMasuk.Items.Count - 1
             End Sub
         )
@@ -381,8 +430,7 @@ Public Class FrmMain
             Dim msgReplay = String.Format("Bpk/Ibu *{0}*, pesan *{1}* sudah kami terima. Silahkan ditunggu.",
                 pengirim, msg)
 
-            _wa.SendMessage(New MsgArgs(message.from, msgReplay, "text"))
-
+            _wa.ReplyMessage(New ReplyMsgArgs(message.from, msgReplay, message.id))
         End If
     End Sub
 
@@ -411,8 +459,7 @@ Public Class FrmMain
                 Dim msgReplay = String.Format("Bpk/Ibu *{0}*, pesan *{1}* sudah kami terima. Silahkan ditunggu.",
                     senderName, msg)
 
-                _wa.SendMessage(New MsgArgs(message.from, msgReplay, "text"))
-
+                _wa.ReplyMessage(New ReplyMsgArgs(message.from, msgReplay, message.id))
             End If
         Next
 

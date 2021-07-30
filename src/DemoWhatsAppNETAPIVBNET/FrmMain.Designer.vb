@@ -23,6 +23,7 @@ Partial Class FrmMain
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.tableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblState = New System.Windows.Forms.Label()
         Me.flowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.btnStart = New System.Windows.Forms.Button()
         Me.btnStop = New System.Windows.Forms.Button()
@@ -49,6 +50,9 @@ Partial Class FrmMain
         Me.chkKirimFileAja = New System.Windows.Forms.CheckBox()
         Me.txtFileDokumen = New System.Windows.Forms.TextBox()
         Me.btnCariDokumen = New System.Windows.Forms.Button()
+        Me.FlowLayoutPanel6 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.chkKirimGambarDariUrl = New System.Windows.Forms.CheckBox()
+        Me.txtUrl = New System.Windows.Forms.TextBox()
         Me.tabControl1 = New System.Windows.Forms.TabControl()
         Me.tabPage1 = New System.Windows.Forms.TabPage()
         Me.tableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
@@ -74,6 +78,7 @@ Partial Class FrmMain
         Me.flowLayoutPanel2.SuspendLayout()
         Me.flowLayoutPanel4.SuspendLayout()
         Me.flowLayoutPanel5.SuspendLayout()
+        Me.FlowLayoutPanel6.SuspendLayout()
         Me.tabControl1.SuspendLayout()
         Me.tabPage1.SuspendLayout()
         Me.tableLayoutPanel3.SuspendLayout()
@@ -87,6 +92,7 @@ Partial Class FrmMain
         '
         Me.tableLayoutPanel1.ColumnCount = 1
         Me.tableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tableLayoutPanel1.Controls.Add(Me.lblState, 0, 4)
         Me.tableLayoutPanel1.Controls.Add(Me.flowLayoutPanel1, 0, 1)
         Me.tableLayoutPanel1.Controls.Add(Me.groupBox1, 0, 2)
         Me.tableLayoutPanel1.Controls.Add(Me.tabControl1, 0, 3)
@@ -94,13 +100,26 @@ Partial Class FrmMain
         Me.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.tableLayoutPanel1.Name = "tableLayoutPanel1"
-        Me.tableLayoutPanel1.RowCount = 4
+        Me.tableLayoutPanel1.RowCount = 5
         Me.tableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75.0!))
         Me.tableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36.0!))
-        Me.tableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 205.0!))
+        Me.tableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 235.0!))
         Me.tableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tableLayoutPanel1.Size = New System.Drawing.Size(773, 578)
+        Me.tableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
+        Me.tableLayoutPanel1.Size = New System.Drawing.Size(773, 587)
         Me.tableLayoutPanel1.TabIndex = 1
+        '
+        'lblState
+        '
+        Me.lblState.AutoSize = True
+        Me.lblState.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.lblState.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblState.Location = New System.Drawing.Point(3, 562)
+        Me.lblState.Name = "lblState"
+        Me.lblState.Size = New System.Drawing.Size(767, 25)
+        Me.lblState.TabIndex = 5
+        Me.lblState.Text = "State:"
+        Me.lblState.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'flowLayoutPanel1
         '
@@ -192,7 +211,7 @@ Partial Class FrmMain
         Me.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.groupBox1.Location = New System.Drawing.Point(3, 114)
         Me.groupBox1.Name = "groupBox1"
-        Me.groupBox1.Size = New System.Drawing.Size(767, 199)
+        Me.groupBox1.Size = New System.Drawing.Size(767, 229)
         Me.groupBox1.TabIndex = 1
         Me.groupBox1.TabStop = False
         Me.groupBox1.Text = " [ Kirim Pesan ] "
@@ -206,19 +225,21 @@ Partial Class FrmMain
         Me.tableLayoutPanel2.Controls.Add(Me.txtKontak, 1, 0)
         Me.tableLayoutPanel2.Controls.Add(Me.label3, 0, 1)
         Me.tableLayoutPanel2.Controls.Add(Me.txtPesan, 1, 1)
-        Me.tableLayoutPanel2.Controls.Add(Me.flowLayoutPanel2, 1, 4)
+        Me.tableLayoutPanel2.Controls.Add(Me.flowLayoutPanel2, 1, 5)
         Me.tableLayoutPanel2.Controls.Add(Me.flowLayoutPanel4, 1, 2)
-        Me.tableLayoutPanel2.Controls.Add(Me.flowLayoutPanel5, 1, 3)
+        Me.tableLayoutPanel2.Controls.Add(Me.flowLayoutPanel5, 1, 4)
+        Me.tableLayoutPanel2.Controls.Add(Me.FlowLayoutPanel6, 1, 3)
         Me.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tableLayoutPanel2.Location = New System.Drawing.Point(3, 16)
         Me.tableLayoutPanel2.Name = "tableLayoutPanel2"
-        Me.tableLayoutPanel2.RowCount = 5
+        Me.tableLayoutPanel2.RowCount = 6
         Me.tableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 64.0!))
-        Me.tableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
-        Me.tableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
+        Me.tableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.tableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.tableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 14.0!))
-        Me.tableLayoutPanel2.Size = New System.Drawing.Size(761, 180)
+        Me.tableLayoutPanel2.Size = New System.Drawing.Size(761, 210)
         Me.tableLayoutPanel2.TabIndex = 0
         '
         'label1
@@ -265,9 +286,9 @@ Partial Class FrmMain
         Me.flowLayoutPanel2.Controls.Add(Me.label2)
         Me.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flowLayoutPanel2.Location = New System.Drawing.Point(50, 148)
+        Me.flowLayoutPanel2.Location = New System.Drawing.Point(50, 182)
         Me.flowLayoutPanel2.Name = "flowLayoutPanel2"
-        Me.flowLayoutPanel2.Size = New System.Drawing.Size(708, 29)
+        Me.flowLayoutPanel2.Size = New System.Drawing.Size(708, 25)
         Me.flowLayoutPanel2.TabIndex = 2
         '
         'btnKirim
@@ -308,7 +329,7 @@ Partial Class FrmMain
         Me.flowLayoutPanel4.Location = New System.Drawing.Point(47, 89)
         Me.flowLayoutPanel4.Margin = New System.Windows.Forms.Padding(0)
         Me.flowLayoutPanel4.Name = "flowLayoutPanel4"
-        Me.flowLayoutPanel4.Size = New System.Drawing.Size(714, 28)
+        Me.flowLayoutPanel4.Size = New System.Drawing.Size(714, 30)
         Me.flowLayoutPanel4.TabIndex = 3
         '
         'chkKirimPesanDgGambar
@@ -346,10 +367,10 @@ Partial Class FrmMain
         Me.flowLayoutPanel5.Controls.Add(Me.txtFileDokumen)
         Me.flowLayoutPanel5.Controls.Add(Me.btnCariDokumen)
         Me.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.flowLayoutPanel5.Location = New System.Drawing.Point(47, 117)
+        Me.flowLayoutPanel5.Location = New System.Drawing.Point(47, 149)
         Me.flowLayoutPanel5.Margin = New System.Windows.Forms.Padding(0)
         Me.flowLayoutPanel5.Name = "flowLayoutPanel5"
-        Me.flowLayoutPanel5.Size = New System.Drawing.Size(714, 28)
+        Me.flowLayoutPanel5.Size = New System.Drawing.Size(714, 30)
         Me.flowLayoutPanel5.TabIndex = 3
         '
         'chkKirimFileAja
@@ -381,15 +402,45 @@ Partial Class FrmMain
         Me.btnCariDokumen.Text = "..."
         Me.btnCariDokumen.UseVisualStyleBackColor = True
         '
+        'FlowLayoutPanel6
+        '
+        Me.FlowLayoutPanel6.Controls.Add(Me.chkKirimGambarDariUrl)
+        Me.FlowLayoutPanel6.Controls.Add(Me.txtUrl)
+        Me.FlowLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FlowLayoutPanel6.Location = New System.Drawing.Point(47, 119)
+        Me.FlowLayoutPanel6.Margin = New System.Windows.Forms.Padding(0)
+        Me.FlowLayoutPanel6.Name = "FlowLayoutPanel6"
+        Me.FlowLayoutPanel6.Size = New System.Drawing.Size(714, 30)
+        Me.FlowLayoutPanel6.TabIndex = 3
+        '
+        'chkKirimGambarDariUrl
+        '
+        Me.chkKirimGambarDariUrl.AutoSize = True
+        Me.chkKirimGambarDariUrl.Dock = System.Windows.Forms.DockStyle.Left
+        Me.chkKirimGambarDariUrl.Location = New System.Drawing.Point(3, 3)
+        Me.chkKirimGambarDariUrl.Name = "chkKirimGambarDariUrl"
+        Me.chkKirimGambarDariUrl.Size = New System.Drawing.Size(153, 20)
+        Me.chkKirimGambarDariUrl.TabIndex = 0
+        Me.chkKirimGambarDariUrl.Text = "Kirim pesan dg gambar (url)"
+        Me.chkKirimGambarDariUrl.UseVisualStyleBackColor = True
+        '
+        'txtUrl
+        '
+        Me.txtUrl.Location = New System.Drawing.Point(162, 3)
+        Me.txtUrl.Name = "txtUrl"
+        Me.txtUrl.Size = New System.Drawing.Size(526, 20)
+        Me.txtUrl.TabIndex = 1
+        Me.txtUrl.Text = "http://coding4ever.net/assets/images/avatar.png"
+        '
         'tabControl1
         '
         Me.tabControl1.Controls.Add(Me.tabPage1)
         Me.tabControl1.Controls.Add(Me.tabPage2)
         Me.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tabControl1.Location = New System.Drawing.Point(3, 319)
+        Me.tabControl1.Location = New System.Drawing.Point(3, 349)
         Me.tabControl1.Name = "tabControl1"
         Me.tabControl1.SelectedIndex = 0
-        Me.tabControl1.Size = New System.Drawing.Size(767, 256)
+        Me.tabControl1.Size = New System.Drawing.Size(767, 210)
         Me.tabControl1.TabIndex = 2
         '
         'tabPage1
@@ -398,7 +449,7 @@ Partial Class FrmMain
         Me.tabPage1.Location = New System.Drawing.Point(4, 22)
         Me.tabPage1.Name = "tabPage1"
         Me.tabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabPage1.Size = New System.Drawing.Size(759, 230)
+        Me.tabPage1.Size = New System.Drawing.Size(759, 184)
         Me.tabPage1.TabIndex = 0
         Me.tabPage1.Text = "Pesan Masuk"
         Me.tabPage1.UseVisualStyleBackColor = True
@@ -415,7 +466,7 @@ Partial Class FrmMain
         Me.tableLayoutPanel3.RowCount = 2
         Me.tableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26.0!))
         Me.tableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tableLayoutPanel3.Size = New System.Drawing.Size(753, 224)
+        Me.tableLayoutPanel3.Size = New System.Drawing.Size(753, 178)
         Me.tableLayoutPanel3.TabIndex = 0
         '
         'flowLayoutPanel3
@@ -456,7 +507,7 @@ Partial Class FrmMain
         Me.lstPesanMasuk.FormattingEnabled = True
         Me.lstPesanMasuk.Location = New System.Drawing.Point(3, 29)
         Me.lstPesanMasuk.Name = "lstPesanMasuk"
-        Me.lstPesanMasuk.Size = New System.Drawing.Size(747, 192)
+        Me.lstPesanMasuk.Size = New System.Drawing.Size(747, 146)
         Me.lstPesanMasuk.TabIndex = 1
         '
         'tabPage2
@@ -465,7 +516,7 @@ Partial Class FrmMain
         Me.tabPage2.Location = New System.Drawing.Point(4, 22)
         Me.tabPage2.Name = "tabPage2"
         Me.tabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabPage2.Size = New System.Drawing.Size(759, 230)
+        Me.tabPage2.Size = New System.Drawing.Size(759, 184)
         Me.tabPage2.TabIndex = 1
         Me.tabPage2.Text = "Pesan Keluar"
         Me.tabPage2.UseVisualStyleBackColor = True
@@ -482,7 +533,7 @@ Partial Class FrmMain
         Me.tableLayoutPanel4.RowCount = 2
         Me.tableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26.0!))
         Me.tableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tableLayoutPanel4.Size = New System.Drawing.Size(753, 224)
+        Me.tableLayoutPanel4.Size = New System.Drawing.Size(753, 178)
         Me.tableLayoutPanel4.TabIndex = 0
         '
         'chkMessageSentSubscribe
@@ -503,7 +554,7 @@ Partial Class FrmMain
         Me.lstPesanKeluar.FormattingEnabled = True
         Me.lstPesanKeluar.Location = New System.Drawing.Point(3, 29)
         Me.lstPesanKeluar.Name = "lstPesanKeluar"
-        Me.lstPesanKeluar.Size = New System.Drawing.Size(747, 192)
+        Me.lstPesanKeluar.Size = New System.Drawing.Size(747, 146)
         Me.lstPesanKeluar.TabIndex = 1
         '
         'groupBox2
@@ -565,6 +616,7 @@ Partial Class FrmMain
         Me.txtLokasiWhatsAppNETAPINodeJs.ReadOnly = True
         Me.txtLokasiWhatsAppNETAPINodeJs.Size = New System.Drawing.Size(449, 20)
         Me.txtLokasiWhatsAppNETAPINodeJs.TabIndex = 1
+        Me.txtLokasiWhatsAppNETAPINodeJs.Text = "F:\Lab\WhatsAppNETAPINodeJs\whatsapp-web.js (dev)"
         '
         'label4
         '
@@ -580,13 +632,14 @@ Partial Class FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(773, 578)
+        Me.ClientSize = New System.Drawing.Size(773, 587)
         Me.Controls.Add(Me.tableLayoutPanel1)
         Me.MaximizeBox = False
         Me.Name = "FrmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Demo WhatsAppAPI untuk .NET Developer (VB.NET)"
         Me.tableLayoutPanel1.ResumeLayout(False)
+        Me.tableLayoutPanel1.PerformLayout()
         Me.flowLayoutPanel1.ResumeLayout(False)
         Me.groupBox1.ResumeLayout(False)
         Me.tableLayoutPanel2.ResumeLayout(False)
@@ -597,6 +650,8 @@ Partial Class FrmMain
         Me.flowLayoutPanel4.PerformLayout()
         Me.flowLayoutPanel5.ResumeLayout(False)
         Me.flowLayoutPanel5.PerformLayout()
+        Me.FlowLayoutPanel6.ResumeLayout(False)
+        Me.FlowLayoutPanel6.PerformLayout()
         Me.tabControl1.ResumeLayout(False)
         Me.tabPage1.ResumeLayout(False)
         Me.tableLayoutPanel3.ResumeLayout(False)
@@ -656,4 +711,8 @@ Partial Class FrmMain
     Private WithEvents label4 As Label
     Friend WithEvents btnGrabGroupAndMembers As Button
     Private WithEvents txtLokasiWhatsAppNETAPINodeJs As TextBox
+    Private WithEvents FlowLayoutPanel6 As FlowLayoutPanel
+    Private WithEvents chkKirimGambarDariUrl As CheckBox
+    Private WithEvents txtUrl As TextBox
+    Private WithEvents lblState As Label
 End Class
