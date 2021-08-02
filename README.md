@@ -21,10 +21,13 @@ Bisa Anda cek di http://wa-net.coding4ever.net/
 * Mengirim pesan
 * Mengirim banyak pesan (broadcast)
 * Mengirim pesan dengan gambar, audio, video, dan semua jenis dokumen
-* Bisa menyimpan gambar, audio, video, dan semua jenis dokumen dari pesan yang masuk (bisa ditentukan sendiri lokasi penyimpanannya)
-* Bisa juga membaca pesan dengan tipe `contact` dan `location`
+* Mengirim pesan dengan gambar, audio, video, dan semua jenis dokumen via URL
+* ReplyMessage (quoted message)
+* Bisa menyimpan gambar, audio, video, semua jenis dokumen termasuk vcard dari pesan yang masuk (bisa ditentukan sendiri lokasi penyimpanannya)
+* Bisa juga membaca pesan dengan tipe `vcard` dan `location`
 * Archive chat
 * Delete chat
+* Listen/subscribe event ChangeState untuk memonitoring perubahan status koneksi
 * Listen/subscribe pesan yang masuk, jadi enggak perlu nambah objek timer lagi untuk membaca pesan masuk
 * Listen/subscribe pesan yang dikirim, dengan fitur ini kita bisa mengecek apakah pesan yang dikirim berhasil atau gagal
 * Otomatis menyimpan sesi login (jadi scan qr code WAnya cukup sekali saja)
