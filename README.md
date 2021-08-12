@@ -16,21 +16,24 @@ Bisa Anda cek di http://wa-net.coding4ever.net/
 ## Fitur
 
 * Full mode *siluman* (headless/no window). Anda bisa mengatakan selamat tinggal kepada  chrome/firefox browser yang biasanya muncul untuk menjalankan WhatsApp Web.
+* Otomatis menyimpan sesi login (jadi scan qr code WAnya cukup sekali saja)
 * Grab contacts untuk membaca kontak WA sehingga hasilnya bisa disimpan ke database
-* Grab groups dan members untuk membaca data group berserta anggotanya sehingga hasilnya juga bisa disimpan ke database
-* Mengirim pesan
+* Grab groups dan members untuk membaca data group beserta anggotanya sehingga hasilnya juga bisa disimpan ke database
+* Mengirim pesan personal atau group
 * Mengirim banyak pesan (broadcast)
 * Mengirim pesan dengan gambar, audio, video, dan semua jenis dokumen
 * Mengirim pesan dengan gambar, audio, video, dan semua jenis dokumen via URL
+* Mengirim lokasi
 * ReplyMessage (quoted message)
 * Bisa menyimpan gambar, audio, video, semua jenis dokumen termasuk vcard dari pesan yang masuk (bisa ditentukan sendiri lokasi penyimpanannya)
 * Bisa juga membaca pesan dengan tipe `vcard` dan `location`
+* Bisa membaca pesan dari group dan mendapatkan informasi pengirimnya
+* Subscribe event ChangeState untuk memonitoring perubahan status koneksi
+* Subscribe pesan yang masuk, jadi enggak perlu nambah objek timer lagi untuk membaca pesan masuk
+* Subscribe pesan yang dikirim, dengan fitur ini kita bisa mengecek apakah pesan yang dikirim berhasil atau gagal
 * Archive chat
 * Delete chat
-* Listen/subscribe event ChangeState untuk memonitoring perubahan status koneksi
-* Listen/subscribe pesan yang masuk, jadi enggak perlu nambah objek timer lagi untuk membaca pesan masuk
-* Listen/subscribe pesan yang dikirim, dengan fitur ini kita bisa mengecek apakah pesan yang dikirim berhasil atau gagal
-* Otomatis menyimpan sesi login (jadi scan qr code WAnya cukup sekali saja)
+* Logout
 * Bisa dengan mudah diintegrasikan dengan semua jenis database
 
 ## Melaporkan Bug atau Error

@@ -22,6 +22,7 @@ Imports ConceptCave.WaitCursor
 Public Class FrmMain
 
     Private _wa As IWhatsAppNETAPI
+    Private _selectedGroup As Group
 
     Public Sub New()
 
@@ -63,6 +64,16 @@ Public Class FrmMain
         Disconnect()
     End Sub
 
+    Private Sub btnLogout_Click(sender As Object, e As EventArgs) Handles btnLogout.Click
+        Dim msg = "Fungsi ini akan MENGHAPUS sesi koneksi ke Whatsapp Web." + Environment.NewLine +
+                  "Jadi Anda harus melakukan scan ulang qrcode." + Environment.NewLine + Environment.NewLine +
+                  "Apakah ingin dilanjutkan"
+
+        If (MessageBox.Show(msg, "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes) Then
+            Disconnect(True)
+        End If
+    End Sub
+
     Private Sub Connect()
         Me.UseWaitCursor = True
 
@@ -96,16 +107,20 @@ Public Class FrmMain
         End Using
     End Sub
 
-    Private Sub Disconnect()
+    Private Sub Disconnect(Optional ByVal isLogout As Boolean = False)
 
         btnStart.Enabled = True
         btnStop.Enabled = False
+        btnLogout.Enabled = False
         btnGrabContacts.Enabled = False
         btnGrabGroupAndMembers.Enabled = False
         btnUnreadMessages.Enabled = False
         btnArchiveChat.Enabled = False
         btnDeleteChat.Enabled = False
         btnKirim.Enabled = False
+
+        chkGroup.Checked = False
+        chkGroup.Enabled = False
 
         txtFileDokumen.Clear()
         txtFileGambar.Clear()
@@ -131,7 +146,12 @@ Public Class FrmMain
             RemoveHandler _wa.OnReceiveMessageStatus, AddressOf OnReceiveMessageStatusHandler
             RemoveHandler _wa.OnClientConnected, AddressOf OnClientConnectedHandler
 
-            _wa.Disconnect()
+            If isLogout Then
+                _wa.Logout()
+            Else
+                _wa.Disconnect()
+            End If
+
 
         End Using
     End Sub
@@ -144,17 +164,37 @@ Public Class FrmMain
         If (jumlahPesan > 1) Then ' broadcast
 
             Dim list As New List(Of MsgArgs)
+            Dim kontak = String.Empty
+
+            If chkGroup.Checked Then
+                If (_selectedGroup IsNot Nothing) Then
+                    kontak = _selectedGroup.id
+                Else
+                    MessageBox.Show("Maaf, group belum dipilih", "Peringatan",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                End If
+            Else
+                kontak = txtKontak.Text
+            End If
 
             For index = 1 To jumlahPesan
 
                 If chkKirimPesanDgGambar.Checked Then
-                    msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.Image, txtFileGambar.Text)
+                    msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.Image, txtFileGambar.Text)
                 ElseIf chkKirimGambarDariUrl.Checked Then
-                    msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.Url, txtUrl.Text)
+                    msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.Url, txtUrl.Text)
                 ElseIf chkKirimFileAja.Checked Then
-                    msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.File, txtFileDokumen.Text)
+                    msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.File, txtFileDokumen.Text)
+                ElseIf chkKirimLokasi.Checked Then
+
+                    Dim location = New Location()
+                    location.latitude = txtLatitude.Text
+                    location.longitude = txtLongitude.Text
+                    location.description = txtDescription.Text
+
+                    msgArgs = New MsgArgs(kontak, location)
                 Else
-                    msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.Text)
+                    msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.Text)
                 End If
 
                 list.Add(msgArgs)
@@ -162,16 +202,38 @@ Public Class FrmMain
             Next
 
             _wa.BroadcastMessage(list)
+
         Else
 
-            If chkKirimPesanDgGambar.Checked Then
-                msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.Image, txtFileGambar.Text)
-            ElseIf chkKirimGambarDariUrl.Checked Then
-                msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.Url, txtUrl.Text)
-            ElseIf chkKirimFileAja.Checked Then
-                msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.File, txtFileDokumen.Text)
+            Dim kontak = String.Empty
+
+            If chkGroup.Checked Then
+                If (_selectedGroup IsNot Nothing) Then
+                    kontak = _selectedGroup.id
+                Else
+                    MessageBox.Show("Maaf, group belum dipilih", "Peringatan",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                End If
             Else
-                msgArgs = New MsgArgs(txtKontak.Text, txtPesan.Text, MsgArgsType.Text)
+                kontak = txtKontak.Text
+            End If
+
+            If chkKirimPesanDgGambar.Checked Then
+                msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.Image, txtFileGambar.Text)
+            ElseIf chkKirimGambarDariUrl.Checked Then
+                msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.Url, txtUrl.Text)
+            ElseIf chkKirimFileAja.Checked Then
+                msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.File, txtFileDokumen.Text)
+            ElseIf chkKirimLokasi.Checked Then
+
+                Dim location = New Location()
+                location.latitude = txtLatitude.Text
+                location.longitude = txtLongitude.Text
+                location.description = txtDescription.Text
+
+                msgArgs = New MsgArgs(kontak, location)
+            Else
+                msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.Text)
             End If
 
             _wa.SendMessage(msgArgs)
@@ -247,7 +309,12 @@ Public Class FrmMain
         If chkKirimPesanDgGambar.Checked Then
             chkKirimFileAja.Checked = False
             chkKirimGambarDariUrl.Checked = False
+            chkKirimLokasi.Checked = False
             txtFileDokumen.Clear()
+
+            txtLatitude.Enabled = False
+            txtLongitude.Enabled = False
+            txtDescription.Enabled = False
         Else
             txtFileGambar.Clear()
         End If
@@ -257,8 +324,13 @@ Public Class FrmMain
         If chkKirimGambarDariUrl.Checked Then
             chkKirimPesanDgGambar.Checked = False
             chkKirimFileAja.Checked = False
+            chkKirimLokasi.Checked = False
             txtFileGambar.Clear()
             txtFileDokumen.Clear()
+
+            txtLatitude.Enabled = False
+            txtLongitude.Enabled = False
+            txtDescription.Enabled = False
         End If
     End Sub
 
@@ -269,11 +341,31 @@ Public Class FrmMain
         If chkKirimFileAja.Checked Then
             chkKirimPesanDgGambar.Checked = False
             chkKirimGambarDariUrl.Checked = False
+            chkKirimLokasi.Checked = False
             txtFileGambar.Clear()
+
+            txtLatitude.Enabled = False
+            txtLongitude.Enabled = False
+            txtDescription.Enabled = False
         Else
             txtFileDokumen.Clear()
         End If
 
+    End Sub
+
+    Private Sub chkKirimLokasi_CheckedChanged(sender As Object, e As EventArgs) Handles chkKirimLokasi.CheckedChanged
+        If chkKirimLokasi.Checked Then
+            chkKirimPesanDgGambar.Checked = False
+            chkKirimGambarDariUrl.Checked = False
+            chkKirimFileAja.Checked = False
+
+            txtFileGambar.Clear()
+            txtFileDokumen.Clear()
+
+            txtLatitude.Enabled = True
+            txtLongitude.Enabled = True
+            txtDescription.Enabled = True
+        End If
     End Sub
 
     Private Sub btnGrabContacts_Click(sender As Object, e As EventArgs) Handles btnGrabContacts.Click
@@ -328,11 +420,14 @@ Public Class FrmMain
 
             btnStart.Invoke(Sub() btnStart.Enabled = False)
             btnStop.Invoke(Sub() btnStop.Enabled = True)
+            btnLogout.Invoke(Sub() btnLogout.Enabled = True)
             btnGrabContacts.Invoke(Sub() btnGrabContacts.Enabled = True)
             btnGrabGroupAndMembers.Invoke(Sub() btnGrabGroupAndMembers.Enabled = True)
             btnUnreadMessages.Invoke(Sub() btnUnreadMessages.Enabled = True)
             btnArchiveChat.Invoke(Sub() btnArchiveChat.Enabled = True)
             btnDeleteChat.Invoke(Sub() btnDeleteChat.Enabled = True)
+
+            chkGroup.Invoke(Sub() chkGroup.Enabled = True)
             btnKirim.Invoke(Sub() btnKirim.Enabled = True)
             chkSubscribe.Invoke(Sub() chkSubscribe.Enabled = True)
             chkMessageSentSubscribe.Invoke(Sub() chkMessageSentSubscribe.Enabled = True)
@@ -375,20 +470,44 @@ Public Class FrmMain
 
     Private Sub OnReceiveMessageHandler(ByVal message As WhatsAppNETAPI.Message)
 
-        System.Diagnostics.Debug.Print(message.type)
-
         Dim msg = message.content
-        Dim pengirim = IIf(String.IsNullOrEmpty(message.sender.name), message.from, message.sender.name)
+
+        Dim pengirim = String.Empty
+        Dim group = String.Empty
+
+        Dim isGroup = message.group IsNot Nothing
+
+        If isGroup Then
+            group = IIf(String.IsNullOrEmpty(message.group.name), message.from, message.group.name)
+
+            Dim sender = message.group.sender
+            pengirim = IIf(String.IsNullOrEmpty(sender.name), message.from, sender.name)
+        Else
+            pengirim = IIf(String.IsNullOrEmpty(message.sender.name), message.from, message.sender.name)
+        End If
+
         Dim fileName = message.filename
 
         Dim data = String.Empty
 
-        If String.IsNullOrEmpty(fileName) Then
-            data = String.Format("[{0}] Pengirim: {1}, Pesan teks: {2}",
-                    message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg)
+        If isGroup Then ' pesan dari group
+            If String.IsNullOrEmpty(fileName) Then
+                data = String.Format("[{0}] Group: {1}, Pesan teks: {2}, Pengirim: {3}",
+                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), group, msg, pengirim)
+            Else
+                data = String.Format("[{0}] Group: {1}, Pesan gambar/dokumen: {2}, Pengirim: {3}, nama file: {4}",
+                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), group, msg, pengirim, fileName)
+            End If
         Else
-            data = String.Format("[{0}] Pengirim: {1}, Pesan gambar/dokumen: {2}, nama file: {3}",
-                    message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg, fileName)
+
+            If String.IsNullOrEmpty(fileName) Then
+                data = String.Format("[{0}] Pengirim: {1}, Pesan teks: {2}",
+                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg)
+            Else
+                data = String.Format("[{0}] Pengirim: {1}, Pesan gambar/dokumen: {2}, nama file: {3}",
+                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg, fileName)
+            End If
+
         End If
 
         ' update UI dari thread yang berbeda
@@ -427,10 +546,20 @@ Public Class FrmMain
 
         If chkAutoReplay.Checked Then
 
-            Dim msgReplay = String.Format("Bpk/Ibu *{0}*, pesan *{1}* sudah kami terima. Silahkan ditunggu.",
-                pengirim, msg)
+            If chkKirimLokasi.Checked Then
+                Dim location = New Location()
+                location.latitude = txtLatitude.Text
+                location.longitude = txtLongitude.Text
+                location.description = txtDescription.Text
 
-            _wa.ReplyMessage(New ReplyMsgArgs(message.from, msgReplay, message.id))
+                _wa.ReplyMessage(New ReplyMsgArgs(message.from, location, message.id))
+            Else
+                Dim msgReplay = String.Format("Bpk/Ibu *{0}*, pesan *{1}* sudah kami terima. Silahkan ditunggu.",
+                    pengirim, msg)
+
+                _wa.ReplyMessage(New ReplyMsgArgs(message.from, msgReplay, message.id))
+            End If
+
         End If
     End Sub
 
@@ -439,10 +568,30 @@ Public Class FrmMain
         For Each message As Message In messages
 
             Dim msg = message.content
-            Dim pengirim = IIf(String.IsNullOrEmpty(message.sender.name), message.from, message.sender.name)
 
-            Dim data = String.Format("[{0}] Pengirim: {1}, Isi pesan: {2}",
-            message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg)
+            Dim pengirim = String.Empty
+            Dim group = String.Empty
+
+            Dim isGroup = message.group IsNot Nothing
+
+            If isGroup Then ' pesan dari group
+                group = IIf(String.IsNullOrEmpty(message.group.name), message.from, message.group.name)
+
+                Dim sender = message.group.sender
+                pengirim = IIf(String.IsNullOrEmpty(sender.name), message.from, sender.name)
+            Else
+                pengirim = IIf(String.IsNullOrEmpty(message.sender.name), message.from, message.sender.name)
+            End If
+
+            Dim data = String.Empty
+
+            If isGroup Then
+                data = String.Format("[{0}] Group: {1}, Pesan teks: {2}, Pengirim: {3}",
+                    message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), group, msg, pengirim)
+            Else
+                data = String.Format("[{0}] Pengirim: {1}, Isi pesan: {2}",
+                    message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg)
+            End If
 
             ' update UI dari thread yang berbeda
             lstPesanMasuk.Invoke(
@@ -512,6 +661,31 @@ Public Class FrmMain
             RemoveHandler _wa.OnReceiveGroups, AddressOf frm.OnReceiveGroupsHandler ' unsubscribe event
 
         End Using
+    End Sub
+
+    Private Sub btnPilihGroup_Click(sender As Object, e As EventArgs) Handles btnPilihGroup.Click
+        Using frm As New FrmPilihGroup("Pilih Group")
+
+            AddHandler _wa.OnReceiveGroups, AddressOf frm.OnReceiveGroupsHandler ' subscribe event
+            _wa.GetGroups(False)
+
+            If frm.ShowDialog() = DialogResult.OK Then
+                _selectedGroup = frm.Group
+
+                If (_selectedGroup IsNot Nothing) Then txtKontak.Text = _selectedGroup.name
+            End If
+
+            RemoveHandler _wa.OnReceiveGroups, AddressOf frm.OnReceiveGroupsHandler ' unsubscribe event
+
+        End Using
+    End Sub
+
+    Private Sub chkGroup_CheckedChanged(sender As Object, e As EventArgs) Handles chkGroup.CheckedChanged
+        _selectedGroup = Nothing
+        txtKontak.Clear()
+
+        btnPilihGroup.Enabled = chkGroup.Checked
+        txtKontak.Enabled = Not chkGroup.Checked
     End Sub
 
 #End Region
