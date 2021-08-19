@@ -44,7 +44,7 @@ namespace DemoWhatsAppNETAPICSharp
             this.Text = title;
         }
 
-        public void OnReceiveGroupsHandler(IList<Group> groups)
+        public void OnReceiveGroupsHandler(IList<Group> groups, string sessionId)
         {
             // update UI dari thread yang berbeda
             lstGroup.Invoke(() =>

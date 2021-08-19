@@ -39,7 +39,7 @@ Public Class FrmPilihGroup
         Me.Text = title
     End Sub
 
-    Public Sub OnReceiveGroupsHandler(groups As IList(Of Group))
+    Public Sub OnReceiveGroupsHandler(groups As IList(Of Group), ByVal sessionId As String)
         ' update UI dari thread yang berbeda
         lstGroup.Invoke(
             Sub()

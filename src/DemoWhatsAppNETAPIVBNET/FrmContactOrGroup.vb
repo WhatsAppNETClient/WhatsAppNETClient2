@@ -35,7 +35,7 @@ Public Class FrmContactOrGroup
         Me.UseWaitCursor = True
     End Sub
 
-    Public Sub OnReceiveContactsHandler(contacts As IList(Of Contact))
+    Public Sub OnReceiveContactsHandler(contacts As IList(Of Contact), ByVal sessionId As String)
         ' update UI dari thread yang berbeda
         lstContactOrGroup.Invoke(
             Sub()
@@ -55,7 +55,7 @@ Public Class FrmContactOrGroup
         )
     End Sub
 
-    Public Sub OnReceiveGroupsHandler(groups As IList(Of Group))
+    Public Sub OnReceiveGroupsHandler(groups As IList(Of Group), ByVal sessionId As String)
         ' update UI dari thread yang berbeda
         lstContactOrGroup.Invoke(
             Sub()

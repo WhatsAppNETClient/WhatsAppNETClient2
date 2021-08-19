@@ -39,7 +39,7 @@ namespace DemoWhatsAppNETAPICSharp
             this.UseWaitCursor = true;
         }
 
-        public void OnReceiveContactsHandler(IList<Contact> contacts)
+        public void OnReceiveContactsHandler(IList<Contact> contacts, string sessionId)
         {
             // update UI dari thread yang berbeda
             lstContactOrGroup.Invoke(() =>
@@ -63,7 +63,7 @@ namespace DemoWhatsAppNETAPICSharp
             });
         }
 
-        public void OnReceiveGroupsHandler(IList<Group> groups)
+        public void OnReceiveGroupsHandler(IList<Group> groups, string sessionId)
         {
             // update UI dari thread yang berbeda
             lstContactOrGroup.Invoke(() =>

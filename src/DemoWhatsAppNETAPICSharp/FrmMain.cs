@@ -445,7 +445,7 @@ namespace DemoWhatsAppNETAPICSharp
 
         # region event handler
 
-        private void OnStartupHandler(string message)
+        private void OnStartupHandler(string message, string sessionId)
         {
             // koneksi ke WA berhasil
             if (message.IndexOf("Ready") >= 0)
@@ -491,17 +491,16 @@ namespace DemoWhatsAppNETAPICSharp
             }
         }
 
-        private void OnChangeStateHandler(WhatsAppNETAPI.WAState state)
+        private void OnChangeStateHandler(WhatsAppNETAPI.WAState state, string sessionId)
         {
             lblState.Invoke(new MethodInvoker(() => lblState.Text = string.Format("State: {0}", state.ToString())));
         }
 
-        private void OnScanMeHandler(string qrcodePath)
+        private void OnScanMeHandler(string qrcodePath, string sessionId)
         {
-            
         }
 
-        private void OnReceiveMessageHandler(WhatsAppNETAPI.Message message)
+        private void OnReceiveMessageHandler(WhatsAppNETAPI.Message message, string sessionId)
         {
             var msg = message.content;
 
@@ -604,7 +603,7 @@ namespace DemoWhatsAppNETAPICSharp
             }
         }
 
-        private void OnReceiveMessagesHandler(IList<WhatsAppNETAPI.Message> messages)
+        private void OnReceiveMessagesHandler(IList<WhatsAppNETAPI.Message> messages, string sessionId)
         {
             foreach (var message in messages)
             {
@@ -658,7 +657,7 @@ namespace DemoWhatsAppNETAPICSharp
             }
         }
 
-        private void OnReceiveMessageStatusHandler(WhatsAppNETAPI.MessageStatus msgStatus)
+        private void OnReceiveMessageStatusHandler(WhatsAppNETAPI.MessageStatus msgStatus, string sessionId)
         {
             var status = msgStatus.status == "true" ? "BERHASIL" : "GAGAL";
 
@@ -673,7 +672,7 @@ namespace DemoWhatsAppNETAPICSharp
             });
         }
 
-        private void OnClientConnectedHandler()
+        private void OnClientConnectedHandler(string sessionId)
         {
             System.Diagnostics.Debug.Print("ClientConnected on {0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
         }

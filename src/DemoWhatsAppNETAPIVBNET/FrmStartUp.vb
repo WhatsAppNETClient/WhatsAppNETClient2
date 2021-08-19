@@ -20,7 +20,7 @@ Imports System.IO
 
 Public Class FrmStartUp
 
-    Public Sub OnScanMeHandler(ByVal qrcodePath As String)
+    Public Sub OnScanMeHandler(ByVal qrcodePath As String, ByVal sessionId As String)
 
         Try
 
@@ -47,7 +47,7 @@ Public Class FrmStartUp
 
     End Sub
 
-    Public Sub OnStartupHandler(ByVal message As String)
+    Public Sub OnStartupHandler(ByVal message As String, ByVal sessionId As String)
 
         If message.IndexOf("Ready") >= 0 OrElse message.IndexOf("Failure") >= 0 _
                     OrElse message.IndexOf("Timeout") >= 0 OrElse message.IndexOf("ERR_NAME") >= 0 Then

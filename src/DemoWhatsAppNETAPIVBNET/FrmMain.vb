@@ -411,9 +411,62 @@ Public Class FrmMain
         _wa.GetUnreadMessage()
     End Sub
 
+    Private Sub btnLokasiWAAutomateNodejs_Click(sender As Object, e As EventArgs) Handles btnLokasiWAAutomateNodejs.Click
+        Dim folderName = ShowDialogOpenFolder()
+
+        If (Not String.IsNullOrEmpty(folderName)) Then txtLokasiWhatsAppNETAPINodeJs.Text = folderName
+    End Sub
+
+    Private Sub btnLokasiPenyimpananFileAtauGambar_Click(sender As Object, e As EventArgs) Handles btnLokasiPenyimpananFileAtauGambar.Click
+        Dim folderName = ShowDialogOpenFolder()
+
+        If (Not String.IsNullOrEmpty(folderName)) Then txtLokasiPenyimpananFileAtauGambar.Text = folderName
+    End Sub
+
+    Private Sub FrmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        Disconnect()
+    End Sub
+
+    Private Sub btnGrabGroupAndMembers_Click(sender As Object, e As EventArgs) Handles btnGrabGroupAndMembers.Click
+        Using frm As New FrmContactOrGroup("Groups and Members")
+
+            AddHandler _wa.OnReceiveGroups, AddressOf frm.OnReceiveGroupsHandler ' subscribe event
+            _wa.GetGroups()
+
+            frm.ShowDialog()
+            RemoveHandler _wa.OnReceiveGroups, AddressOf frm.OnReceiveGroupsHandler ' unsubscribe event
+
+        End Using
+    End Sub
+
+    Private Sub btnPilihGroup_Click(sender As Object, e As EventArgs) Handles btnPilihGroup.Click
+        Using frm As New FrmPilihGroup("Pilih Group")
+
+            AddHandler _wa.OnReceiveGroups, AddressOf frm.OnReceiveGroupsHandler ' subscribe event
+            _wa.GetGroups(False)
+
+            If frm.ShowDialog() = DialogResult.OK Then
+                _selectedGroup = frm.Group
+
+                If (_selectedGroup IsNot Nothing) Then txtKontak.Text = _selectedGroup.name
+            End If
+
+            RemoveHandler _wa.OnReceiveGroups, AddressOf frm.OnReceiveGroupsHandler ' unsubscribe event
+
+        End Using
+    End Sub
+
+    Private Sub chkGroup_CheckedChanged(sender As Object, e As EventArgs) Handles chkGroup.CheckedChanged
+        _selectedGroup = Nothing
+        txtKontak.Clear()
+
+        btnPilihGroup.Enabled = chkGroup.Checked
+        txtKontak.Enabled = Not chkGroup.Checked
+    End Sub
+
 #Region "Event handler"
 
-    Private Sub OnStartupHandler(ByVal message As String)
+    Private Sub OnStartupHandler(ByVal message As String, ByVal sessionId As String)
 
         ' koneksi ke WA berhasil
         If message.IndexOf("Ready") >= 0 Then
@@ -460,15 +513,15 @@ Public Class FrmMain
         End If
     End Sub
 
-    Private Sub OnChangeStateHandler(ByVal state As WhatsAppNETAPI.WAState)
+    Private Sub OnChangeStateHandler(ByVal state As WhatsAppNETAPI.WAState, ByVal sessionId As String)
         lblState.Invoke(Sub() lblState.Text = String.Format("State: {0}", state.ToString()))
     End Sub
 
-    Private Sub OnScanMeHandler(ByVal qrcodePath As String)
+    Private Sub OnScanMeHandler(ByVal qrcodePath As String, ByVal sessionId As String)
 
     End Sub
 
-    Private Sub OnReceiveMessageHandler(ByVal message As WhatsAppNETAPI.Message)
+    Private Sub OnReceiveMessageHandler(ByVal message As WhatsAppNETAPI.Message, ByVal sessionId As String)
 
         Dim msg = message.content
 
@@ -563,7 +616,7 @@ Public Class FrmMain
         End If
     End Sub
 
-    Private Sub OnReceiveMessagesHandler(messages As IList(Of Message))
+    Private Sub OnReceiveMessagesHandler(messages As IList(Of Message), ByVal sessionId As String)
 
         For Each message As Message In messages
 
@@ -614,7 +667,7 @@ Public Class FrmMain
 
     End Sub
 
-    Private Sub OnReceiveMessageStatusHandler(ByVal msgStatus As WhatsAppNETAPI.MessageStatus)
+    Private Sub OnReceiveMessageStatusHandler(ByVal msgStatus As WhatsAppNETAPI.MessageStatus, ByVal sessionId As String)
 
         Dim status = IIf(msgStatus.status = "true", "BERHASIL", "GAGAL")
 
@@ -631,61 +684,8 @@ Public Class FrmMain
 
     End Sub
 
-    Private Sub OnClientConnectedHandler()
+    Private Sub OnClientConnectedHandler(ByVal sessionId As String)
         System.Diagnostics.Debug.Print("ClientConnected on {0:yyyy-MM-dd HH:mm:ss}", DateTime.Now)
-    End Sub
-
-    Private Sub btnLokasiWAAutomateNodejs_Click(sender As Object, e As EventArgs) Handles btnLokasiWAAutomateNodejs.Click
-        Dim folderName = ShowDialogOpenFolder()
-
-        If (Not String.IsNullOrEmpty(folderName)) Then txtLokasiWhatsAppNETAPINodeJs.Text = folderName
-    End Sub
-
-    Private Sub btnLokasiPenyimpananFileAtauGambar_Click(sender As Object, e As EventArgs) Handles btnLokasiPenyimpananFileAtauGambar.Click
-        Dim folderName = ShowDialogOpenFolder()
-
-        If (Not String.IsNullOrEmpty(folderName)) Then txtLokasiPenyimpananFileAtauGambar.Text = folderName
-    End Sub
-
-    Private Sub FrmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        Disconnect()
-    End Sub
-
-    Private Sub btnGrabGroupAndMembers_Click(sender As Object, e As EventArgs) Handles btnGrabGroupAndMembers.Click
-        Using frm As New FrmContactOrGroup("Groups and Members")
-
-            AddHandler _wa.OnReceiveGroups, AddressOf frm.OnReceiveGroupsHandler ' subscribe event
-            _wa.GetGroups()
-
-            frm.ShowDialog()
-            RemoveHandler _wa.OnReceiveGroups, AddressOf frm.OnReceiveGroupsHandler ' unsubscribe event
-
-        End Using
-    End Sub
-
-    Private Sub btnPilihGroup_Click(sender As Object, e As EventArgs) Handles btnPilihGroup.Click
-        Using frm As New FrmPilihGroup("Pilih Group")
-
-            AddHandler _wa.OnReceiveGroups, AddressOf frm.OnReceiveGroupsHandler ' subscribe event
-            _wa.GetGroups(False)
-
-            If frm.ShowDialog() = DialogResult.OK Then
-                _selectedGroup = frm.Group
-
-                If (_selectedGroup IsNot Nothing) Then txtKontak.Text = _selectedGroup.name
-            End If
-
-            RemoveHandler _wa.OnReceiveGroups, AddressOf frm.OnReceiveGroupsHandler ' unsubscribe event
-
-        End Using
-    End Sub
-
-    Private Sub chkGroup_CheckedChanged(sender As Object, e As EventArgs) Handles chkGroup.CheckedChanged
-        _selectedGroup = Nothing
-        txtKontak.Clear()
-
-        btnPilihGroup.Enabled = chkGroup.Checked
-        txtKontak.Enabled = Not chkGroup.Checked
     End Sub
 
 #End Region
