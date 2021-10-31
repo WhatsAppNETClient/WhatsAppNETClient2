@@ -48,8 +48,8 @@ namespace DemoWhatsAppNETAPICSharp
                 {
                     if (!(contact.id == "status@broadcast"))
                     {
-                        lstContactOrGroup.Items.Add(string.Format("{0}. {1} - {2}",
-                        noUrut, contact.id, contact.name));
+                        lstContactOrGroup.Items.Add(string.Format("{0}. {1} - {2}, {3}",
+                        noUrut, contact.id, contact.name, contact.pushname));
 
                         noUrut++;
                     }

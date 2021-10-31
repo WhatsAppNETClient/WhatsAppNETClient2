@@ -107,7 +107,7 @@
       <HintPath>..\..\libs\WaitCursor.dll</HintPath>
     </Reference>
     <Reference Include="WhatsAppNETAPI">
-      <HintPath>..\..\libs\WhatsAppNETAPI.2.3.0\lib\net45\WhatsAppNETAPI.dll</HintPath>
+      <HintPath>..\..\libs\WhatsAppNETAPI.2.4.0\lib\net45\WhatsAppNETAPI.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

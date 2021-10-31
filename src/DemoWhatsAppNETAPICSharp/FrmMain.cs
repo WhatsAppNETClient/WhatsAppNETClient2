@@ -243,6 +243,47 @@ namespace DemoWhatsAppNETAPICSharp
 
                     msgArgs = new MsgArgs(kontak, location);
                 }
+                else if (chkKirimPesanList.Checked)
+                {
+                    var list = new WhatsAppNETAPI.List();
+
+                    list.title = "Menu";
+                    list.listText = "Pilih Menu";
+                    list.content = @"Assalamualaikum warahmatullahi wabarakatuh
+        
+Selamat datang, silahkan pilih menu yang tersedia.";
+
+                    var section = new Section
+                    {
+                        title = "Daftar Menu",
+                        items = new ListItem[]
+                        {
+                            new ListItem { title = "Berzakat", description = "Zakal maal, zakat fitrah, dll" },
+                            new ListItem { title = "Berinfak", description = "Infak pendidikan, infak kesehatan, dll" },
+                            new ListItem { title = "Bantuan", description = "Klo masih bingung" }
+                        }
+                    };
+
+                    list.sections = new Section[] { section };
+
+                    msgArgs = new MsgArgs(kontak, list);
+                }
+                else if (chkKirimPesanButton.Checked)
+                {
+                    var button = new WhatsAppNETAPI.Button();
+                    button.title = "Menu";
+                    button.content = @"Assalamualaikum warahmatullahi wabarakatuh
+        
+Selamat datang, silahkan klik tombol yang tersedia.";
+
+                    button.items = new ButtonItem[]
+                    {
+                        new ButtonItem { title = "Tombol 1" },
+                        new ButtonItem { title = "Tombol 2" }
+                    };
+
+                    msgArgs = new MsgArgs(kontak, button);
+                }
                 else
                     msgArgs = new MsgArgs(kontak, txtPesan.Text, MsgArgsType.Text);
                 
@@ -317,6 +358,9 @@ namespace DemoWhatsAppNETAPICSharp
                 chkKirimFileAja.Checked = false;
                 chkKirimGambarDariUrl.Checked = false;
                 chkKirimLokasi.Checked = false;
+                chkKirimPesanList.Checked = false;
+                chkKirimPesanButton.Checked = false;
+
                 txtFileDokumen.Clear();
 
                 txtLatitude.Enabled = false;
@@ -334,6 +378,9 @@ namespace DemoWhatsAppNETAPICSharp
                 chkKirimPesanDgGambar.Checked = false;
                 chkKirimFileAja.Checked = false;
                 chkKirimLokasi.Checked = false;
+                chkKirimPesanList.Checked = false;
+                chkKirimPesanButton.Checked = false;
+
                 txtFileGambar.Clear();
                 txtFileDokumen.Clear();
 
@@ -352,6 +399,9 @@ namespace DemoWhatsAppNETAPICSharp
                 chkKirimPesanDgGambar.Checked = false;
                 chkKirimGambarDariUrl.Checked = false;
                 chkKirimLokasi.Checked = false;
+                chkKirimPesanList.Checked = false;
+                chkKirimPesanButton.Checked = false;
+
                 txtFileGambar.Clear();
 
                 txtLatitude.Enabled = false;
@@ -369,7 +419,9 @@ namespace DemoWhatsAppNETAPICSharp
                 chkKirimPesanDgGambar.Checked = false;
                 chkKirimGambarDariUrl.Checked = false;
                 chkKirimFileAja.Checked = false;
-                
+                chkKirimPesanList.Checked = false;
+                chkKirimPesanButton.Checked = false;
+
                 txtFileGambar.Clear();
                 txtFileDokumen.Clear();
 
@@ -505,6 +557,7 @@ namespace DemoWhatsAppNETAPICSharp
             var msg = message.content;
 
             var pengirim = string.Empty;
+            var pushName = string.Empty;
             var group = string.Empty;
 
             var isGroup = message.group != null;
@@ -515,9 +568,13 @@ namespace DemoWhatsAppNETAPICSharp
 
                 var sender = message.group.sender;
                 pengirim = string.IsNullOrEmpty(sender.name) ? message.from : sender.name;
+                pushName = sender.pushname;                
             }
             else
+            {
                 pengirim = string.IsNullOrEmpty(message.sender.name) ? message.from : message.sender.name;
+                pushName = message.sender.pushname;
+            }                
 
             var fileName = message.filename;
 
@@ -527,23 +584,23 @@ namespace DemoWhatsAppNETAPICSharp
             {
                 if (string.IsNullOrEmpty(fileName))
                 {
-                    data = string.Format("[{0}] Group: {1}, Pesan teks: {2}, Pengirim: {3}",
-                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), group, msg, pengirim);
+                    data = string.Format("[{0}] Group: {1}, Pesan teks: {2}, Pengirim: {3} [{4}]",
+                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), group, msg, pengirim, pushName);
                 }
                 else
-                    data = string.Format("[{0}] Group: {1}, Pesan gambar/dokumen: {2}, Pengirim: {3}, nama file: {4}",
-                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), group, msg, pengirim, fileName);
+                    data = string.Format("[{0}] Group: {1}, Pesan gambar/dokumen: {2}, Pengirim: {3} [{4}], nama file: {5}",
+                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), group, msg, pengirim, pushName, fileName);
             }
             else
             {
                 if (string.IsNullOrEmpty(fileName))
                 {
-                    data = string.Format("[{0}] Pengirim: {1}, Pesan teks: {2}",
-                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg);
+                    data = string.Format("[{0}] Pengirim: {1} [{2}], Pesan teks: {3}",
+                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, pushName, msg);
                 }
                 else
-                    data = string.Format("[{0}] Pengirim: {1}, Pesan gambar/dokumen: {2}, nama file: {3}",
-                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg, fileName);
+                    data = string.Format("[{0}] Pengirim: {1} [{2}], Pesan gambar/dokumen: {3}, nama file: {4}",
+                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, pushName, msg, fileName);
             }            
 
             // update UI dari thread yang berbeda
@@ -723,6 +780,44 @@ namespace DemoWhatsAppNETAPICSharp
 
             btnPilihGroup.Enabled = chkGroup.Checked;
             txtKontak.Enabled = !chkGroup.Checked;            
-        }        
+        }
+
+        private void chkKirimPesanList_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkKirimPesanList.Checked)
+            {
+                chkKirimPesanDgGambar.Checked = false;
+                chkKirimGambarDariUrl.Checked = false;
+                chkKirimFileAja.Checked = false;
+                chkKirimPesanButton.Checked = false;
+                chkKirimLokasi.Checked = false;
+
+                txtFileGambar.Clear();
+                txtFileDokumen.Clear();
+
+                txtLatitude.Enabled = false;
+                txtLongitude.Enabled = false;
+                txtDescription.Enabled = false;
+            }
+        }
+
+        private void chkKirimPesanButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkKirimPesanButton.Checked)
+            {
+                chkKirimPesanDgGambar.Checked = false;
+                chkKirimGambarDariUrl.Checked = false;
+                chkKirimFileAja.Checked = false;
+                chkKirimPesanList.Checked = false;
+                chkKirimLokasi.Checked = false;
+
+                txtFileGambar.Clear();
+                txtFileDokumen.Clear();
+
+                txtLatitude.Enabled = false;
+                txtLongitude.Enabled = false;
+                txtDescription.Enabled = false;
+            }
+        }
     }
 }

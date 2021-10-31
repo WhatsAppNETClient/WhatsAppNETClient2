@@ -232,6 +232,44 @@ Public Class FrmMain
                 location.description = txtDescription.Text
 
                 msgArgs = New MsgArgs(kontak, location)
+
+            ElseIf chkKirimPesanList.Checked Then
+
+                Dim list = New WhatsAppNETAPI.List()
+
+                list.title = "Menu"
+                list.listText = "Pilih Menu"
+
+                list.content = "Assalamualaikum warahmatullahi wabarakatuh" + vbCrLf + vbCrLf +
+                               "Selamat datang, silahkan pilih menu yang tersedia."
+
+                Dim section As New Section With
+                {
+                    .title = "Daftar Menu",
+                    .items = New ListItem() {
+                        New ListItem With {.title = "Berzakat", .description = "Zakal maal, zakat fitrah, dll"},
+                        New ListItem With {.title = "Berinfak", .description = "Infak pendidikan, infak kesehatan, dll"},
+                        New ListItem With {.title = "Bantuan", .description = "Klo masih bingung"}
+                    }
+                }
+
+                list.sections = New Section() {section}
+
+                msgArgs = New MsgArgs(kontak, list)
+
+            ElseIf chkKirimPesanButton.Checked Then
+                Dim button = New WhatsAppNETAPI.Button()
+
+                button.title = "Menu"
+                button.content = "Assalamualaikum warahmatullahi wabarakatuh" + vbCrLf + vbCrLf +
+                                 "Selamat datang, silahkan klik tombol yang tersedia."
+
+                button.items = New ButtonItem() {
+                    New ButtonItem With {.title = "Tombol 1"},
+                    New ButtonItem With {.title = "Tombol 2"}
+                }
+
+                msgArgs = New MsgArgs(kontak, button)
             Else
                 msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.Text)
             End If
@@ -309,6 +347,9 @@ Public Class FrmMain
         If chkKirimPesanDgGambar.Checked Then
             chkKirimFileAja.Checked = False
             chkKirimGambarDariUrl.Checked = False
+            chkKirimPesanList.Checked = False
+            chkKirimPesanButton.Checked = False
+
             chkKirimLokasi.Checked = False
             txtFileDokumen.Clear()
 
@@ -325,6 +366,9 @@ Public Class FrmMain
             chkKirimPesanDgGambar.Checked = False
             chkKirimFileAja.Checked = False
             chkKirimLokasi.Checked = False
+            chkKirimPesanList.Checked = False
+            chkKirimPesanButton.Checked = False
+
             txtFileGambar.Clear()
             txtFileDokumen.Clear()
 
@@ -341,6 +385,9 @@ Public Class FrmMain
         If chkKirimFileAja.Checked Then
             chkKirimPesanDgGambar.Checked = False
             chkKirimGambarDariUrl.Checked = False
+            chkKirimPesanList.Checked = False
+            chkKirimPesanButton.Checked = False
+
             chkKirimLokasi.Checked = False
             txtFileGambar.Clear()
 
@@ -358,6 +405,8 @@ Public Class FrmMain
             chkKirimPesanDgGambar.Checked = False
             chkKirimGambarDariUrl.Checked = False
             chkKirimFileAja.Checked = False
+            chkKirimPesanList.Checked = False
+            chkKirimPesanButton.Checked = False
 
             txtFileGambar.Clear()
             txtFileDokumen.Clear()
@@ -526,6 +575,7 @@ Public Class FrmMain
         Dim msg = message.content
 
         Dim pengirim = String.Empty
+        Dim pushName = String.Empty
         Dim group = String.Empty
 
         Dim isGroup = message.group IsNot Nothing
@@ -535,8 +585,10 @@ Public Class FrmMain
 
             Dim sender = message.group.sender
             pengirim = IIf(String.IsNullOrEmpty(sender.name), message.from, sender.name)
+            pushName = sender.pushname
         Else
             pengirim = IIf(String.IsNullOrEmpty(message.sender.name), message.from, message.sender.name)
+            pushName = message.sender.pushname
         End If
 
         Dim fileName = message.filename
@@ -545,20 +597,20 @@ Public Class FrmMain
 
         If isGroup Then ' pesan dari group
             If String.IsNullOrEmpty(fileName) Then
-                data = String.Format("[{0}] Group: {1}, Pesan teks: {2}, Pengirim: {3}",
-                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), group, msg, pengirim)
+                data = String.Format("[{0}] Group: {1}, Pesan teks: {2}, Pengirim: {3} [{4}]",
+                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), group, msg, pengirim, pushName)
             Else
-                data = String.Format("[{0}] Group: {1}, Pesan gambar/dokumen: {2}, Pengirim: {3}, nama file: {4}",
-                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), group, msg, pengirim, fileName)
+                data = String.Format("[{0}] Group: {1}, Pesan gambar/dokumen: {2}, Pengirim: {3} [{4}], nama file: {5}",
+                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), group, msg, pengirim, pushName, fileName)
             End If
         Else
 
             If String.IsNullOrEmpty(fileName) Then
-                data = String.Format("[{0}] Pengirim: {1}, Pesan teks: {2}",
-                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg)
+                data = String.Format("[{0}] Pengirim: {1} [{2}], Pesan teks: {3}",
+                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, pushName, msg)
             Else
-                data = String.Format("[{0}] Pengirim: {1}, Pesan gambar/dokumen: {2}, nama file: {3}",
-                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg, fileName)
+                data = String.Format("[{0}] Pengirim: {1} [{2}], Pesan gambar/dokumen: {3}, nama file: {4}",
+                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, pushName, msg, fileName)
             End If
 
         End If
@@ -686,6 +738,40 @@ Public Class FrmMain
 
     Private Sub OnClientConnectedHandler(ByVal sessionId As String)
         System.Diagnostics.Debug.Print("ClientConnected on {0:yyyy-MM-dd HH:mm:ss}", DateTime.Now)
+    End Sub
+
+    Private Sub chkKirimPesanList_CheckedChanged(sender As Object, e As EventArgs) Handles chkKirimPesanList.CheckedChanged
+        If chkKirimPesanList.Checked Then
+            chkKirimPesanDgGambar.Checked = False
+            chkKirimGambarDariUrl.Checked = False
+            chkKirimFileAja.Checked = False
+            chkKirimPesanButton.Checked = False
+            chkKirimLokasi.Checked = False
+
+            txtFileGambar.Clear()
+            txtFileDokumen.Clear()
+
+            txtLatitude.Enabled = True
+            txtLongitude.Enabled = True
+            txtDescription.Enabled = True
+        End If
+    End Sub
+
+    Private Sub chkKirimPesanButton_CheckedChanged(sender As Object, e As EventArgs) Handles chkKirimPesanButton.CheckedChanged
+        If chkKirimPesanButton.Checked Then
+            chkKirimPesanDgGambar.Checked = False
+            chkKirimGambarDariUrl.Checked = False
+            chkKirimFileAja.Checked = False
+            chkKirimPesanList.Checked = False
+            chkKirimLokasi.Checked = False
+
+            txtFileGambar.Clear()
+            txtFileDokumen.Clear()
+
+            txtLatitude.Enabled = True
+            txtLongitude.Enabled = True
+            txtDescription.Enabled = True
+        End If
     End Sub
 
 #End Region

@@ -42,8 +42,8 @@ Public Class FrmContactOrGroup
                 For Each contact As Contact In contacts
 
                     If Not (contact.id = "status@broadcast") Then
-                        lstContactOrGroup.Items.Add(String.Format("{0}. {1} - {2}",
-                            noUrut, contact.id, contact.name))
+                        lstContactOrGroup.Items.Add(String.Format("{0}. {1} - {2}, {3}",
+                            noUrut, contact.id, contact.name, contact.pushname))
 
                         noUrut = noUrut + 1
 
