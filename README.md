@@ -24,7 +24,8 @@ Bisa Anda cek di http://wa-net.coding4ever.net/
 * Mengirim banyak pesan (broadcast)
 * Mengirim pesan dengan gambar, audio, video, dan semua jenis dokumen
 * Mengirim pesan dengan gambar, audio, video, dan semua jenis dokumen via URL
-* Mengirim lokasi
+* Mengirim `lokasi`
+* Mengirim pesan dengan tipe `list` dan `button`
 * ReplyMessage (quoted message)
 * Bisa menyimpan gambar, audio, video, semua jenis dokumen termasuk vcard dari pesan yang masuk (bisa ditentukan sendiri lokasi penyimpanannya)
 * Bisa juga membaca pesan dengan tipe `vcard` dan `location`
