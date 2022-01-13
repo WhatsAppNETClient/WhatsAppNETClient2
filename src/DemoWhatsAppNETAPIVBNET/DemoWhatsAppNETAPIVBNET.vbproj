@@ -106,8 +106,9 @@
     <Reference Include="WaitCursor">
       <HintPath>..\..\libs\WaitCursor.dll</HintPath>
     </Reference>
-    <Reference Include="WhatsAppNETAPI">
-      <HintPath>..\..\libs\WhatsAppNETAPI.2.4.0\lib\net45\WhatsAppNETAPI.dll</HintPath>
+    <Reference Include="WhatsAppNETAPI, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\WhatsAppNETAPI.2.5.0\lib\net45\WhatsAppNETAPI.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -126,6 +127,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CrossThreadExtensions.vb" />
+    <Compile Include="FrmSetStatus.Designer.vb">
+      <DependentUpon>FrmSetStatus.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSetStatus.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FrmPilihGroup.Designer.vb">
       <DependentUpon>FrmPilihGroup.vb</DependentUpon>
     </Compile>
@@ -150,6 +157,7 @@
     <Compile Include="FrmStartUp.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Helper.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -167,6 +175,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FrmSetStatus.resx">
+      <DependentUpon>FrmSetStatus.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmPilihGroup.resx">
       <DependentUpon>FrmPilihGroup.vb</DependentUpon>
     </EmbeddedResource>

@@ -83,6 +83,8 @@ Public Class FrmMain
         AddHandler _wa.OnStartup, AddressOf OnStartupHandler
         AddHandler _wa.OnChangeState, AddressOf OnChangeStateHandler
         AddHandler _wa.OnReceiveMessages, AddressOf OnReceiveMessagesHandler
+        AddHandler _wa.OnGroupJoin, AddressOf OnGroupJoinHandler
+        AddHandler _wa.OnGroupLeave, AddressOf OnGroupLeaveHandler
         AddHandler _wa.OnClientConnected, AddressOf OnClientConnectedHandler
 
         _wa.Connect()
@@ -119,6 +121,9 @@ Public Class FrmMain
         btnDeleteChat.Enabled = False
         btnKirim.Enabled = False
 
+        btnWANumber.Enabled = False
+        btnSetStatus.Enabled = False
+
         chkGroup.Checked = False
         chkGroup.Enabled = False
 
@@ -144,6 +149,8 @@ Public Class FrmMain
             RemoveHandler _wa.OnReceiveMessage, AddressOf OnReceiveMessageHandler
             RemoveHandler _wa.OnReceiveMessages, AddressOf OnReceiveMessagesHandler
             RemoveHandler _wa.OnReceiveMessageStatus, AddressOf OnReceiveMessageStatusHandler
+            RemoveHandler _wa.OnGroupJoin, AddressOf OnGroupJoinHandler
+            RemoveHandler _wa.OnGroupLeave, AddressOf OnGroupLeaveHandler
             RemoveHandler _wa.OnClientConnected, AddressOf OnClientConnectedHandler
 
             If isLogout Then
@@ -301,45 +308,6 @@ Public Class FrmMain
         If Not String.IsNullOrEmpty(fileName) Then txtFileDokumen.Text = fileName
     End Sub
 
-    Private Function ShowDialogOpen(ByVal title As String, Optional ByVal fileImageOnly As Boolean = False) As String
-
-        Dim fileName As String = String.Empty
-
-        Using dlgOpen As New OpenFileDialog
-
-            If fileImageOnly Then
-                dlgOpen.Filter = "File gambar (*.bmp, *.jpg, *.jpeg, *.png)|*.bmp;*.jpg;*.jpeg;*.png"
-            Else
-                dlgOpen.Filter = "File dokumen (*.*)|*.*"
-            End If
-
-            dlgOpen.Title = title
-
-            Dim result = dlgOpen.ShowDialog()
-            If (result = DialogResult.OK) Then fileName = dlgOpen.FileName
-
-        End Using
-
-        Return fileName
-    End Function
-
-    Private Function ShowDialogOpenFolder() As String
-
-        Dim folderName As String = String.Empty
-
-        Using dlgOpen As New FolderBrowserDialog
-
-            Dim result = dlgOpen.ShowDialog()
-
-            If result = DialogResult.OK AndAlso (Not String.IsNullOrWhiteSpace(dlgOpen.SelectedPath)) Then
-                folderName = dlgOpen.SelectedPath
-            End If
-        End Using
-
-        Return folderName
-
-    End Function
-
     Private Sub chkKirimPesanDgGambar_CheckedChanged(sender As Object, e As EventArgs) Handles chkKirimPesanDgGambar.CheckedChanged
 
         btnCariGambar.Enabled = chkKirimPesanDgGambar.Checked
@@ -444,7 +412,11 @@ Public Class FrmMain
         Dim msg = "Fungsi ini akan MENGHAPUS semua pesan." + Environment.NewLine +
                   "Apakah ingin dilanjutkan"
         If MessageBox.Show(msg, "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-            _wa.DeleteChat()
+            _wa.DeleteChat() ' hapus semua chat
+
+            ' contoh jika ingin menghapus berdasarkan phoneNumber
+            ' Dim phoneNumber As String = "0813123456789"
+            ' _wa.DeleteChat(phoneNumber)
         End If
     End Sub
 
@@ -452,7 +424,11 @@ Public Class FrmMain
         Dim msg = "Fungsi ini akan MENGARSIPKAN semua pesan." + Environment.NewLine +
                   "Apakah ingin dilanjutkan"
         If MessageBox.Show(msg, "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-            _wa.ArchiveChat()
+            _wa.ArchiveChat() ' arsip semua chat
+
+            ' contoh jika ingin mengarsipkan berdasarkan phoneNumber
+            ' Dim phoneNumber As String = "0813123456789"
+            ' _wa.ArchiveChat(phoneNumber)
         End If
     End Sub
 
@@ -528,6 +504,9 @@ Public Class FrmMain
             btnUnreadMessages.Invoke(Sub() btnUnreadMessages.Enabled = True)
             btnArchiveChat.Invoke(Sub() btnArchiveChat.Enabled = True)
             btnDeleteChat.Invoke(Sub() btnDeleteChat.Enabled = True)
+
+            btnWANumber.Invoke(Sub() btnWANumber.Enabled = True)
+            btnSetStatus.Invoke(Sub() btnSetStatus.Enabled = True)
 
             chkGroup.Invoke(Sub() chkGroup.Enabled = True)
             btnKirim.Invoke(Sub() btnKirim.Enabled = True)
@@ -736,6 +715,34 @@ Public Class FrmMain
 
     End Sub
 
+    Private Sub OnGroupJoinHandler(ByVal notification As GroupNotification, ByVal sessionId As String)
+
+        Dim recipients As String = String.Join(", ", notification.recipients _
+            .Select(Function(f) f.name)) _
+            .ToArray()
+
+        Dim msgReplay = String.Format("Selamat bergabung Bpk/Ibu *{0}*, di group *{1}*.",
+            recipients, notification.name)
+
+        Dim msgArgs = New MsgArgs(notification.id, msgReplay, MsgArgsType.Text)
+        _wa.SendMessage(msgArgs)
+
+    End Sub
+
+    Private Sub OnGroupLeaveHandler(ByVal notification As GroupNotification, ByVal sessionId As String)
+
+        Dim recipients As String = String.Join(", ", notification.recipients _
+            .Select(Function(f) f.name)) _
+            .ToArray()
+
+        Dim msgReplay = String.Format("Selamat berpisah Bpk/Ibu *{0}*, semoga bisa join lagi di group *{1}*.",
+            recipients, notification.name)
+
+        Dim msgArgs = New MsgArgs(notification.id, msgReplay, MsgArgsType.Text)
+        _wa.SendMessage(msgArgs)
+
+    End Sub
+
     Private Sub OnClientConnectedHandler(ByVal sessionId As String)
         System.Diagnostics.Debug.Print("ClientConnected on {0:yyyy-MM-dd HH:mm:ss}", DateTime.Now)
     End Sub
@@ -772,6 +779,21 @@ Public Class FrmMain
             txtLongitude.Enabled = True
             txtDescription.Enabled = True
         End If
+    End Sub
+
+    Private Sub btnWANumber_Click(sender As Object, e As EventArgs) Handles btnWANumber.Click
+        Dim nomorWa As String = _wa.GetCurrentNumber
+
+        MessageBox.Show("Nomor WA: " & nomorWa, "Infomasi",
+                MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub btnSetStatus_Click(sender As Object, e As EventArgs) Handles btnSetStatus.Click
+        Using frm As New FrmSetStatus("Status", _wa)
+
+            frm.ShowDialog()
+
+        End Using
     End Sub
 
 #End Region

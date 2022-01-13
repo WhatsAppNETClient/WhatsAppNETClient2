@@ -17,6 +17,7 @@
  */
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -93,6 +94,8 @@ namespace DemoWhatsAppNETAPICSharp
             _wa.OnStartup += OnStartupHandler;
             _wa.OnChangeState += OnChangeStateHandler;
             _wa.OnReceiveMessages += OnReceiveMessagesHandler;
+            _wa.OnGroupJoin += OnGroupJoinHandler;
+            _wa.OnGroupLeave += OnGroupLeaveHandler;
             _wa.OnClientConnected += OnClientConnectedHandler;
             
             _wa.Connect();
@@ -110,7 +113,33 @@ namespace DemoWhatsAppNETAPICSharp
                 _wa.OnStartup -= frm.OnStartupHandler;
                 _wa.OnScanMe -= frm.OnScanMeHandler;
             }
-        }        
+        }
+
+        private void OnGroupJoinHandler(GroupNotification notification, string sessionId)
+        {
+            var recipients = string.Join(", ", notification.recipients
+                .Select(f => f.name)
+                .ToArray());
+
+            var msgReplay = string.Format("Selamat bergabung Bpk/Ibu *{0}*, di group *{1}*.",
+                        recipients, notification.name);
+
+            var msgArgs = new MsgArgs(notification.id, msgReplay, MsgArgsType.Text);
+            _wa.SendMessage(msgArgs);
+        }
+
+        private void OnGroupLeaveHandler(GroupNotification notification, string sessionId)
+        {
+            var recipients = string.Join(", ", notification.recipients
+                .Select(f => f.name)
+                .ToArray());
+
+            var msgReplay = string.Format("Selamat berpisah Bpk/Ibu *{0}*, semoga bisa join lagi di group *{1}*.",
+                        recipients, notification.name);
+
+            var msgArgs = new MsgArgs(notification.id, msgReplay, MsgArgsType.Text);
+            _wa.SendMessage(msgArgs);
+        }
 
         private void Disconnect(bool isLogout = false)
         {
@@ -120,6 +149,8 @@ namespace DemoWhatsAppNETAPICSharp
             btnGrabContacts.Enabled = false;
             btnGrabGroupAndMembers.Enabled = false;
             btnUnreadMessages.Enabled = false;
+            btnWANumber.Enabled = false;
+            btnSetStatus.Enabled = false;
             btnArchiveChat.Enabled = false;
             btnDeleteChat.Enabled = false;
             btnKirim.Enabled = false;
@@ -150,6 +181,8 @@ namespace DemoWhatsAppNETAPICSharp
                 _wa.OnReceiveMessage -= OnReceiveMessageHandler;
                 _wa.OnReceiveMessages -= OnReceiveMessagesHandler;
                 _wa.OnReceiveMessageStatus -= OnReceiveMessageStatusHandler;
+                _wa.OnGroupJoin -= OnGroupJoinHandler;
+                _wa.OnGroupLeave -= OnGroupLeaveHandler;
                 _wa.OnClientConnected -= OnClientConnectedHandler;
 
                 if (isLogout)
@@ -305,50 +338,16 @@ Selamat datang, silahkan klik tombol yang tersedia.";
         }
 
         private void btnCariGambar_Click(object sender, EventArgs e)
-        {
-            var fileName = ShowDialogOpen("Lokasi file gambar", true);
+        {            
+            var fileName = Helper.ShowDialogOpen("Lokasi file gambar", true);
             if (!string.IsNullOrEmpty(fileName)) txtFileGambar.Text = fileName;
         }
 
         private void btnCariDokumen_Click(object sender, EventArgs e)
         {
-            var fileName = ShowDialogOpen("Lokasi file dokumen");
+            var fileName = Helper.ShowDialogOpen("Lokasi file dokumen");
             if (!string.IsNullOrEmpty(fileName)) txtFileDokumen.Text = fileName;
-        }
-
-        private string ShowDialogOpen(string title, bool fileImageOnly = false)
-        {
-            var fileName = string.Empty;
-
-            using (var dlgOpen = new OpenFileDialog())
-            {
-                dlgOpen.Filter = fileImageOnly ? "File gambar (*.bmp, *.jpg, *.jpeg, *.png)|*.bmp;*.jpg;*.jpeg;*.png"
-                                               : "File dokumen (*.*)|*.*";
-                dlgOpen.Title = title;
-
-                var result = dlgOpen.ShowDialog();
-                if (result == DialogResult.OK) fileName = dlgOpen.FileName;
-            }
-
-            return fileName;
-        }
-
-        private string ShowDialogOpenFolder()
-        {
-            var folderName = string.Empty;
-
-            using (var dlgOpen = new FolderBrowserDialog())
-            {
-                var result = dlgOpen.ShowDialog();
-
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(dlgOpen.SelectedPath))
-                {
-                    folderName = dlgOpen.SelectedPath;
-                }
-            }
-
-            return folderName;
-        }
+        }        
 
         private void chkKirimPesanDgGambar_CheckedChanged(object sender, EventArgs e)
         {
@@ -475,8 +474,12 @@ Selamat datang, silahkan klik tombol yang tersedia.";
 
             if (MessageBox.Show(msg, "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                _wa.DeleteChat();
-            }            
+                _wa.DeleteChat(); // hapus semua chat
+
+                // contoh jika ingin menghapus berdasarkan phoneNumber
+                // Dim phoneNumber As String = "0813123456789"
+                // _wa.DeleteChat(phoneNumber)
+            }
         }
 
         private void btnArchiveChat_Click(object sender, EventArgs e)
@@ -486,13 +489,17 @@ Selamat datang, silahkan klik tombol yang tersedia.";
 
             if (MessageBox.Show(msg, "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                _wa.ArchiveChat();
-            }                
+                _wa.ArchiveChat(); // arsip semua chat
+
+                // contoh jika ingin mengarsipkan berdasarkan phoneNumber
+                // Dim phoneNumber As String = "0813123456789"
+                // _wa.ArchiveChat(phoneNumber)
+            }
         }
 
         private void btnUnreadMessages_Click(object sender, EventArgs e)
         {
-            _wa.GetUnreadMessage();
+            _wa.GetUnreadMessage();            
         }
 
         # region event handler
@@ -514,6 +521,9 @@ Selamat datang, silahkan klik tombol yang tersedia.";
                 btnArchiveChat.Invoke(new MethodInvoker(() => btnArchiveChat.Enabled = true));
                 btnDeleteChat.Invoke(new MethodInvoker(() => btnDeleteChat.Enabled = true));
 
+                btnWANumber.Invoke(new MethodInvoker(() => btnWANumber.Enabled = true));
+                btnSetStatus.Invoke(new MethodInvoker(() => btnSetStatus.Enabled = true));
+
                 chkGroup.Invoke(new MethodInvoker(() => chkGroup.Enabled = true));
                 btnKirim.Invoke(new MethodInvoker(() => btnKirim.Enabled = true));
                 chkSubscribe.Invoke(new MethodInvoker(() => chkSubscribe.Enabled = true));
@@ -532,6 +542,8 @@ Selamat datang, silahkan klik tombol yang tersedia.";
                 _wa.OnReceiveMessage -= OnReceiveMessageHandler;
                 _wa.OnReceiveMessages -= OnReceiveMessagesHandler;
                 _wa.OnReceiveMessageStatus -= OnReceiveMessageStatusHandler;
+                _wa.OnGroupJoin -= OnGroupJoinHandler;
+                _wa.OnGroupLeave -= OnGroupLeaveHandler;
                 _wa.OnClientConnected -= OnClientConnectedHandler;
 
                 _wa.Disconnect();
@@ -737,15 +749,15 @@ Selamat datang, silahkan klik tombol yang tersedia.";
         #endregion
 
         private void btnLokasiWAAutomateNodejs_Click(object sender, EventArgs e)
-        {
-            var folderName = ShowDialogOpenFolder();
+        {            
+            var folderName = Helper.ShowDialogOpenFolder();
 
             if (!string.IsNullOrEmpty(folderName)) txtLokasiWhatsAppNETAPINodeJs.Text = folderName;
         }
 
         private void btnLokasiPenyimpananFileAtauGambar_Click(object sender, EventArgs e)
         {
-            var folderName = ShowDialogOpenFolder();
+            var folderName = Helper.ShowDialogOpenFolder();
 
             if (!string.IsNullOrEmpty(folderName)) txtLokasiPenyimpananFileAtauGambar.Text = folderName;
         }
@@ -818,6 +830,22 @@ Selamat datang, silahkan klik tombol yang tersedia.";
                 txtLongitude.Enabled = false;
                 txtDescription.Enabled = false;
             }
+        }
+
+        private void btnSetStatus_Click(object sender, EventArgs e)
+        {
+            using (var frm = new FrmSetStatus("Status", _wa))
+            {
+                frm.ShowDialog();
+            }
+        }
+
+        private void btnInfoWANumber_Click(object sender, EventArgs e)
+        {
+            var nomorWa = _wa.GetCurrentNumber;
+
+            MessageBox.Show("Nomor WA: " + nomorWa, "Infomasi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
