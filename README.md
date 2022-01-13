@@ -31,11 +31,15 @@ Bisa Anda cek di http://wa-net.coding4ever.net/
 * Bisa menyimpan gambar, audio, video, semua jenis dokumen termasuk vcard dari pesan yang masuk (bisa ditentukan sendiri lokasi penyimpanannya)
 * Bisa juga membaca pesan dengan tipe `vcard` dan `location`
 * Bisa membaca pesan dari group dan mendapatkan informasi pengirimnya
+* Bisa mendapatkan nomor WA yang digunakan untuk scan QRCode
 * Subscribe event ChangeState untuk memonitoring perubahan status koneksi
+* Subscribe event GroupJoin untuk memonitoring user yang join ke group
+* Subscribe event GroupLeave untuk memonitoring user keluar dari group
 * Subscribe pesan yang masuk, jadi enggak perlu nambah objek timer lagi untuk membaca pesan masuk
 * Subscribe pesan yang dikirim, dengan fitur ini kita bisa mengecek apakah pesan yang dikirim berhasil atau gagal
-* Archive chat
-* Delete chat
+* Archive chat (semua atau berdasarkan nomor wa)
+* Delete chat (semua atau berdasarkan nomor wa)
+* Pengesetan status
 * Logout
 * Bisa dengan mudah diintegrasikan dengan semua jenis database
 
