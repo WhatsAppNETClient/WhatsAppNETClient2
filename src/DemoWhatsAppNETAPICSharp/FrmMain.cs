@@ -477,8 +477,8 @@ Selamat datang, silahkan klik tombol yang tersedia.";
                 _wa.DeleteChat(); // hapus semua chat
 
                 // contoh jika ingin menghapus berdasarkan phoneNumber
-                // Dim phoneNumber As String = "0813123456789"
-                // _wa.DeleteChat(phoneNumber)
+                // var phoneNumber = "0813123456789";
+                // _wa.DeleteChat(phoneNumber);
             }
         }
 
@@ -492,8 +492,8 @@ Selamat datang, silahkan klik tombol yang tersedia.";
                 _wa.ArchiveChat(); // arsip semua chat
 
                 // contoh jika ingin mengarsipkan berdasarkan phoneNumber
-                // Dim phoneNumber As String = "0813123456789"
-                // _wa.ArchiveChat(phoneNumber)
+                // var phoneNumber = "0813123456789";
+                // _wa.ArchiveChat(phoneNumber);
             }
         }
 
