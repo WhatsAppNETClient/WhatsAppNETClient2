@@ -23,7 +23,6 @@ using System.Windows.Forms;
 
 using WhatsAppNETAPI;
 using ConceptCave.WaitCursor;
-using System.IO;
 
 namespace DemoWhatsAppNETAPICSharp
 {
@@ -34,9 +33,8 @@ namespace DemoWhatsAppNETAPICSharp
 
         public FrmMain()
         {
-            InitializeComponent();
-
-            _wa = new WhatsAppNETAPI.WhatsAppNETAPI();            
+            InitializeComponent();            
+            _wa = new WhatsAppNETAPI.WhatsAppNETAPI();
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -93,6 +91,7 @@ namespace DemoWhatsAppNETAPICSharp
             // subscribe event
             _wa.OnStartup += OnStartupHandler;
             _wa.OnChangeState += OnChangeStateHandler;
+            _wa.OnChangeBattery += OnChangeBatteryHandler;
             _wa.OnReceiveMessages += OnReceiveMessagesHandler;
             _wa.OnGroupJoin += OnGroupJoinHandler;
             _wa.OnGroupLeave += OnGroupLeaveHandler;
@@ -113,6 +112,19 @@ namespace DemoWhatsAppNETAPICSharp
                 _wa.OnStartup -= frm.OnStartupHandler;
                 _wa.OnScanMe -= frm.OnScanMeHandler;
             }
+        }        
+
+        private void OnMessageAckHandler(WhatsAppNETAPI.Message message, string sessionId)
+        {
+            var msg = string.Format("Status pengiriman pesan ke {0}, messageId = {1}, status = {2}",
+                message.to, message.id, message.ack.ToString());
+            
+            // update UI dari thread yang berbeda
+            lstStatusPesanKeluar.Invoke(() =>
+            {
+                lstStatusPesanKeluar.Items.Add(msg);
+                lstStatusPesanKeluar.SelectedIndex = lstStatusPesanKeluar.Items.Count - 1;
+            });
         }
 
         private void OnGroupJoinHandler(GroupNotification notification, string sessionId)
@@ -149,8 +161,10 @@ namespace DemoWhatsAppNETAPICSharp
             btnGrabContacts.Enabled = false;
             btnGrabGroupAndMembers.Enabled = false;
             btnUnreadMessages.Enabled = false;
+            btnAllMessages.Enabled = false;
             btnWANumber.Enabled = false;
             btnSetStatus.Enabled = false;
+            btnBatteryStatus.Enabled = false;
             btnArchiveChat.Enabled = false;
             btnDeleteChat.Enabled = false;
             btnKirim.Enabled = false;
@@ -167,6 +181,9 @@ namespace DemoWhatsAppNETAPICSharp
             chkMessageSentSubscribe.Checked = false;
             chkMessageSentSubscribe.Enabled = false;
 
+            chkMessageSentStatusSubscribe.Checked = false;
+            chkMessageSentStatusSubscribe.Enabled = false;
+
             chkAutoReplay.Checked = false;
             chkAutoReplay.Enabled = false;
 
@@ -177,9 +194,11 @@ namespace DemoWhatsAppNETAPICSharp
                 // unsubscribe event
                 _wa.OnStartup -= OnStartupHandler;
                 _wa.OnChangeState -= OnChangeStateHandler;
+                _wa.OnChangeBattery -= OnChangeBatteryHandler;
                 _wa.OnScanMe -= OnScanMeHandler;
                 _wa.OnReceiveMessage -= OnReceiveMessageHandler;
                 _wa.OnReceiveMessages -= OnReceiveMessagesHandler;
+                _wa.OnMessageAck -= OnMessageAckHandler;
                 _wa.OnReceiveMessageStatus -= OnReceiveMessageStatusHandler;
                 _wa.OnGroupJoin -= OnGroupJoinHandler;
                 _wa.OnGroupLeave -= OnGroupLeaveHandler;
@@ -499,9 +518,15 @@ Selamat datang, silahkan klik tombol yang tersedia.";
 
         private void btnUnreadMessages_Click(object sender, EventArgs e)
         {
-            _wa.GetUnreadMessage();            
+            _wa.GetUnreadMessage();                        
         }
 
+        private void btnAllMessages_Click(object sender, EventArgs e)
+        {
+            var phoneNumber = "08138171234";
+            _wa.GetAllMessage(phoneNumber, 3); // menampilkan 3 pesan terakhir            
+        }
+        
         # region event handler
 
         private void OnStartupHandler(string message, string sessionId)
@@ -518,16 +543,19 @@ Selamat datang, silahkan klik tombol yang tersedia.";
                 btnGrabGroupAndMembers.Invoke(new MethodInvoker(() => btnGrabGroupAndMembers.Enabled = true));
 
                 btnUnreadMessages.Invoke(new MethodInvoker(() => btnUnreadMessages.Enabled = true));
+                btnAllMessages.Invoke(new MethodInvoker(() => btnAllMessages.Enabled = true));
                 btnArchiveChat.Invoke(new MethodInvoker(() => btnArchiveChat.Enabled = true));
                 btnDeleteChat.Invoke(new MethodInvoker(() => btnDeleteChat.Enabled = true));
 
                 btnWANumber.Invoke(new MethodInvoker(() => btnWANumber.Enabled = true));
                 btnSetStatus.Invoke(new MethodInvoker(() => btnSetStatus.Enabled = true));
+                btnBatteryStatus.Invoke(new MethodInvoker(() => btnBatteryStatus.Enabled = true));
 
                 chkGroup.Invoke(new MethodInvoker(() => chkGroup.Enabled = true));
                 btnKirim.Invoke(new MethodInvoker(() => btnKirim.Enabled = true));
                 chkSubscribe.Invoke(new MethodInvoker(() => chkSubscribe.Enabled = true));
-                chkMessageSentSubscribe.Invoke(new MethodInvoker(() => chkMessageSentSubscribe.Enabled = true));                
+                chkMessageSentSubscribe.Invoke(new MethodInvoker(() => chkMessageSentSubscribe.Enabled = true));
+                chkMessageSentStatusSubscribe.Invoke(new MethodInvoker(() => chkMessageSentStatusSubscribe.Enabled = true));                
 
                 this.UseWaitCursor = false;
             }
@@ -541,6 +569,7 @@ Selamat datang, silahkan klik tombol yang tersedia.";
                 _wa.OnScanMe -= OnScanMeHandler;
                 _wa.OnReceiveMessage -= OnReceiveMessageHandler;
                 _wa.OnReceiveMessages -= OnReceiveMessagesHandler;
+                _wa.OnMessageAck -= OnMessageAckHandler;
                 _wa.OnReceiveMessageStatus -= OnReceiveMessageStatusHandler;
                 _wa.OnGroupJoin -= OnGroupJoinHandler;
                 _wa.OnGroupLeave -= OnGroupLeaveHandler;
@@ -558,6 +587,12 @@ Selamat datang, silahkan klik tombol yang tersedia.";
         private void OnChangeStateHandler(WhatsAppNETAPI.WAState state, string sessionId)
         {
             lblState.Invoke(new MethodInvoker(() => lblState.Text = string.Format("State: {0}", state.ToString())));
+        }
+
+        private void OnChangeBatteryHandler(BatteryStatus status, string sessionId)
+        {
+            lblBatteryStatus.Invoke(new MethodInvoker(() => lblBatteryStatus.Text = string.Format("Battery: {0}% - Charging? {1}",
+                status.battery, status.plugged)));
         }
 
         private void OnScanMeHandler(string qrcodePath, string sessionId)
@@ -730,8 +765,8 @@ Selamat datang, silahkan klik tombol yang tersedia.";
         {
             var status = msgStatus.status == "true" ? "BERHASIL" : "GAGAL";
 
-            var msg = string.Format("Status pengiriman pesan ke {0}, {1}",
-                msgStatus.send_to, status);
+            var msg = string.Format("Status pengiriman pesan ke {0}, status = {1}, messageId = {2}",
+                msgStatus.send_to, status, msgStatus.messageId);
 
             // update UI dari thread yang berbeda
             lstPesanKeluar.Invoke(() =>
@@ -846,6 +881,24 @@ Selamat datang, silahkan klik tombol yang tersedia.";
 
             MessageBox.Show("Nomor WA: " + nomorWa, "Infomasi",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }        
+
+        private void chkMessageSentStatusSubscribe_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkMessageSentStatusSubscribe.Checked)
+            {
+                _wa.OnMessageAck += OnMessageAckHandler; // subscribe event
+            }
+            else
+            {
+                _wa.OnMessageAck -= OnMessageAckHandler; // unsubscribe event
+                lstStatusPesanKeluar.Items.Clear();
+            }
+        }
+
+        private void btnBatteryStatus_Click(object sender, EventArgs e)
+        {
+            _wa.GetBatteryStatus();
         }
     }
 }

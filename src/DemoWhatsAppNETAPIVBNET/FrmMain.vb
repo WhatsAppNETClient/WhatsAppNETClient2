@@ -82,6 +82,7 @@ Public Class FrmMain
         ' subscribe event
         AddHandler _wa.OnStartup, AddressOf OnStartupHandler
         AddHandler _wa.OnChangeState, AddressOf OnChangeStateHandler
+        AddHandler _wa.OnChangeBattery, AddressOf OnChangeBatteryHandler
         AddHandler _wa.OnReceiveMessages, AddressOf OnReceiveMessagesHandler
         AddHandler _wa.OnGroupJoin, AddressOf OnGroupJoinHandler
         AddHandler _wa.OnGroupLeave, AddressOf OnGroupLeaveHandler
@@ -145,6 +146,7 @@ Public Class FrmMain
             ' unsubscribe event
             RemoveHandler _wa.OnStartup, AddressOf OnStartupHandler
             RemoveHandler _wa.OnChangeState, AddressOf OnChangeStateHandler
+            RemoveHandler _wa.OnChangeBattery, AddressOf OnChangeBatteryHandler
             RemoveHandler _wa.OnScanMe, AddressOf OnScanMeHandler
             RemoveHandler _wa.OnReceiveMessage, AddressOf OnReceiveMessageHandler
             RemoveHandler _wa.OnReceiveMessages, AddressOf OnReceiveMessagesHandler
@@ -543,6 +545,10 @@ Public Class FrmMain
 
     Private Sub OnChangeStateHandler(ByVal state As WhatsAppNETAPI.WAState, ByVal sessionId As String)
         lblState.Invoke(Sub() lblState.Text = String.Format("State: {0}", state.ToString()))
+    End Sub
+
+    Private Sub OnChangeBatteryHandler(ByVal status As BatteryStatus, ByVal sessionId As String)
+        lblBatteryStatus.Invoke(Sub() lblBatteryStatus.Text = String.Format("Battery: {0}% - Charging? {1}", status.battery, status.plugged))
     End Sub
 
     Private Sub OnScanMeHandler(ByVal qrcodePath As String, ByVal sessionId As String)

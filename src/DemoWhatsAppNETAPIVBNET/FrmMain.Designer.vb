@@ -87,6 +87,8 @@ Partial Class FrmMain
         Me.label5 = New System.Windows.Forms.Label()
         Me.txtLokasiWhatsAppNETAPINodeJs = New System.Windows.Forms.TextBox()
         Me.label4 = New System.Windows.Forms.Label()
+        Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblBatteryStatus = New System.Windows.Forms.Label()
         Me.tableLayoutPanel1.SuspendLayout()
         Me.flowLayoutPanel1.SuspendLayout()
         Me.groupBox1.SuspendLayout()
@@ -104,17 +106,18 @@ Partial Class FrmMain
         Me.tabPage2.SuspendLayout()
         Me.tableLayoutPanel4.SuspendLayout()
         Me.groupBox2.SuspendLayout()
+        Me.TableLayoutPanel5.SuspendLayout()
         Me.SuspendLayout()
         '
         'tableLayoutPanel1
         '
         Me.tableLayoutPanel1.ColumnCount = 1
         Me.tableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tableLayoutPanel1.Controls.Add(Me.lblState, 0, 4)
         Me.tableLayoutPanel1.Controls.Add(Me.flowLayoutPanel1, 0, 1)
         Me.tableLayoutPanel1.Controls.Add(Me.groupBox1, 0, 2)
         Me.tableLayoutPanel1.Controls.Add(Me.tabControl1, 0, 3)
         Me.tableLayoutPanel1.Controls.Add(Me.groupBox2, 0, 0)
+        Me.tableLayoutPanel1.Controls.Add(Me.TableLayoutPanel5, 0, 4)
         Me.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.tableLayoutPanel1.Name = "tableLayoutPanel1"
@@ -132,9 +135,9 @@ Partial Class FrmMain
         Me.lblState.AutoSize = True
         Me.lblState.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblState.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblState.Location = New System.Drawing.Point(3, 602)
+        Me.lblState.Location = New System.Drawing.Point(3, 0)
         Me.lblState.Name = "lblState"
-        Me.lblState.Size = New System.Drawing.Size(857, 25)
+        Me.lblState.Size = New System.Drawing.Size(35, 19)
         Me.lblState.TabIndex = 5
         Me.lblState.Text = "State:"
         Me.lblState.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -824,6 +827,33 @@ Partial Class FrmMain
         Me.label4.Text = "Lokasi WhatsApp NET API NodeJs"
         Me.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'TableLayoutPanel5
+        '
+        Me.TableLayoutPanel5.ColumnCount = 2
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel5.Controls.Add(Me.lblState, 0, 0)
+        Me.TableLayoutPanel5.Controls.Add(Me.lblBatteryStatus, 1, 0)
+        Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 605)
+        Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
+        Me.TableLayoutPanel5.RowCount = 1
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(857, 19)
+        Me.TableLayoutPanel5.TabIndex = 4
+        '
+        'lblBatteryStatus
+        '
+        Me.lblBatteryStatus.AutoSize = True
+        Me.lblBatteryStatus.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.lblBatteryStatus.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblBatteryStatus.Location = New System.Drawing.Point(44, 0)
+        Me.lblBatteryStatus.Name = "lblBatteryStatus"
+        Me.lblBatteryStatus.Size = New System.Drawing.Size(810, 19)
+        Me.lblBatteryStatus.TabIndex = 5
+        Me.lblBatteryStatus.Text = "Battery:"
+        Me.lblBatteryStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -835,7 +865,6 @@ Partial Class FrmMain
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Demo WhatsAppAPI untuk .NET Developer (VB.NET)"
         Me.tableLayoutPanel1.ResumeLayout(False)
-        Me.tableLayoutPanel1.PerformLayout()
         Me.flowLayoutPanel1.ResumeLayout(False)
         Me.groupBox1.ResumeLayout(False)
         Me.tableLayoutPanel2.ResumeLayout(False)
@@ -862,6 +891,8 @@ Partial Class FrmMain
         Me.tableLayoutPanel4.PerformLayout()
         Me.groupBox2.ResumeLayout(False)
         Me.groupBox2.PerformLayout()
+        Me.TableLayoutPanel5.ResumeLayout(False)
+        Me.TableLayoutPanel5.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -931,4 +962,6 @@ Partial Class FrmMain
     Friend WithEvents chkKirimPesanButton As CheckBox
     Friend WithEvents btnWANumber As Button
     Friend WithEvents btnSetStatus As Button
+    Friend WithEvents TableLayoutPanel5 As TableLayoutPanel
+    Private WithEvents lblBatteryStatus As Label
 End Class
