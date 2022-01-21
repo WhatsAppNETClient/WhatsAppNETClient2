@@ -17,7 +17,7 @@ Bisa Anda cek di http://wa-net.coding4ever.net/
 
 * Full mode *siluman* (headless/no window). Anda bisa mengatakan selamat tinggal kepada  chrome/firefox browser yang biasanya muncul untuk menjalankan WhatsApp Web.
 * Otomatis menyimpan sesi login (jadi scan qr code WAnya cukup sekali saja)
-* Mendukung penggunaan [multi account WA](https://github.com/WhatsAppNETClient/WhatsAppNETClientMultiAccount)
+* Mendukung penggunaan [multi account WA](https://github.com/WhatsAppNETClient/WhatsAppNETClientMultiAccount), untuk contohnya bisa Anda lihat di [https://github.com/WhatsAppNETClient/WhatsAppNETClientMultiAccount](https://github.com/WhatsAppNETClient/WhatsAppNETClientMultiAccount)
 * Grab contacts untuk membaca kontak WA sehingga hasilnya bisa disimpan ke database
 * Grab groups dan members untuk membaca data group beserta anggotanya sehingga hasilnya juga bisa disimpan ke database
 * Mengirim pesan personal atau group
@@ -32,13 +32,18 @@ Bisa Anda cek di http://wa-net.coding4ever.net/
 * Bisa juga membaca pesan dengan tipe `vcard` dan `location`
 * Bisa membaca pesan dari group dan mendapatkan informasi pengirimnya
 * Bisa mendapatkan nomor WA yang digunakan untuk scan QRCode
-* Subscribe event ChangeState untuk memonitoring perubahan status koneksi
-* Subscribe event GroupJoin untuk memonitoring user yang join ke group
-* Subscribe event GroupLeave untuk memonitoring user keluar dari group
-* Subscribe pesan yang masuk, jadi enggak perlu nambah objek timer lagi untuk membaca pesan masuk
-* Subscribe pesan yang dikirim, dengan fitur ini kita bisa mengecek apakah pesan yang dikirim berhasil atau gagal
-* Archive chat (semua atau berdasarkan nomor wa)
-* Delete chat (semua atau berdasarkan nomor wa)
+* Cek histori pesan berdasarkan nomor WA, jumlah pesan yang ditampilkan bisa diatur lewat parameter `limit`
+* Subscribe event `ChangeState` untuk memonitoring perubahan status koneksi
+* Subscribe event `GroupJoin` untuk memonitoring user yang join ke group
+* Subscribe event `GroupLeave` untuk memonitoring user keluar dari group
+* Subscribe event `MessageAck` untuk memonitoring status pesan yang dikirim (pending, sudah diterima/baca, dll)
+* Subscribe event `ChangeBattery` untuk memonitoring status battery. Status battery akan diupdate secara berkala, dan jika ingin mendapatkan status battery terkini tinggal panggil method `GetBatteryStatus`
+* Subscribe event `ReceiveMessage`, untuk memonitoring pesan masuk
+* Subscribe event `ReceiveMessageStatus` untuk memonitoring status pesan yang dikirim berhasil atau gagal.
+* Subscribe event `MessageAck` untuk memonitoring status pesan setelah di kirim (pending, sudah diterima/baca, dll)
+* Tersedia fitur `REST API`, sehingga semua fitur library WhatsApp NET Client juga bisa diakses via `REST API` baik secara local maupun remote. Untuk contoh penggunaannya bisa Anda lihat di [https://github.com/WhatsAppNETClient/WhatsAppNETAPIRestApi](https://github.com/WhatsAppNETClient/WhatsAppNETAPIRestApi)
+* Archive chat (semua atau berdasarkan nomor WA)
+* Delete chat (semua atau berdasarkan nomor WA)
 * Pengesetan status
 * Logout
 * Bisa dengan mudah diintegrasikan dengan semua jenis database
