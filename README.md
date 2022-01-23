@@ -36,7 +36,6 @@ Bisa Anda cek di http://wa-net.coding4ever.net/
 * Subscribe event `ChangeState` untuk memonitoring perubahan status koneksi
 * Subscribe event `GroupJoin` untuk memonitoring user yang join ke group
 * Subscribe event `GroupLeave` untuk memonitoring user keluar dari group
-* Subscribe event `MessageAck` untuk memonitoring status pesan yang dikirim (pending, sudah diterima/baca, dll)
 * Subscribe event `ChangeBattery` untuk memonitoring status battery. Status battery akan diupdate secara berkala, dan jika ingin mendapatkan status battery terkini tinggal panggil method `GetBatteryStatus`
 * Subscribe event `ReceiveMessage`, untuk memonitoring pesan masuk
 * Subscribe event `ReceiveMessageStatus` untuk memonitoring status pesan yang dikirim berhasil atau gagal.
