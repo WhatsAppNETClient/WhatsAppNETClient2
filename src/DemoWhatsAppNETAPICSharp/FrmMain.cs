@@ -607,6 +607,9 @@ Selamat datang, silahkan klik tombol yang tersedia.";
             var pushName = string.Empty;
             var group = string.Empty;
 
+            if (message.id == "status@broadcast") // status@broadcast -> dummy message, penanda load data selesai
+                return;
+
             var isGroup = message.group != null;
 
             if (isGroup) // pesan dari group
@@ -711,6 +714,9 @@ Selamat datang, silahkan klik tombol yang tersedia.";
         {
             foreach (var message in messages)
             {
+                if (message.id == "status@broadcast") // status@broadcast -> dummy message, penanda load data selesai
+                    continue;
+
                 var msg = message.content;
 
                 var pengirim = string.Empty;
