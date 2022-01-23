@@ -118,6 +118,8 @@ Public Class FrmMain
         btnGrabContacts.Enabled = False
         btnGrabGroupAndMembers.Enabled = False
         btnUnreadMessages.Enabled = False
+        btnAllMessages.Enabled = False
+        btnBatteryStatus.Enabled = False
         btnArchiveChat.Enabled = False
         btnDeleteChat.Enabled = False
         btnKirim.Enabled = False
@@ -150,6 +152,7 @@ Public Class FrmMain
             RemoveHandler _wa.OnScanMe, AddressOf OnScanMeHandler
             RemoveHandler _wa.OnReceiveMessage, AddressOf OnReceiveMessageHandler
             RemoveHandler _wa.OnReceiveMessages, AddressOf OnReceiveMessagesHandler
+            RemoveHandler _wa.OnMessageAck, AddressOf OnMessageAckHandler
             RemoveHandler _wa.OnReceiveMessageStatus, AddressOf OnReceiveMessageStatusHandler
             RemoveHandler _wa.OnGroupJoin, AddressOf OnGroupJoinHandler
             RemoveHandler _wa.OnGroupLeave, AddressOf OnGroupLeaveHandler
@@ -400,7 +403,6 @@ Public Class FrmMain
     End Sub
 
     Private Sub chkMessageSentSubscribe_CheckedChanged(sender As Object, e As EventArgs) Handles chkMessageSentSubscribe.CheckedChanged
-
         If chkMessageSentSubscribe.Checked Then
             AddHandler _wa.OnReceiveMessageStatus, AddressOf OnReceiveMessageStatusHandler ' subscribe event
         Else
@@ -504,6 +506,8 @@ Public Class FrmMain
             btnGrabContacts.Invoke(Sub() btnGrabContacts.Enabled = True)
             btnGrabGroupAndMembers.Invoke(Sub() btnGrabGroupAndMembers.Enabled = True)
             btnUnreadMessages.Invoke(Sub() btnUnreadMessages.Enabled = True)
+            btnAllMessages.Invoke(Sub() btnAllMessages.Enabled = True)
+            btnBatteryStatus.Invoke(Sub() btnBatteryStatus.Enabled = True)
             btnArchiveChat.Invoke(Sub() btnArchiveChat.Enabled = True)
             btnDeleteChat.Invoke(Sub() btnDeleteChat.Enabled = True)
 
@@ -562,6 +566,10 @@ Public Class FrmMain
         Dim pengirim = String.Empty
         Dim pushName = String.Empty
         Dim group = String.Empty
+
+        If message.id = "status@broadcast" Then ' status@broadcast -> dummy message, penanda load data selesai
+            Return
+        End If
 
         Dim isGroup = message.group IsNot Nothing
 
@@ -653,9 +661,26 @@ Public Class FrmMain
         End If
     End Sub
 
-    Private Sub OnReceiveMessagesHandler(messages As IList(Of Message), ByVal sessionId As String)
+    Private Sub OnMessageAckHandler(ByVal message As WhatsAppNETAPI.Message, ByVal sessionId As String)
+        Dim msg = String.Format("Status pengiriman pesan ke {0}, messageId = {1}, status = {2}",
+            message.to, message.id, message.ack.ToString())
+
+        ' update UI dari thread yang berbeda
+        lstStatusPesanKeluar.Invoke(
+            Sub()
+                lstStatusPesanKeluar.Items.Add(msg)
+                lstStatusPesanKeluar.SelectedIndex = lstStatusPesanKeluar.Items.Count - 1
+            End Sub
+        )
+    End Sub
+
+    Private Sub OnReceiveMessagesHandler(ByVal messages As IList(Of Message), ByVal sessionId As String)
 
         For Each message As Message In messages
+
+            If message.id = "status@broadcast" Then ' status@broadcast -> dummy message, penanda load data selesai
+                Continue For
+            End If
 
             Dim msg = message.content
 
@@ -800,6 +825,25 @@ Public Class FrmMain
             frm.ShowDialog()
 
         End Using
+    End Sub
+
+    Private Sub chkMessageSentStatusSubscribe_CheckedChanged(sender As Object, e As EventArgs) Handles chkMessageSentStatusSubscribe.CheckedChanged
+        If chkMessageSentStatusSubscribe.Checked Then
+            AddHandler _wa.OnMessageAck, AddressOf OnMessageAckHandler ' subscribe event
+        Else
+            RemoveHandler _wa.OnMessageAck, AddressOf OnMessageAckHandler ' unsubscribe event
+
+            lstStatusPesanKeluar.Items.Clear()
+        End If
+    End Sub
+
+    Private Sub btnAllMessages_Click(sender As Object, e As EventArgs) Handles btnAllMessages.Click
+        Dim phoneNumber As String = "081381769915"
+        _wa.GetAllMessage(phoneNumber, 3) 'menampilkan 3 pesan terakhir
+    End Sub
+
+    Private Sub btnBatteryStatus_Click(sender As Object, e As EventArgs) Handles btnBatteryStatus.Click
+        _wa.GetBatteryStatus()
     End Sub
 
 #End Region

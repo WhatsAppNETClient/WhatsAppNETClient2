@@ -23,7 +23,6 @@ Partial Class FrmMain
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.tableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.lblState = New System.Windows.Forms.Label()
         Me.flowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.btnStart = New System.Windows.Forms.Button()
         Me.btnStop = New System.Windows.Forms.Button()
@@ -31,10 +30,12 @@ Partial Class FrmMain
         Me.btnGrabContacts = New System.Windows.Forms.Button()
         Me.btnGrabGroupAndMembers = New System.Windows.Forms.Button()
         Me.btnUnreadMessages = New System.Windows.Forms.Button()
+        Me.btnAllMessages = New System.Windows.Forms.Button()
         Me.btnArchiveChat = New System.Windows.Forms.Button()
         Me.btnDeleteChat = New System.Windows.Forms.Button()
         Me.btnWANumber = New System.Windows.Forms.Button()
         Me.btnSetStatus = New System.Windows.Forms.Button()
+        Me.btnBatteryStatus = New System.Windows.Forms.Button()
         Me.groupBox1 = New System.Windows.Forms.GroupBox()
         Me.tableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.label1 = New System.Windows.Forms.Label()
@@ -80,6 +81,10 @@ Partial Class FrmMain
         Me.tableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.chkMessageSentSubscribe = New System.Windows.Forms.CheckBox()
         Me.lstPesanKeluar = New System.Windows.Forms.ListBox()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.TableLayoutPanel6 = New System.Windows.Forms.TableLayoutPanel()
+        Me.chkMessageSentStatusSubscribe = New System.Windows.Forms.CheckBox()
+        Me.lstStatusPesanKeluar = New System.Windows.Forms.ListBox()
         Me.groupBox2 = New System.Windows.Forms.GroupBox()
         Me.btnLokasiPenyimpananFileAtauGambar = New System.Windows.Forms.Button()
         Me.btnLokasiWAAutomateNodejs = New System.Windows.Forms.Button()
@@ -88,6 +93,7 @@ Partial Class FrmMain
         Me.txtLokasiWhatsAppNETAPINodeJs = New System.Windows.Forms.TextBox()
         Me.label4 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblState = New System.Windows.Forms.Label()
         Me.lblBatteryStatus = New System.Windows.Forms.Label()
         Me.tableLayoutPanel1.SuspendLayout()
         Me.flowLayoutPanel1.SuspendLayout()
@@ -105,6 +111,8 @@ Partial Class FrmMain
         Me.flowLayoutPanel3.SuspendLayout()
         Me.tabPage2.SuspendLayout()
         Me.tableLayoutPanel4.SuspendLayout()
+        Me.TabPage3.SuspendLayout()
+        Me.TableLayoutPanel6.SuspendLayout()
         Me.groupBox2.SuspendLayout()
         Me.TableLayoutPanel5.SuspendLayout()
         Me.SuspendLayout()
@@ -127,20 +135,8 @@ Partial Class FrmMain
         Me.tableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 324.0!))
         Me.tableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.tableLayoutPanel1.Size = New System.Drawing.Size(863, 627)
+        Me.tableLayoutPanel1.Size = New System.Drawing.Size(1015, 620)
         Me.tableLayoutPanel1.TabIndex = 1
-        '
-        'lblState
-        '
-        Me.lblState.AutoSize = True
-        Me.lblState.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.lblState.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblState.Location = New System.Drawing.Point(3, 0)
-        Me.lblState.Name = "lblState"
-        Me.lblState.Size = New System.Drawing.Size(35, 19)
-        Me.lblState.TabIndex = 5
-        Me.lblState.Text = "State:"
-        Me.lblState.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'flowLayoutPanel1
         '
@@ -150,14 +146,16 @@ Partial Class FrmMain
         Me.flowLayoutPanel1.Controls.Add(Me.btnGrabContacts)
         Me.flowLayoutPanel1.Controls.Add(Me.btnGrabGroupAndMembers)
         Me.flowLayoutPanel1.Controls.Add(Me.btnUnreadMessages)
+        Me.flowLayoutPanel1.Controls.Add(Me.btnAllMessages)
         Me.flowLayoutPanel1.Controls.Add(Me.btnArchiveChat)
         Me.flowLayoutPanel1.Controls.Add(Me.btnDeleteChat)
         Me.flowLayoutPanel1.Controls.Add(Me.btnWANumber)
         Me.flowLayoutPanel1.Controls.Add(Me.btnSetStatus)
+        Me.flowLayoutPanel1.Controls.Add(Me.btnBatteryStatus)
         Me.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.flowLayoutPanel1.Location = New System.Drawing.Point(3, 78)
         Me.flowLayoutPanel1.Name = "flowLayoutPanel1"
-        Me.flowLayoutPanel1.Size = New System.Drawing.Size(857, 30)
+        Me.flowLayoutPanel1.Size = New System.Drawing.Size(1009, 30)
         Me.flowLayoutPanel1.TabIndex = 0
         '
         'btnStart
@@ -194,7 +192,7 @@ Partial Class FrmMain
         Me.btnGrabContacts.Enabled = False
         Me.btnGrabContacts.Location = New System.Drawing.Point(165, 3)
         Me.btnGrabContacts.Name = "btnGrabContacts"
-        Me.btnGrabContacts.Size = New System.Drawing.Size(72, 23)
+        Me.btnGrabContacts.Size = New System.Drawing.Size(68, 23)
         Me.btnGrabContacts.TabIndex = 3
         Me.btnGrabContacts.Text = "Contacts"
         Me.btnGrabContacts.UseVisualStyleBackColor = True
@@ -202,9 +200,9 @@ Partial Class FrmMain
         'btnGrabGroupAndMembers
         '
         Me.btnGrabGroupAndMembers.Enabled = False
-        Me.btnGrabGroupAndMembers.Location = New System.Drawing.Point(243, 3)
+        Me.btnGrabGroupAndMembers.Location = New System.Drawing.Point(239, 3)
         Me.btnGrabGroupAndMembers.Name = "btnGrabGroupAndMembers"
-        Me.btnGrabGroupAndMembers.Size = New System.Drawing.Size(132, 23)
+        Me.btnGrabGroupAndMembers.Size = New System.Drawing.Size(113, 23)
         Me.btnGrabGroupAndMembers.TabIndex = 5
         Me.btnGrabGroupAndMembers.Text = "Group and members"
         Me.btnGrabGroupAndMembers.UseVisualStyleBackColor = True
@@ -212,17 +210,27 @@ Partial Class FrmMain
         'btnUnreadMessages
         '
         Me.btnUnreadMessages.Enabled = False
-        Me.btnUnreadMessages.Location = New System.Drawing.Point(381, 3)
+        Me.btnUnreadMessages.Location = New System.Drawing.Point(358, 3)
         Me.btnUnreadMessages.Name = "btnUnreadMessages"
-        Me.btnUnreadMessages.Size = New System.Drawing.Size(113, 23)
+        Me.btnUnreadMessages.Size = New System.Drawing.Size(106, 23)
         Me.btnUnreadMessages.TabIndex = 4
         Me.btnUnreadMessages.Text = "Unread Messages"
         Me.btnUnreadMessages.UseVisualStyleBackColor = True
         '
+        'btnAllMessages
+        '
+        Me.btnAllMessages.Enabled = False
+        Me.btnAllMessages.Location = New System.Drawing.Point(470, 3)
+        Me.btnAllMessages.Name = "btnAllMessages"
+        Me.btnAllMessages.Size = New System.Drawing.Size(86, 23)
+        Me.btnAllMessages.TabIndex = 8
+        Me.btnAllMessages.Text = "All Messages"
+        Me.btnAllMessages.UseVisualStyleBackColor = True
+        '
         'btnArchiveChat
         '
         Me.btnArchiveChat.Enabled = False
-        Me.btnArchiveChat.Location = New System.Drawing.Point(500, 3)
+        Me.btnArchiveChat.Location = New System.Drawing.Point(562, 3)
         Me.btnArchiveChat.Name = "btnArchiveChat"
         Me.btnArchiveChat.Size = New System.Drawing.Size(90, 23)
         Me.btnArchiveChat.TabIndex = 4
@@ -232,9 +240,9 @@ Partial Class FrmMain
         'btnDeleteChat
         '
         Me.btnDeleteChat.Enabled = False
-        Me.btnDeleteChat.Location = New System.Drawing.Point(596, 3)
+        Me.btnDeleteChat.Location = New System.Drawing.Point(658, 3)
         Me.btnDeleteChat.Name = "btnDeleteChat"
-        Me.btnDeleteChat.Size = New System.Drawing.Size(89, 23)
+        Me.btnDeleteChat.Size = New System.Drawing.Size(83, 23)
         Me.btnDeleteChat.TabIndex = 4
         Me.btnDeleteChat.Text = "Delete Chat"
         Me.btnDeleteChat.UseVisualStyleBackColor = True
@@ -242,9 +250,9 @@ Partial Class FrmMain
         'btnWANumber
         '
         Me.btnWANumber.Enabled = False
-        Me.btnWANumber.Location = New System.Drawing.Point(691, 3)
+        Me.btnWANumber.Location = New System.Drawing.Point(747, 3)
         Me.btnWANumber.Name = "btnWANumber"
-        Me.btnWANumber.Size = New System.Drawing.Size(75, 23)
+        Me.btnWANumber.Size = New System.Drawing.Size(85, 23)
         Me.btnWANumber.TabIndex = 7
         Me.btnWANumber.Text = "Info WA Num"
         Me.btnWANumber.UseVisualStyleBackColor = True
@@ -252,12 +260,22 @@ Partial Class FrmMain
         'btnSetStatus
         '
         Me.btnSetStatus.Enabled = False
-        Me.btnSetStatus.Location = New System.Drawing.Point(772, 3)
+        Me.btnSetStatus.Location = New System.Drawing.Point(838, 3)
         Me.btnSetStatus.Name = "btnSetStatus"
         Me.btnSetStatus.Size = New System.Drawing.Size(75, 23)
         Me.btnSetStatus.TabIndex = 7
         Me.btnSetStatus.Text = "Set Status"
         Me.btnSetStatus.UseVisualStyleBackColor = True
+        '
+        'btnBatteryStatus
+        '
+        Me.btnBatteryStatus.Enabled = False
+        Me.btnBatteryStatus.Location = New System.Drawing.Point(919, 3)
+        Me.btnBatteryStatus.Name = "btnBatteryStatus"
+        Me.btnBatteryStatus.Size = New System.Drawing.Size(84, 23)
+        Me.btnBatteryStatus.TabIndex = 8
+        Me.btnBatteryStatus.Text = "Battery Status"
+        Me.btnBatteryStatus.UseVisualStyleBackColor = True
         '
         'groupBox1
         '
@@ -265,7 +283,7 @@ Partial Class FrmMain
         Me.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.groupBox1.Location = New System.Drawing.Point(3, 114)
         Me.groupBox1.Name = "groupBox1"
-        Me.groupBox1.Size = New System.Drawing.Size(857, 318)
+        Me.groupBox1.Size = New System.Drawing.Size(1009, 318)
         Me.groupBox1.TabIndex = 1
         Me.groupBox1.TabStop = False
         Me.groupBox1.Text = " [ Kirim Pesan ] "
@@ -299,7 +317,7 @@ Partial Class FrmMain
         Me.tableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
         Me.tableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
         Me.tableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 14.0!))
-        Me.tableLayoutPanel2.Size = New System.Drawing.Size(851, 299)
+        Me.tableLayoutPanel2.Size = New System.Drawing.Size(1003, 299)
         Me.tableLayoutPanel2.TabIndex = 0
         '
         'label1
@@ -329,7 +347,7 @@ Partial Class FrmMain
         Me.txtPesan.Location = New System.Drawing.Point(50, 28)
         Me.txtPesan.Multiline = True
         Me.txtPesan.Name = "txtPesan"
-        Me.txtPesan.Size = New System.Drawing.Size(798, 58)
+        Me.txtPesan.Size = New System.Drawing.Size(950, 58)
         Me.txtPesan.TabIndex = 1
         '
         'flowLayoutPanel2
@@ -341,13 +359,13 @@ Partial Class FrmMain
         Me.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
         Me.flowLayoutPanel2.Location = New System.Drawing.Point(50, 260)
         Me.flowLayoutPanel2.Name = "flowLayoutPanel2"
-        Me.flowLayoutPanel2.Size = New System.Drawing.Size(798, 36)
+        Me.flowLayoutPanel2.Size = New System.Drawing.Size(950, 36)
         Me.flowLayoutPanel2.TabIndex = 2
         '
         'btnKirim
         '
         Me.btnKirim.Enabled = False
-        Me.btnKirim.Location = New System.Drawing.Point(720, 3)
+        Me.btnKirim.Location = New System.Drawing.Point(872, 3)
         Me.btnKirim.Name = "btnKirim"
         Me.btnKirim.Size = New System.Drawing.Size(75, 23)
         Me.btnKirim.TabIndex = 2
@@ -356,7 +374,7 @@ Partial Class FrmMain
         '
         'txtJumlahPesan
         '
-        Me.txtJumlahPesan.Location = New System.Drawing.Point(689, 3)
+        Me.txtJumlahPesan.Location = New System.Drawing.Point(841, 3)
         Me.txtJumlahPesan.Name = "txtJumlahPesan"
         Me.txtJumlahPesan.Size = New System.Drawing.Size(25, 20)
         Me.txtJumlahPesan.TabIndex = 1
@@ -366,7 +384,7 @@ Partial Class FrmMain
         '
         Me.label2.AutoSize = True
         Me.label2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.label2.Location = New System.Drawing.Point(556, 0)
+        Me.label2.Location = New System.Drawing.Point(708, 0)
         Me.label2.Name = "label2"
         Me.label2.Size = New System.Drawing.Size(127, 29)
         Me.label2.TabIndex = 0
@@ -382,7 +400,7 @@ Partial Class FrmMain
         Me.flowLayoutPanel4.Location = New System.Drawing.Point(47, 89)
         Me.flowLayoutPanel4.Margin = New System.Windows.Forms.Padding(0)
         Me.flowLayoutPanel4.Name = "flowLayoutPanel4"
-        Me.flowLayoutPanel4.Size = New System.Drawing.Size(804, 28)
+        Me.flowLayoutPanel4.Size = New System.Drawing.Size(956, 28)
         Me.flowLayoutPanel4.TabIndex = 3
         '
         'chkKirimPesanDgGambar
@@ -401,13 +419,13 @@ Partial Class FrmMain
         Me.txtFileGambar.Location = New System.Drawing.Point(142, 3)
         Me.txtFileGambar.Name = "txtFileGambar"
         Me.txtFileGambar.ReadOnly = True
-        Me.txtFileGambar.Size = New System.Drawing.Size(618, 20)
+        Me.txtFileGambar.Size = New System.Drawing.Size(767, 20)
         Me.txtFileGambar.TabIndex = 1
         '
         'btnCariGambar
         '
         Me.btnCariGambar.Enabled = False
-        Me.btnCariGambar.Location = New System.Drawing.Point(766, 3)
+        Me.btnCariGambar.Location = New System.Drawing.Point(915, 3)
         Me.btnCariGambar.Name = "btnCariGambar"
         Me.btnCariGambar.Size = New System.Drawing.Size(34, 23)
         Me.btnCariGambar.TabIndex = 2
@@ -423,7 +441,7 @@ Partial Class FrmMain
         Me.flowLayoutPanel5.Location = New System.Drawing.Point(47, 145)
         Me.flowLayoutPanel5.Margin = New System.Windows.Forms.Padding(0)
         Me.flowLayoutPanel5.Name = "flowLayoutPanel5"
-        Me.flowLayoutPanel5.Size = New System.Drawing.Size(804, 28)
+        Me.flowLayoutPanel5.Size = New System.Drawing.Size(956, 28)
         Me.flowLayoutPanel5.TabIndex = 3
         '
         'chkKirimFileAja
@@ -442,13 +460,13 @@ Partial Class FrmMain
         Me.txtFileDokumen.Location = New System.Drawing.Point(73, 3)
         Me.txtFileDokumen.Name = "txtFileDokumen"
         Me.txtFileDokumen.ReadOnly = True
-        Me.txtFileDokumen.Size = New System.Drawing.Size(687, 20)
+        Me.txtFileDokumen.Size = New System.Drawing.Size(836, 20)
         Me.txtFileDokumen.TabIndex = 1
         '
         'btnCariDokumen
         '
         Me.btnCariDokumen.Enabled = False
-        Me.btnCariDokumen.Location = New System.Drawing.Point(766, 3)
+        Me.btnCariDokumen.Location = New System.Drawing.Point(915, 3)
         Me.btnCariDokumen.Name = "btnCariDokumen"
         Me.btnCariDokumen.Size = New System.Drawing.Size(34, 23)
         Me.btnCariDokumen.TabIndex = 2
@@ -463,7 +481,7 @@ Partial Class FrmMain
         Me.FlowLayoutPanel6.Location = New System.Drawing.Point(47, 117)
         Me.FlowLayoutPanel6.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel6.Name = "FlowLayoutPanel6"
-        Me.FlowLayoutPanel6.Size = New System.Drawing.Size(804, 28)
+        Me.FlowLayoutPanel6.Size = New System.Drawing.Size(956, 28)
         Me.FlowLayoutPanel6.TabIndex = 3
         '
         'chkKirimGambarDariUrl
@@ -481,7 +499,7 @@ Partial Class FrmMain
         '
         Me.txtUrl.Location = New System.Drawing.Point(162, 3)
         Me.txtUrl.Name = "txtUrl"
-        Me.txtUrl.Size = New System.Drawing.Size(639, 20)
+        Me.txtUrl.Size = New System.Drawing.Size(787, 20)
         Me.txtUrl.TabIndex = 1
         Me.txtUrl.Text = "http://coding4ever.net/assets/images/avatar.png"
         '
@@ -498,7 +516,7 @@ Partial Class FrmMain
         Me.FlowLayoutPanel7.Location = New System.Drawing.Point(47, 173)
         Me.FlowLayoutPanel7.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel7.Name = "FlowLayoutPanel7"
-        Me.FlowLayoutPanel7.Size = New System.Drawing.Size(804, 28)
+        Me.FlowLayoutPanel7.Size = New System.Drawing.Size(956, 28)
         Me.FlowLayoutPanel7.TabIndex = 4
         '
         'chkKirimLokasi
@@ -578,7 +596,7 @@ Partial Class FrmMain
         Me.FlowLayoutPanel8.Location = New System.Drawing.Point(47, 0)
         Me.FlowLayoutPanel8.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel8.Name = "FlowLayoutPanel8"
-        Me.FlowLayoutPanel8.Size = New System.Drawing.Size(804, 25)
+        Me.FlowLayoutPanel8.Size = New System.Drawing.Size(956, 25)
         Me.FlowLayoutPanel8.TabIndex = 5
         '
         'txtKontak
@@ -616,7 +634,7 @@ Partial Class FrmMain
         Me.chkKirimPesanList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chkKirimPesanList.Location = New System.Drawing.Point(50, 204)
         Me.chkKirimPesanList.Name = "chkKirimPesanList"
-        Me.chkKirimPesanList.Size = New System.Drawing.Size(798, 22)
+        Me.chkKirimPesanList.Size = New System.Drawing.Size(950, 22)
         Me.chkKirimPesanList.TabIndex = 6
         Me.chkKirimPesanList.Text = "Kirim pesan list"
         Me.chkKirimPesanList.UseVisualStyleBackColor = True
@@ -627,7 +645,7 @@ Partial Class FrmMain
         Me.chkKirimPesanButton.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chkKirimPesanButton.Location = New System.Drawing.Point(50, 232)
         Me.chkKirimPesanButton.Name = "chkKirimPesanButton"
-        Me.chkKirimPesanButton.Size = New System.Drawing.Size(798, 22)
+        Me.chkKirimPesanButton.Size = New System.Drawing.Size(950, 22)
         Me.chkKirimPesanButton.TabIndex = 6
         Me.chkKirimPesanButton.Text = "Kirim pesan button"
         Me.chkKirimPesanButton.UseVisualStyleBackColor = True
@@ -636,11 +654,12 @@ Partial Class FrmMain
         '
         Me.tabControl1.Controls.Add(Me.tabPage1)
         Me.tabControl1.Controls.Add(Me.tabPage2)
+        Me.tabControl1.Controls.Add(Me.TabPage3)
         Me.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tabControl1.Location = New System.Drawing.Point(3, 438)
         Me.tabControl1.Name = "tabControl1"
         Me.tabControl1.SelectedIndex = 0
-        Me.tabControl1.Size = New System.Drawing.Size(857, 161)
+        Me.tabControl1.Size = New System.Drawing.Size(1009, 154)
         Me.tabControl1.TabIndex = 2
         '
         'tabPage1
@@ -649,7 +668,7 @@ Partial Class FrmMain
         Me.tabPage1.Location = New System.Drawing.Point(4, 22)
         Me.tabPage1.Name = "tabPage1"
         Me.tabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabPage1.Size = New System.Drawing.Size(849, 135)
+        Me.tabPage1.Size = New System.Drawing.Size(1001, 128)
         Me.tabPage1.TabIndex = 0
         Me.tabPage1.Text = "Pesan Masuk"
         Me.tabPage1.UseVisualStyleBackColor = True
@@ -666,7 +685,7 @@ Partial Class FrmMain
         Me.tableLayoutPanel3.RowCount = 2
         Me.tableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26.0!))
         Me.tableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tableLayoutPanel3.Size = New System.Drawing.Size(843, 129)
+        Me.tableLayoutPanel3.Size = New System.Drawing.Size(995, 122)
         Me.tableLayoutPanel3.TabIndex = 0
         '
         'flowLayoutPanel3
@@ -676,7 +695,7 @@ Partial Class FrmMain
         Me.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.flowLayoutPanel3.Location = New System.Drawing.Point(3, 3)
         Me.flowLayoutPanel3.Name = "flowLayoutPanel3"
-        Me.flowLayoutPanel3.Size = New System.Drawing.Size(837, 20)
+        Me.flowLayoutPanel3.Size = New System.Drawing.Size(989, 20)
         Me.flowLayoutPanel3.TabIndex = 0
         '
         'chkSubscribe
@@ -707,7 +726,7 @@ Partial Class FrmMain
         Me.lstPesanMasuk.FormattingEnabled = True
         Me.lstPesanMasuk.Location = New System.Drawing.Point(3, 29)
         Me.lstPesanMasuk.Name = "lstPesanMasuk"
-        Me.lstPesanMasuk.Size = New System.Drawing.Size(837, 97)
+        Me.lstPesanMasuk.Size = New System.Drawing.Size(989, 90)
         Me.lstPesanMasuk.TabIndex = 1
         '
         'tabPage2
@@ -716,7 +735,7 @@ Partial Class FrmMain
         Me.tabPage2.Location = New System.Drawing.Point(4, 22)
         Me.tabPage2.Name = "tabPage2"
         Me.tabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabPage2.Size = New System.Drawing.Size(849, 135)
+        Me.tabPage2.Size = New System.Drawing.Size(1001, 128)
         Me.tabPage2.TabIndex = 1
         Me.tabPage2.Text = "Pesan Keluar"
         Me.tabPage2.UseVisualStyleBackColor = True
@@ -733,7 +752,7 @@ Partial Class FrmMain
         Me.tableLayoutPanel4.RowCount = 2
         Me.tableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26.0!))
         Me.tableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tableLayoutPanel4.Size = New System.Drawing.Size(843, 129)
+        Me.tableLayoutPanel4.Size = New System.Drawing.Size(995, 122)
         Me.tableLayoutPanel4.TabIndex = 0
         '
         'chkMessageSentSubscribe
@@ -743,7 +762,7 @@ Partial Class FrmMain
         Me.chkMessageSentSubscribe.Enabled = False
         Me.chkMessageSentSubscribe.Location = New System.Drawing.Point(3, 3)
         Me.chkMessageSentSubscribe.Name = "chkMessageSentSubscribe"
-        Me.chkMessageSentSubscribe.Size = New System.Drawing.Size(837, 20)
+        Me.chkMessageSentSubscribe.Size = New System.Drawing.Size(989, 20)
         Me.chkMessageSentSubscribe.TabIndex = 0
         Me.chkMessageSentSubscribe.Text = "Subscribe"
         Me.chkMessageSentSubscribe.UseVisualStyleBackColor = True
@@ -754,8 +773,54 @@ Partial Class FrmMain
         Me.lstPesanKeluar.FormattingEnabled = True
         Me.lstPesanKeluar.Location = New System.Drawing.Point(3, 29)
         Me.lstPesanKeluar.Name = "lstPesanKeluar"
-        Me.lstPesanKeluar.Size = New System.Drawing.Size(837, 97)
+        Me.lstPesanKeluar.Size = New System.Drawing.Size(989, 90)
         Me.lstPesanKeluar.TabIndex = 1
+        '
+        'TabPage3
+        '
+        Me.TabPage3.Controls.Add(Me.TableLayoutPanel6)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Size = New System.Drawing.Size(1001, 128)
+        Me.TabPage3.TabIndex = 2
+        Me.TabPage3.Text = "Status Pesan Keluar"
+        Me.TabPage3.UseVisualStyleBackColor = True
+        '
+        'TableLayoutPanel6
+        '
+        Me.TableLayoutPanel6.ColumnCount = 1
+        Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel6.Controls.Add(Me.chkMessageSentStatusSubscribe, 0, 0)
+        Me.TableLayoutPanel6.Controls.Add(Me.lstStatusPesanKeluar, 0, 1)
+        Me.TableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel6.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel6.Name = "TableLayoutPanel6"
+        Me.TableLayoutPanel6.RowCount = 2
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26.0!))
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel6.Size = New System.Drawing.Size(1001, 128)
+        Me.TableLayoutPanel6.TabIndex = 1
+        '
+        'chkMessageSentStatusSubscribe
+        '
+        Me.chkMessageSentStatusSubscribe.AutoSize = True
+        Me.chkMessageSentStatusSubscribe.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.chkMessageSentStatusSubscribe.Enabled = False
+        Me.chkMessageSentStatusSubscribe.Location = New System.Drawing.Point(3, 3)
+        Me.chkMessageSentStatusSubscribe.Name = "chkMessageSentStatusSubscribe"
+        Me.chkMessageSentStatusSubscribe.Size = New System.Drawing.Size(995, 20)
+        Me.chkMessageSentStatusSubscribe.TabIndex = 0
+        Me.chkMessageSentStatusSubscribe.Text = "Subscribe"
+        Me.chkMessageSentStatusSubscribe.UseVisualStyleBackColor = True
+        '
+        'lstStatusPesanKeluar
+        '
+        Me.lstStatusPesanKeluar.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lstStatusPesanKeluar.FormattingEnabled = True
+        Me.lstStatusPesanKeluar.Location = New System.Drawing.Point(3, 29)
+        Me.lstStatusPesanKeluar.Name = "lstStatusPesanKeluar"
+        Me.lstStatusPesanKeluar.Size = New System.Drawing.Size(995, 96)
+        Me.lstStatusPesanKeluar.TabIndex = 1
         '
         'groupBox2
         '
@@ -768,14 +833,14 @@ Partial Class FrmMain
         Me.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.groupBox2.Location = New System.Drawing.Point(3, 3)
         Me.groupBox2.Name = "groupBox2"
-        Me.groupBox2.Size = New System.Drawing.Size(857, 69)
+        Me.groupBox2.Size = New System.Drawing.Size(1009, 69)
         Me.groupBox2.TabIndex = 3
         Me.groupBox2.TabStop = False
         Me.groupBox2.Text = " [ Konfigurasi ] "
         '
         'btnLokasiPenyimpananFileAtauGambar
         '
-        Me.btnLokasiPenyimpananFileAtauGambar.Location = New System.Drawing.Point(820, 41)
+        Me.btnLokasiPenyimpananFileAtauGambar.Location = New System.Drawing.Point(965, 41)
         Me.btnLokasiPenyimpananFileAtauGambar.Name = "btnLokasiPenyimpananFileAtauGambar"
         Me.btnLokasiPenyimpananFileAtauGambar.Size = New System.Drawing.Size(34, 23)
         Me.btnLokasiPenyimpananFileAtauGambar.TabIndex = 2
@@ -784,7 +849,7 @@ Partial Class FrmMain
         '
         'btnLokasiWAAutomateNodejs
         '
-        Me.btnLokasiWAAutomateNodejs.Location = New System.Drawing.Point(820, 14)
+        Me.btnLokasiWAAutomateNodejs.Location = New System.Drawing.Point(965, 15)
         Me.btnLokasiWAAutomateNodejs.Name = "btnLokasiWAAutomateNodejs"
         Me.btnLokasiWAAutomateNodejs.Size = New System.Drawing.Size(34, 23)
         Me.btnLokasiWAAutomateNodejs.TabIndex = 2
@@ -796,7 +861,7 @@ Partial Class FrmMain
         Me.txtLokasiPenyimpananFileAtauGambar.Location = New System.Drawing.Point(269, 43)
         Me.txtLokasiPenyimpananFileAtauGambar.Name = "txtLokasiPenyimpananFileAtauGambar"
         Me.txtLokasiPenyimpananFileAtauGambar.ReadOnly = True
-        Me.txtLokasiPenyimpananFileAtauGambar.Size = New System.Drawing.Size(545, 20)
+        Me.txtLokasiPenyimpananFileAtauGambar.Size = New System.Drawing.Size(690, 20)
         Me.txtLokasiPenyimpananFileAtauGambar.TabIndex = 1
         '
         'label5
@@ -814,7 +879,7 @@ Partial Class FrmMain
         Me.txtLokasiWhatsAppNETAPINodeJs.Location = New System.Drawing.Point(269, 17)
         Me.txtLokasiWhatsAppNETAPINodeJs.Name = "txtLokasiWhatsAppNETAPINodeJs"
         Me.txtLokasiWhatsAppNETAPINodeJs.ReadOnly = True
-        Me.txtLokasiWhatsAppNETAPINodeJs.Size = New System.Drawing.Size(545, 20)
+        Me.txtLokasiWhatsAppNETAPINodeJs.Size = New System.Drawing.Size(690, 20)
         Me.txtLokasiWhatsAppNETAPINodeJs.TabIndex = 1
         '
         'label4
@@ -835,12 +900,24 @@ Partial Class FrmMain
         Me.TableLayoutPanel5.Controls.Add(Me.lblState, 0, 0)
         Me.TableLayoutPanel5.Controls.Add(Me.lblBatteryStatus, 1, 0)
         Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 605)
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 598)
         Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
         Me.TableLayoutPanel5.RowCount = 1
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(857, 19)
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(1009, 19)
         Me.TableLayoutPanel5.TabIndex = 4
+        '
+        'lblState
+        '
+        Me.lblState.AutoSize = True
+        Me.lblState.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.lblState.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblState.Location = New System.Drawing.Point(3, 0)
+        Me.lblState.Name = "lblState"
+        Me.lblState.Size = New System.Drawing.Size(35, 19)
+        Me.lblState.TabIndex = 5
+        Me.lblState.Text = "State:"
+        Me.lblState.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lblBatteryStatus
         '
@@ -849,7 +926,7 @@ Partial Class FrmMain
         Me.lblBatteryStatus.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblBatteryStatus.Location = New System.Drawing.Point(44, 0)
         Me.lblBatteryStatus.Name = "lblBatteryStatus"
-        Me.lblBatteryStatus.Size = New System.Drawing.Size(810, 19)
+        Me.lblBatteryStatus.Size = New System.Drawing.Size(962, 19)
         Me.lblBatteryStatus.TabIndex = 5
         Me.lblBatteryStatus.Text = "Battery:"
         Me.lblBatteryStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -858,7 +935,7 @@ Partial Class FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(863, 627)
+        Me.ClientSize = New System.Drawing.Size(1015, 620)
         Me.Controls.Add(Me.tableLayoutPanel1)
         Me.MaximizeBox = False
         Me.Name = "FrmMain"
@@ -889,6 +966,9 @@ Partial Class FrmMain
         Me.tabPage2.ResumeLayout(False)
         Me.tableLayoutPanel4.ResumeLayout(False)
         Me.tableLayoutPanel4.PerformLayout()
+        Me.TabPage3.ResumeLayout(False)
+        Me.TableLayoutPanel6.ResumeLayout(False)
+        Me.TableLayoutPanel6.PerformLayout()
         Me.groupBox2.ResumeLayout(False)
         Me.groupBox2.PerformLayout()
         Me.TableLayoutPanel5.ResumeLayout(False)
@@ -964,4 +1044,10 @@ Partial Class FrmMain
     Friend WithEvents btnSetStatus As Button
     Friend WithEvents TableLayoutPanel5 As TableLayoutPanel
     Private WithEvents lblBatteryStatus As Label
+    Friend WithEvents TabPage3 As TabPage
+    Private WithEvents TableLayoutPanel6 As TableLayoutPanel
+    Private WithEvents chkMessageSentStatusSubscribe As CheckBox
+    Private WithEvents lstStatusPesanKeluar As ListBox
+    Friend WithEvents btnAllMessages As Button
+    Friend WithEvents btnBatteryStatus As Button
 End Class
