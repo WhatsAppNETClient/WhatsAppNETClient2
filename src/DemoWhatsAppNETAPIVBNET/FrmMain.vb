@@ -117,6 +117,7 @@ Public Class FrmMain
         btnLogout.Enabled = False
         btnGrabContacts.Enabled = False
         btnGrabGroupAndMembers.Enabled = False
+        btnVerifyContact.Enabled = False
         btnUnreadMessages.Enabled = False
         btnAllMessages.Enabled = False
         btnBatteryStatus.Enabled = False
@@ -505,6 +506,7 @@ Public Class FrmMain
             btnLogout.Invoke(Sub() btnLogout.Enabled = True)
             btnGrabContacts.Invoke(Sub() btnGrabContacts.Enabled = True)
             btnGrabGroupAndMembers.Invoke(Sub() btnGrabGroupAndMembers.Enabled = True)
+            btnVerifyContact.Invoke(Sub() btnVerifyContact.Enabled = True)
             btnUnreadMessages.Invoke(Sub() btnUnreadMessages.Enabled = True)
             btnAllMessages.Invoke(Sub() btnAllMessages.Enabled = True)
             btnBatteryStatus.Invoke(Sub() btnBatteryStatus.Enabled = True)
@@ -813,9 +815,10 @@ Public Class FrmMain
     End Sub
 
     Private Sub btnWANumber_Click(sender As Object, e As EventArgs) Handles btnWANumber.Click
-        Dim nomorWa As String = _wa.GetCurrentNumber
+        Dim msg As String = "Nomor WA: " + _wa.GetCurrentNumber + Environment.NewLine +
+            "MultiDevice: " + _wa.IsMultiDevice.ToString()
 
-        MessageBox.Show("Nomor WA: " & nomorWa, "Infomasi",
+        MessageBox.Show(msg, "Infomasi",
                 MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
@@ -844,6 +847,24 @@ Public Class FrmMain
 
     Private Sub btnBatteryStatus_Click(sender As Object, e As EventArgs) Handles btnBatteryStatus.Click
         _wa.GetBatteryStatus()
+    End Sub
+
+    Private Sub btnVerifyContact_Click(sender As Object, e As EventArgs) Handles btnVerifyContact.Click
+
+        ' daftar kontak yang mau di verifikasi
+        ' bisa diambil dari database atau hasil generatean
+        Dim contacts As List(Of String) = New List(Of String)({"081381712345", "089652948305",
+                "085211112345", "081381712345", "085291123456", "081336123456"})
+
+        Using frm As New FrmContactOrGroup("Contacts")
+
+            AddHandler _wa.OnReceiveContacts, AddressOf frm.OnReceiveContactsHandler ' subscribe event
+            _wa.VerifyWANumber(contacts)
+
+            frm.ShowDialog()
+            RemoveHandler _wa.OnReceiveContacts, AddressOf frm.OnReceiveContactsHandler ' unsubscribe event
+
+        End Using
     End Sub
 
 #End Region

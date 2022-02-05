@@ -71,7 +71,7 @@
             this.picQRCode.Margin = new System.Windows.Forms.Padding(10);
             this.picQRCode.Name = "picQRCode";
             this.picQRCode.Size = new System.Drawing.Size(287, 285);
-            this.picQRCode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.picQRCode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picQRCode.TabIndex = 1;
             this.picQRCode.TabStop = false;
             this.picQRCode.Visible = false;
@@ -90,7 +90,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "StartUp";
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picQRCode)).EndInit();
             this.ResumeLayout(false);
 

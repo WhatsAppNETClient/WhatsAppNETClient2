@@ -159,6 +159,7 @@ namespace DemoWhatsAppNETAPICSharp
             btnStop.Enabled = false;
             btnLogout.Enabled = false;
             btnGrabContacts.Enabled = false;
+            btnVerifyContact.Enabled = false;
             btnGrabGroupAndMembers.Enabled = false;
             btnUnreadMessages.Enabled = false;
             btnAllMessages.Enabled = false;
@@ -458,6 +459,23 @@ Selamat datang, silahkan klik tombol yang tersedia.";
 
                 frm.ShowDialog();
                 _wa.OnReceiveContacts -= frm.OnReceiveContactsHandler; // unsubscribe event
+            }        
+        }
+
+        private void btnVerifyContact_Click(object sender, EventArgs e)
+        {
+            // daftar kontak yang mau di verifikasi
+            // bisa diambil dari database atau hasil generatean
+            var contacts = new List<string> { "081381712345", "089652948305",
+                "085211112345", "081381712345", "085291123456", "081336123456" };
+
+            using (var frm = new FrmContactOrGroup("Contacts"))
+            {
+                _wa.OnReceiveContacts += frm.OnReceiveContactsHandler; // subscribe event
+                _wa.VerifyWANumber(contacts);
+
+                frm.ShowDialog();
+                _wa.OnReceiveContacts -= frm.OnReceiveContactsHandler; // unsubscribe event
             }
         }
 
@@ -541,6 +559,7 @@ Selamat datang, silahkan klik tombol yang tersedia.";
 
                 btnGrabContacts.Invoke(new MethodInvoker(() => btnGrabContacts.Enabled = true));
                 btnGrabGroupAndMembers.Invoke(new MethodInvoker(() => btnGrabGroupAndMembers.Enabled = true));
+                btnVerifyContact.Invoke(new MethodInvoker(() => btnVerifyContact.Enabled = true));
 
                 btnUnreadMessages.Invoke(new MethodInvoker(() => btnUnreadMessages.Enabled = true));
                 btnAllMessages.Invoke(new MethodInvoker(() => btnAllMessages.Enabled = true));
@@ -883,9 +902,10 @@ Selamat datang, silahkan klik tombol yang tersedia.";
 
         private void btnInfoWANumber_Click(object sender, EventArgs e)
         {
-            var nomorWa = _wa.GetCurrentNumber;
+            var msg = string.Format("Nomor WA: {0}\nMultiDevice: {1}", _wa.GetCurrentNumber, 
+                _wa.IsMultiDevice);
 
-            MessageBox.Show("Nomor WA: " + nomorWa, "Infomasi",
+            MessageBox.Show(msg, "Infomasi",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
         }        
 
@@ -905,6 +925,6 @@ Selamat datang, silahkan klik tombol yang tersedia.";
         private void btnBatteryStatus_Click(object sender, EventArgs e)
         {
             _wa.GetBatteryStatus();
-        }
+        }        
     }
 }
