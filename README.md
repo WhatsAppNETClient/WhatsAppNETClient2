@@ -18,6 +18,7 @@ Bisa Anda cek di http://wa-net.coding4ever.net/
 * Full mode *siluman* (headless/no window). Anda bisa mengatakan selamat tinggal kepada  chrome/firefox browser yang biasanya muncul untuk menjalankan WhatsApp Web.
 * Otomatis menyimpan sesi login (jadi scan qr code WAnya cukup sekali saja)
 * Mendukung penggunaan [multi account WA](https://github.com/WhatsAppNETClient/WhatsAppNETClientMultiAccount), untuk contohnya bisa Anda lihat di [https://github.com/WhatsAppNETClient/WhatsAppNETClientMultiAccount](https://github.com/WhatsAppNETClient/WhatsAppNETClientMultiAccount)
+* Mendukung penggunaan [WA Multi-device](https://github.com/WhatsAppNETClient/WhatsAppNETAPINodeJsMultideviceBETA)
 * Grab contacts untuk membaca kontak WA sehingga hasilnya bisa disimpan ke database
 * Grab groups dan members untuk membaca data group beserta anggotanya sehingga hasilnya juga bisa disimpan ke database
 * Mengirim pesan personal atau group
