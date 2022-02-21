@@ -76,7 +76,10 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.chkKirimPesanList = new System.Windows.Forms.CheckBox();
+            this.flowLayoutPanel9 = new System.Windows.Forms.FlowLayoutPanel();
             this.chkKirimPesanButton = new System.Windows.Forms.CheckBox();
+            this.chkKirimPesanButtonDgGambar = new System.Windows.Forms.CheckBox();
+            this.txtFileLocalAtauUrl = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -112,6 +115,7 @@
             this.flowLayoutPanel6.SuspendLayout();
             this.flowLayoutPanel7.SuspendLayout();
             this.flowLayoutPanel8.SuspendLayout();
+            this.flowLayoutPanel9.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -334,7 +338,7 @@
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel7, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel8, 1, 5);
             this.tableLayoutPanel2.Controls.Add(this.chkKirimPesanList, 1, 6);
-            this.tableLayoutPanel2.Controls.Add(this.chkKirimPesanButton, 1, 7);
+            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel9, 1, 7);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -684,17 +688,49 @@
             this.chkKirimPesanList.UseVisualStyleBackColor = true;
             this.chkKirimPesanList.CheckedChanged += new System.EventHandler(this.chkKirimPesanList_CheckedChanged);
             // 
+            // flowLayoutPanel9
+            // 
+            this.flowLayoutPanel9.Controls.Add(this.chkKirimPesanButton);
+            this.flowLayoutPanel9.Controls.Add(this.chkKirimPesanButtonDgGambar);
+            this.flowLayoutPanel9.Controls.Add(this.txtFileLocalAtauUrl);
+            this.flowLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel9.Location = new System.Drawing.Point(47, 229);
+            this.flowLayoutPanel9.Margin = new System.Windows.Forms.Padding(0);
+            this.flowLayoutPanel9.Name = "flowLayoutPanel9";
+            this.flowLayoutPanel9.Size = new System.Drawing.Size(1054, 28);
+            this.flowLayoutPanel9.TabIndex = 8;
+            // 
             // chkKirimPesanButton
             // 
             this.chkKirimPesanButton.AutoSize = true;
             this.chkKirimPesanButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chkKirimPesanButton.Location = new System.Drawing.Point(50, 232);
+            this.chkKirimPesanButton.Location = new System.Drawing.Point(3, 3);
             this.chkKirimPesanButton.Name = "chkKirimPesanButton";
-            this.chkKirimPesanButton.Size = new System.Drawing.Size(1048, 22);
+            this.chkKirimPesanButton.Size = new System.Drawing.Size(113, 20);
             this.chkKirimPesanButton.TabIndex = 7;
             this.chkKirimPesanButton.Text = "Kirim pesan button";
             this.chkKirimPesanButton.UseVisualStyleBackColor = true;
             this.chkKirimPesanButton.CheckedChanged += new System.EventHandler(this.chkKirimPesanButton_CheckedChanged);
+            // 
+            // chkKirimPesanButtonDgGambar
+            // 
+            this.chkKirimPesanButtonDgGambar.AutoSize = true;
+            this.chkKirimPesanButtonDgGambar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkKirimPesanButtonDgGambar.Location = new System.Drawing.Point(122, 3);
+            this.chkKirimPesanButtonDgGambar.Name = "chkKirimPesanButtonDgGambar";
+            this.chkKirimPesanButtonDgGambar.Size = new System.Drawing.Size(190, 20);
+            this.chkKirimPesanButtonDgGambar.TabIndex = 7;
+            this.chkKirimPesanButtonDgGambar.Text = "Kirim pesan button dengan gambar";
+            this.chkKirimPesanButtonDgGambar.UseVisualStyleBackColor = true;
+            this.chkKirimPesanButtonDgGambar.CheckedChanged += new System.EventHandler(this.chkKirimPesanButtonDgGambar_CheckedChanged);
+            // 
+            // txtFileLocalAtauUrl
+            // 
+            this.txtFileLocalAtauUrl.Location = new System.Drawing.Point(318, 3);
+            this.txtFileLocalAtauUrl.Name = "txtFileLocalAtauUrl";
+            this.txtFileLocalAtauUrl.Size = new System.Drawing.Size(729, 20);
+            this.txtFileLocalAtauUrl.TabIndex = 8;
+            this.txtFileLocalAtauUrl.Text = "http://coding4ever.net/assets/images/avatar.png";
             // 
             // tabControl1
             // 
@@ -1012,6 +1048,8 @@
             this.flowLayoutPanel7.PerformLayout();
             this.flowLayoutPanel8.ResumeLayout(false);
             this.flowLayoutPanel8.PerformLayout();
+            this.flowLayoutPanel9.ResumeLayout(false);
+            this.flowLayoutPanel9.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
@@ -1107,6 +1145,9 @@
         private System.Windows.Forms.Label lblBatteryStatus;
         private System.Windows.Forms.Button btnBatteryStatus;
         private System.Windows.Forms.Button btnVerifyContact;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel9;
+        private System.Windows.Forms.CheckBox chkKirimPesanButtonDgGambar;
+        private System.Windows.Forms.TextBox txtFileLocalAtauUrl;
     }
 }
 

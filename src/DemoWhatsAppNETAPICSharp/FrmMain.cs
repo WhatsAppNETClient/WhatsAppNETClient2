@@ -279,12 +279,30 @@ namespace DemoWhatsAppNETAPICSharp
                 else
                     kontak = txtKontak.Text;
 
-                if (chkKirimPesanDgGambar.Checked)
+                if (chkKirimPesanDgGambar.Checked)                    
+                {
                     msgArgs = new MsgArgs(kontak, txtPesan.Text, MsgArgsType.Image, txtFileGambar.Text);
+
+                    // contoh penggunaan mention user
+                    // var mentions = new string[] { "081381712345", "08138174444", "tambahkan nomor yang lain" };
+                    // msgArgs = new MsgArgs(kontak, txtPesan.Text, MsgArgsType.Image, txtFileGambar.Text, mentions);
+                }
                 else if (chkKirimGambarDariUrl.Checked)
+                {
                     msgArgs = new MsgArgs(kontak, txtPesan.Text, MsgArgsType.Url, txtUrl.Text);
+
+                    // contoh penggunaan mention user
+                    // var mentions = new string[] { "081381712345", "08138174444", "tambahkan nomor yang lain" };
+                    // msgArgs = new MsgArgs(kontak, txtPesan.Text, MsgArgsType.Url, txtUrl.Text, mentions);
+                }
                 else if (chkKirimFileAja.Checked)
+                {
                     msgArgs = new MsgArgs(kontak, txtPesan.Text, MsgArgsType.File, txtFileDokumen.Text);
+
+                    // contoh penggunaan mention user
+                    // var mentions = new string[] { "081381712345", "08138174444", "tambahkan nomor yang lain" };
+                    // msgArgs = new MsgArgs(kontak, txtPesan.Text, MsgArgsType.File, txtFileDokumen.Text, mentions);
+                }
                 else if (chkKirimLokasi.Checked)
                 {
                     var location = new Location
@@ -295,6 +313,10 @@ namespace DemoWhatsAppNETAPICSharp
                     };
 
                     msgArgs = new MsgArgs(kontak, location);
+
+                    // contoh penggunaan mention user
+                    // var mentions = new string[] { "081381712345", "08138174444", "tambahkan nomor yang lain" };
+                    // msgArgs = new MsgArgs(kontak, location, mentions);
                 }
                 else if (chkKirimPesanList.Checked)
                 {
@@ -311,15 +333,19 @@ Selamat datang, silahkan pilih menu yang tersedia.";
                         title = "Daftar Menu",
                         items = new ListItem[]
                         {
-                            new ListItem { title = "Berzakat", description = "Zakal maal, zakat fitrah, dll" },
-                            new ListItem { title = "Berinfak", description = "Infak pendidikan, infak kesehatan, dll" },
-                            new ListItem { title = "Bantuan", description = "Klo masih bingung" }
+                            new ListItem { id = "zakat", title = "Berzakat", description = "Zakal maal, zakat fitrah, dll" },
+                            new ListItem { id = "infak", title = "Berinfak", description = "Infak pendidikan, infak kesehatan, dll" },
+                            new ListItem { id = "bantuan", title = "Bantuan", description = "Klo masih bingung" }
                         }
                     };
 
                     list.sections = new Section[] { section };
 
                     msgArgs = new MsgArgs(kontak, list);
+
+                    // contoh penggunaan mention user
+                    // var mentions = new string[] { "081381712345", "08138174444", "tambahkan nomor yang lain" };
+                    // msgArgs = new MsgArgs(kontak, list, mentions);
                 }
                 else if (chkKirimPesanButton.Checked)
                 {
@@ -331,14 +357,43 @@ Selamat datang, silahkan klik tombol yang tersedia.";
 
                     button.items = new ButtonItem[]
                     {
-                        new ButtonItem { title = "Tombol 1" },
-                        new ButtonItem { title = "Tombol 2" }
+                        new ButtonItem { id = "btn_1", title = "Tombol 1" },
+                        new ButtonItem { id = "btn_2", title = "Tombol 2" }
                     };
 
                     msgArgs = new MsgArgs(kontak, button);
+
+                    // contoh penggunaan mention user
+                    // var mentions = new string[] { "081381712345", "08138174444", "tambahkan nomor yang lain" };
+                    // msgArgs = new MsgArgs(kontak, button, mentions);
+                }
+                else if (chkKirimPesanButtonDgGambar.Checked)
+                {
+                    var button = new WhatsAppNETAPI.Button();
+                    button.content = @"*Assalamualaikum warahmatullahi wabarakatuh*
+        
+Selamat datang, silahkan klik tombol yang tersedia.";
+
+                    button.items = new ButtonItem[]
+                    {
+                        new ButtonItem { id = "btn_1", title = "Tombol 1" },
+                        new ButtonItem { id = "btn_2", title = "Tombol 2" }
+                    };
+
+                    msgArgs = new MsgArgs(kontak, button, txtFileLocalAtauUrl.Text);
+
+                    // contoh penggunaan mention user
+                    // var mentions = new string[] { "081381712345", "08138174444", "tambahkan nomor yang lain" };
+                    // msgArgs = new MsgArgs(kontak, button, txtFileLocalAtauUrl.Text, mentions);
                 }
                 else
+                {
                     msgArgs = new MsgArgs(kontak, txtPesan.Text, MsgArgsType.Text);
+
+                    // contoh penggunaan mention user
+                    // var mentions = new string[] { "081381712345", "08138174444", "tambahkan nomor yang lain" };
+                    // msgArgs = new MsgArgs(kontak, txtPesan.Text, MsgArgsType.Text, mentions);
+                }
                 
                 _wa.SendMessage(msgArgs);
             }
@@ -379,6 +434,7 @@ Selamat datang, silahkan klik tombol yang tersedia.";
                 chkKirimLokasi.Checked = false;
                 chkKirimPesanList.Checked = false;
                 chkKirimPesanButton.Checked = false;
+                chkKirimPesanButtonDgGambar.Checked = false;
 
                 txtFileDokumen.Clear();
 
@@ -399,6 +455,7 @@ Selamat datang, silahkan klik tombol yang tersedia.";
                 chkKirimLokasi.Checked = false;
                 chkKirimPesanList.Checked = false;
                 chkKirimPesanButton.Checked = false;
+                chkKirimPesanButtonDgGambar.Checked = false;
 
                 txtFileGambar.Clear();
                 txtFileDokumen.Clear();
@@ -420,6 +477,7 @@ Selamat datang, silahkan klik tombol yang tersedia.";
                 chkKirimLokasi.Checked = false;
                 chkKirimPesanList.Checked = false;
                 chkKirimPesanButton.Checked = false;
+                chkKirimPesanButtonDgGambar.Checked = false;
 
                 txtFileGambar.Clear();
 
@@ -440,6 +498,7 @@ Selamat datang, silahkan klik tombol yang tersedia.";
                 chkKirimFileAja.Checked = false;
                 chkKirimPesanList.Checked = false;
                 chkKirimPesanButton.Checked = false;
+                chkKirimPesanButtonDgGambar.Checked = false;
 
                 txtFileGambar.Clear();
                 txtFileDokumen.Clear();
@@ -466,13 +525,16 @@ Selamat datang, silahkan klik tombol yang tersedia.";
         {
             // daftar kontak yang mau di verifikasi
             // bisa diambil dari database atau hasil generatean
-            var contacts = new List<string> { "081381712345", "089652948305",
-                "085211112345", "081381712345", "085291123456", "081336123456" };
+            //var contacts = new List<string> { "081381712345", "089652948305",
+            //    "085211112345", "081381712345", "085291123456", "081336123456" };
+
+            var contacts = new List<string> { "085729000729", "08122749662",
+                "081215358389", "082134921090", "081327190092" };
 
             using (var frm = new FrmContactOrGroup("Contacts"))
             {
                 _wa.OnReceiveContacts += frm.OnReceiveContactsHandler; // subscribe event
-                _wa.VerifyWANumber(contacts);
+                _wa.VerifyWANumber(contacts, true);
 
                 frm.ShowDialog();
                 _wa.OnReceiveContacts -= frm.OnReceiveContactsHandler; // unsubscribe event
@@ -670,7 +732,14 @@ Selamat datang, silahkan klik tombol yang tersedia.";
                 else
                     data = string.Format("[{0}] Pengirim: {1} [{2}], Pesan gambar/dokumen: {3}, nama file: {4}",
                         message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, pushName, msg, fileName);
-            }            
+            }
+
+            // khusus pesan masuk dengan tipe button dan list
+            // tambahkan pengecekan kode berikut untuk mendapatkan id button/list yang dipilih
+            if (message.type == MessageType.ButtonResponse)
+                System.Diagnostics.Debug.Print("Id button yang dipilih: {0}", message.selectedButtonId);
+            else if (message.type == MessageType.ListResponse)
+                System.Diagnostics.Debug.Print("Id list yang dipilih: {0}", message.selectedRowId);
 
             // update UI dari thread yang berbeda
             lstPesanMasuk.Invoke(() =>
@@ -862,6 +931,7 @@ Selamat datang, silahkan klik tombol yang tersedia.";
                 chkKirimGambarDariUrl.Checked = false;
                 chkKirimFileAja.Checked = false;
                 chkKirimPesanButton.Checked = false;
+                chkKirimPesanButtonDgGambar.Checked = false;
                 chkKirimLokasi.Checked = false;
 
                 txtFileGambar.Clear();
@@ -882,6 +952,7 @@ Selamat datang, silahkan klik tombol yang tersedia.";
                 chkKirimFileAja.Checked = false;
                 chkKirimPesanList.Checked = false;
                 chkKirimLokasi.Checked = false;
+                chkKirimPesanButtonDgGambar.Checked = false;
 
                 txtFileGambar.Clear();
                 txtFileDokumen.Clear();
@@ -925,6 +996,26 @@ Selamat datang, silahkan klik tombol yang tersedia.";
         private void btnBatteryStatus_Click(object sender, EventArgs e)
         {
             _wa.GetBatteryStatus();
-        }        
+        }
+
+        private void chkKirimPesanButtonDgGambar_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkKirimPesanButtonDgGambar.Checked)
+            {
+                chkKirimPesanDgGambar.Checked = false;
+                chkKirimGambarDariUrl.Checked = false;
+                chkKirimFileAja.Checked = false;
+                chkKirimPesanList.Checked = false;
+                chkKirimLokasi.Checked = false;
+                chkKirimPesanButton.Checked = false;
+
+                txtFileGambar.Clear();
+                txtFileDokumen.Clear();
+
+                txtLatitude.Enabled = false;
+                txtLongitude.Enabled = false;
+                txtDescription.Enabled = false;
+            }
+        }
     }
 }

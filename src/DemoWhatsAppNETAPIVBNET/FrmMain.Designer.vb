@@ -70,7 +70,10 @@ Partial Class FrmMain
         Me.chkGroup = New System.Windows.Forms.CheckBox()
         Me.btnPilihGroup = New System.Windows.Forms.Button()
         Me.chkKirimPesanList = New System.Windows.Forms.CheckBox()
+        Me.FlowLayoutPanel9 = New System.Windows.Forms.FlowLayoutPanel()
         Me.chkKirimPesanButton = New System.Windows.Forms.CheckBox()
+        Me.chkKirimPesanButtonDgGambar = New System.Windows.Forms.CheckBox()
+        Me.txtFileLocalAtauUrl = New System.Windows.Forms.TextBox()
         Me.tabControl1 = New System.Windows.Forms.TabControl()
         Me.tabPage1 = New System.Windows.Forms.TabPage()
         Me.tableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
@@ -106,6 +109,7 @@ Partial Class FrmMain
         Me.FlowLayoutPanel6.SuspendLayout()
         Me.FlowLayoutPanel7.SuspendLayout()
         Me.FlowLayoutPanel8.SuspendLayout()
+        Me.FlowLayoutPanel9.SuspendLayout()
         Me.tabControl1.SuspendLayout()
         Me.tabPage1.SuspendLayout()
         Me.tableLayoutPanel3.SuspendLayout()
@@ -315,7 +319,7 @@ Partial Class FrmMain
         Me.tableLayoutPanel2.Controls.Add(Me.FlowLayoutPanel7, 1, 5)
         Me.tableLayoutPanel2.Controls.Add(Me.FlowLayoutPanel8, 1, 0)
         Me.tableLayoutPanel2.Controls.Add(Me.chkKirimPesanList, 1, 6)
-        Me.tableLayoutPanel2.Controls.Add(Me.chkKirimPesanButton, 1, 7)
+        Me.tableLayoutPanel2.Controls.Add(Me.FlowLayoutPanel9, 1, 7)
         Me.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tableLayoutPanel2.Location = New System.Drawing.Point(3, 16)
         Me.tableLayoutPanel2.Name = "tableLayoutPanel2"
@@ -651,16 +655,47 @@ Partial Class FrmMain
         Me.chkKirimPesanList.Text = "Kirim pesan list"
         Me.chkKirimPesanList.UseVisualStyleBackColor = True
         '
+        'FlowLayoutPanel9
+        '
+        Me.FlowLayoutPanel9.Controls.Add(Me.chkKirimPesanButton)
+        Me.FlowLayoutPanel9.Controls.Add(Me.chkKirimPesanButtonDgGambar)
+        Me.FlowLayoutPanel9.Controls.Add(Me.txtFileLocalAtauUrl)
+        Me.FlowLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FlowLayoutPanel9.Location = New System.Drawing.Point(47, 229)
+        Me.FlowLayoutPanel9.Margin = New System.Windows.Forms.Padding(0)
+        Me.FlowLayoutPanel9.Name = "FlowLayoutPanel9"
+        Me.FlowLayoutPanel9.Size = New System.Drawing.Size(1054, 28)
+        Me.FlowLayoutPanel9.TabIndex = 7
+        '
         'chkKirimPesanButton
         '
         Me.chkKirimPesanButton.AutoSize = True
         Me.chkKirimPesanButton.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.chkKirimPesanButton.Location = New System.Drawing.Point(50, 232)
+        Me.chkKirimPesanButton.Location = New System.Drawing.Point(3, 3)
         Me.chkKirimPesanButton.Name = "chkKirimPesanButton"
-        Me.chkKirimPesanButton.Size = New System.Drawing.Size(1048, 22)
+        Me.chkKirimPesanButton.Size = New System.Drawing.Size(113, 20)
         Me.chkKirimPesanButton.TabIndex = 6
         Me.chkKirimPesanButton.Text = "Kirim pesan button"
         Me.chkKirimPesanButton.UseVisualStyleBackColor = True
+        '
+        'chkKirimPesanButtonDgGambar
+        '
+        Me.chkKirimPesanButtonDgGambar.AutoSize = True
+        Me.chkKirimPesanButtonDgGambar.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.chkKirimPesanButtonDgGambar.Location = New System.Drawing.Point(122, 3)
+        Me.chkKirimPesanButtonDgGambar.Name = "chkKirimPesanButtonDgGambar"
+        Me.chkKirimPesanButtonDgGambar.Size = New System.Drawing.Size(190, 20)
+        Me.chkKirimPesanButtonDgGambar.TabIndex = 7
+        Me.chkKirimPesanButtonDgGambar.Text = "Kirim pesan button dengan gambar"
+        Me.chkKirimPesanButtonDgGambar.UseVisualStyleBackColor = True
+        '
+        'txtFileLocalAtauUrl
+        '
+        Me.txtFileLocalAtauUrl.Location = New System.Drawing.Point(318, 3)
+        Me.txtFileLocalAtauUrl.Name = "txtFileLocalAtauUrl"
+        Me.txtFileLocalAtauUrl.Size = New System.Drawing.Size(729, 20)
+        Me.txtFileLocalAtauUrl.TabIndex = 8
+        Me.txtFileLocalAtauUrl.Text = "http://coding4ever.net/assets/images/avatar.png"
         '
         'tabControl1
         '
@@ -970,6 +1005,8 @@ Partial Class FrmMain
         Me.FlowLayoutPanel7.PerformLayout()
         Me.FlowLayoutPanel8.ResumeLayout(False)
         Me.FlowLayoutPanel8.PerformLayout()
+        Me.FlowLayoutPanel9.ResumeLayout(False)
+        Me.FlowLayoutPanel9.PerformLayout()
         Me.tabControl1.ResumeLayout(False)
         Me.tabPage1.ResumeLayout(False)
         Me.tableLayoutPanel3.ResumeLayout(False)
@@ -1063,4 +1100,7 @@ Partial Class FrmMain
     Friend WithEvents btnAllMessages As Button
     Friend WithEvents btnBatteryStatus As Button
     Friend WithEvents btnVerifyContact As Button
+    Friend WithEvents FlowLayoutPanel9 As FlowLayoutPanel
+    Friend WithEvents chkKirimPesanButtonDgGambar As CheckBox
+    Friend WithEvents txtFileLocalAtauUrl As TextBox
 End Class

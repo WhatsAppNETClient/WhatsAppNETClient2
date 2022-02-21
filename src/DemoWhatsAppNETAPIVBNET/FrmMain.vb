@@ -233,10 +233,23 @@ Public Class FrmMain
 
             If chkKirimPesanDgGambar.Checked Then
                 msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.Image, txtFileGambar.Text)
+
+                ' contoh penggunaan mention user                
+                ' Dim mentions As String() = {"081381712345", "08138174444", "tambahkan nomor yang lain"}
+                ' msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.Image, txtFileGambar.Text, mentions)
+
             ElseIf chkKirimGambarDariUrl.Checked Then
                 msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.Url, txtUrl.Text)
+
+                ' contoh penggunaan mention user                
+                ' Dim mentions As String() = {"081381712345", "08138174444", "tambahkan nomor yang lain"}
+                ' msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.Url, txtUrl.Text, mentions)
             ElseIf chkKirimFileAja.Checked Then
                 msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.File, txtFileDokumen.Text)
+
+                ' contoh penggunaan mention user                
+                ' Dim mentions As String() = {"081381712345", "08138174444", "tambahkan nomor yang lain"}
+                ' msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.File, txtFileDokumen.Text, mentions)
             ElseIf chkKirimLokasi.Checked Then
 
                 Dim location = New Location()
@@ -245,6 +258,10 @@ Public Class FrmMain
                 location.description = txtDescription.Text
 
                 msgArgs = New MsgArgs(kontak, location)
+
+                ' contoh penggunaan mention user                
+                ' Dim mentions As String() = {"081381712345", "08138174444", "tambahkan nomor yang lain"}
+                ' msgArgs = New MsgArgs(kontak, location, mentions)
 
             ElseIf chkKirimPesanList.Checked Then
 
@@ -260,15 +277,19 @@ Public Class FrmMain
                 {
                     .title = "Daftar Menu",
                     .items = New ListItem() {
-                        New ListItem With {.title = "Berzakat", .description = "Zakal maal, zakat fitrah, dll"},
-                        New ListItem With {.title = "Berinfak", .description = "Infak pendidikan, infak kesehatan, dll"},
-                        New ListItem With {.title = "Bantuan", .description = "Klo masih bingung"}
+                        New ListItem With {.id = "zakat", .title = "Berzakat", .description = "Zakal maal, zakat fitrah, dll"},
+                        New ListItem With {.id = "infak", .title = "Berinfak", .description = "Infak pendidikan, infak kesehatan, dll"},
+                        New ListItem With {.id = "bantuan", .title = "Bantuan", .description = "Klo masih bingung"}
                     }
                 }
 
                 list.sections = New Section() {section}
 
                 msgArgs = New MsgArgs(kontak, list)
+
+                ' contoh penggunaan mention user                
+                ' Dim mentions As String() = {"081381712345", "08138174444", "tambahkan nomor yang lain"}
+                ' msgArgs = New MsgArgs(kontak, list, mentions)
 
             ElseIf chkKirimPesanButton.Checked Then
                 Dim button = New WhatsAppNETAPI.Button()
@@ -278,13 +299,38 @@ Public Class FrmMain
                                  "Selamat datang, silahkan klik tombol yang tersedia."
 
                 button.items = New ButtonItem() {
-                    New ButtonItem With {.title = "Tombol 1"},
-                    New ButtonItem With {.title = "Tombol 2"}
+                    New ButtonItem With {.id = "btn_1", .title = "Tombol 1"},
+                    New ButtonItem With {.id = "btn_2", .title = "Tombol 2"}
                 }
 
                 msgArgs = New MsgArgs(kontak, button)
+
+                ' contoh penggunaan mention user                
+                ' Dim mentions As String() = {"081381712345", "08138174444", "tambahkan nomor yang lain"}
+                ' msgArgs = New MsgArgs(kontak, button, mentions)
+
+            ElseIf chkKirimPesanButtonDgGambar.Checked Then
+                Dim button = New WhatsAppNETAPI.Button()
+
+                button.content = "*Assalamualaikum warahmatullahi wabarakatuh*" + vbCrLf + vbCrLf +
+                                 "Selamat datang, silahkan klik tombol yang tersedia."
+
+                button.items = New ButtonItem() {
+                    New ButtonItem With {.id = "btn_1", .title = "Tombol 1"},
+                    New ButtonItem With {.id = "btn_2", .title = "Tombol 2"}
+                }
+
+                msgArgs = New MsgArgs(kontak, button, txtFileLocalAtauUrl.Text)
+
+                ' contoh penggunaan mention user                
+                ' Dim mentions As String() = {"081381712345", "08138174444", "tambahkan nomor yang lain"}
+                ' msgArgs = New MsgArgs(kontak, button, txtFileLocalAtauUrl.Text, mentions)
             Else
                 msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.Text)
+
+                ' contoh penggunaan mention user                
+                ' Dim mentions As String() = {"081381712345", "08138174444", "tambahkan nomor yang lain"}
+                ' msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.Text, mentions)
             End If
 
             _wa.SendMessage(msgArgs)
@@ -323,6 +369,7 @@ Public Class FrmMain
             chkKirimGambarDariUrl.Checked = False
             chkKirimPesanList.Checked = False
             chkKirimPesanButton.Checked = False
+            chkKirimPesanButtonDgGambar.Checked = False
 
             chkKirimLokasi.Checked = False
             txtFileDokumen.Clear()
@@ -342,6 +389,7 @@ Public Class FrmMain
             chkKirimLokasi.Checked = False
             chkKirimPesanList.Checked = False
             chkKirimPesanButton.Checked = False
+            chkKirimPesanButtonDgGambar.Checked = False
 
             txtFileGambar.Clear()
             txtFileDokumen.Clear()
@@ -361,6 +409,7 @@ Public Class FrmMain
             chkKirimGambarDariUrl.Checked = False
             chkKirimPesanList.Checked = False
             chkKirimPesanButton.Checked = False
+            chkKirimPesanButtonDgGambar.Checked = False
 
             chkKirimLokasi.Checked = False
             txtFileGambar.Clear()
@@ -381,6 +430,7 @@ Public Class FrmMain
             chkKirimFileAja.Checked = False
             chkKirimPesanList.Checked = False
             chkKirimPesanButton.Checked = False
+            chkKirimPesanButtonDgGambar.Checked = False
 
             txtFileGambar.Clear()
             txtFileDokumen.Clear()
@@ -610,6 +660,14 @@ Public Class FrmMain
 
         End If
 
+        ' khusus pesan masuk dengan tipe button dan list
+        ' tambahkan pengecekan kode berikut untuk mendapatkan id button/list yang dipilih
+        If message.type = MessageType.ButtonResponse Then
+            System.Diagnostics.Debug.Print("Id button yang dipilih: {0}", message.selectedButtonId)
+        ElseIf message.type = MessageType.ListResponse Then
+            System.Diagnostics.Debug.Print("Id list yang dipilih: {0}", message.selectedRowId)
+        End If
+
         ' update UI dari thread yang berbeda
         lstPesanMasuk.Invoke(
             Sub()
@@ -786,6 +844,7 @@ Public Class FrmMain
             chkKirimGambarDariUrl.Checked = False
             chkKirimFileAja.Checked = False
             chkKirimPesanButton.Checked = False
+            chkKirimPesanButtonDgGambar.Checked = False
             chkKirimLokasi.Checked = False
 
             txtFileGambar.Clear()
@@ -804,6 +863,7 @@ Public Class FrmMain
             chkKirimFileAja.Checked = False
             chkKirimPesanList.Checked = False
             chkKirimLokasi.Checked = False
+            chkKirimPesanButtonDgGambar.Checked = False
 
             txtFileGambar.Clear()
             txtFileDokumen.Clear()
@@ -865,6 +925,24 @@ Public Class FrmMain
             RemoveHandler _wa.OnReceiveContacts, AddressOf frm.OnReceiveContactsHandler ' unsubscribe event
 
         End Using
+    End Sub
+
+    Private Sub chkKirimPesanButtonDgGambar_CheckedChanged(sender As Object, e As EventArgs) Handles chkKirimPesanButtonDgGambar.CheckedChanged
+        If chkKirimPesanButtonDgGambar.Checked Then
+            chkKirimPesanDgGambar.Checked = False
+            chkKirimGambarDariUrl.Checked = False
+            chkKirimFileAja.Checked = False
+            chkKirimPesanList.Checked = False
+            chkKirimLokasi.Checked = False
+            chkKirimPesanButton.Checked = False
+
+            txtFileGambar.Clear()
+            txtFileDokumen.Clear()
+
+            txtLatitude.Enabled = True
+            txtLongitude.Enabled = True
+            txtDescription.Enabled = True
+        End If
     End Sub
 
 #End Region
