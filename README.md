@@ -27,8 +27,10 @@ Bisa Anda cek di http://wa-net.coding4ever.net/
 * Mengirim pesan dengan gambar, audio, video, dan semua jenis dokumen via URL
 * Mengirim pesan dengan tipe `location`
 * Mengirim pesan dengan tipe `button`
+* Bisa juga menambahkan gambar di pesan dengan tipe `button`
 * Mengirim pesan dengan tipe `list` (tidak support untuk WA bisnis)
 * ReplyMessage (quoted message)
+* Mention user
 * Bisa menyimpan gambar, audio, video, semua jenis dokumen termasuk vcard dari pesan yang masuk (bisa ditentukan sendiri lokasi penyimpanannya)
 * Bisa juga membaca pesan dengan tipe `vcard` dan `location`
 * Bisa membaca pesan dari group dan mendapatkan informasi pengirimnya
