@@ -51,7 +51,8 @@ namespace DemoWhatsAppNETAPICSharp
             _wa.WaNetApiNodeJsPath = txtLokasiWhatsAppNETAPINodeJs.Text;
 
             // TODO: aktifkan kode ini agar bisa mengirimkan file dalam format video
-            // _wa.ChromePath = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe";
+            // lokasi file chrome.exe menyesuaikan
+            // _wa.ChromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe";
 
             if (!_wa.IsWaNetApiNodeJsPathExists)
             {
