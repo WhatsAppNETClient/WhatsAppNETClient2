@@ -50,7 +50,8 @@ Public Class FrmStartUp
     Public Sub OnStartupHandler(ByVal message As String, ByVal sessionId As String)
 
         If message.IndexOf("Ready") >= 0 OrElse message.IndexOf("Failure") >= 0 _
-                    OrElse message.IndexOf("Timeout") >= 0 OrElse message.IndexOf("ERR_NAME") >= 0 Then
+                    OrElse message.IndexOf("Timeout") >= 0 OrElse message.IndexOf("ERR_NAME") >= 0 _
+                    OrElse message.IndexOf("ERR_CONNECTION") >= 0 Then
 
             If Me.IsHandleCreated Then Me.Invoke(Sub() Me.Close())
 

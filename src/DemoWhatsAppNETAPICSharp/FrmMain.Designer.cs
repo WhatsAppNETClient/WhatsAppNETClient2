@@ -43,6 +43,8 @@
             this.btnWANumber = new System.Windows.Forms.Button();
             this.btnSetStatus = new System.Windows.Forms.Button();
             this.btnBatteryStatus = new System.Windows.Forms.Button();
+            this.chkHeadless = new System.Windows.Forms.CheckBox();
+            this.chkMultiDevice = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
@@ -142,11 +144,11 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 319F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 63F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 315F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1113, 620);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1113, 658);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // flowLayoutPanel1
@@ -164,10 +166,12 @@
             this.flowLayoutPanel1.Controls.Add(this.btnWANumber);
             this.flowLayoutPanel1.Controls.Add(this.btnSetStatus);
             this.flowLayoutPanel1.Controls.Add(this.btnBatteryStatus);
+            this.flowLayoutPanel1.Controls.Add(this.chkHeadless);
+            this.flowLayoutPanel1.Controls.Add(this.chkMultiDevice);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 78);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1107, 30);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1107, 57);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // btnStart
@@ -312,13 +316,35 @@
             this.btnBatteryStatus.UseVisualStyleBackColor = true;
             this.btnBatteryStatus.Click += new System.EventHandler(this.btnBatteryStatus_Click);
             // 
+            // chkHeadless
+            // 
+            this.chkHeadless.AutoSize = true;
+            this.chkHeadless.Checked = true;
+            this.chkHeadless.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkHeadless.Location = new System.Drawing.Point(3, 32);
+            this.chkHeadless.Name = "chkHeadless";
+            this.chkHeadless.Size = new System.Drawing.Size(70, 17);
+            this.chkHeadless.TabIndex = 3;
+            this.chkHeadless.Text = "Headless";
+            this.chkHeadless.UseVisualStyleBackColor = true;
+            // 
+            // chkMultiDevice
+            // 
+            this.chkMultiDevice.AutoSize = true;
+            this.chkMultiDevice.Location = new System.Drawing.Point(79, 32);
+            this.chkMultiDevice.Name = "chkMultiDevice";
+            this.chkMultiDevice.Size = new System.Drawing.Size(85, 17);
+            this.chkMultiDevice.TabIndex = 3;
+            this.chkMultiDevice.Text = "Multi Device";
+            this.chkMultiDevice.UseVisualStyleBackColor = true;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.tableLayoutPanel2);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 114);
+            this.groupBox1.Location = new System.Drawing.Point(3, 141);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1107, 313);
+            this.groupBox1.Size = new System.Drawing.Size(1107, 309);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " [ Kirim Pesan ] ";
@@ -352,7 +378,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 14F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1101, 294);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1101, 290);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label1
@@ -437,7 +463,7 @@
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(50, 260);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(1048, 31);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(1048, 27);
             this.flowLayoutPanel2.TabIndex = 2;
             // 
             // btnKirim
@@ -738,10 +764,10 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(3, 433);
+            this.tabControl1.Location = new System.Drawing.Point(3, 456);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1107, 159);
+            this.tabControl1.Size = new System.Drawing.Size(1107, 174);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -750,7 +776,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1099, 133);
+            this.tabPage1.Size = new System.Drawing.Size(1099, 148);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Pesan Masuk";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -767,7 +793,7 @@
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1093, 127);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1093, 142);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // flowLayoutPanel3
@@ -809,7 +835,7 @@
             this.lstPesanMasuk.FormattingEnabled = true;
             this.lstPesanMasuk.Location = new System.Drawing.Point(3, 29);
             this.lstPesanMasuk.Name = "lstPesanMasuk";
-            this.lstPesanMasuk.Size = new System.Drawing.Size(1087, 95);
+            this.lstPesanMasuk.Size = new System.Drawing.Size(1087, 110);
             this.lstPesanMasuk.TabIndex = 1;
             // 
             // tabPage2
@@ -818,7 +844,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1099, 133);
+            this.tabPage2.Size = new System.Drawing.Size(1099, 148);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Pesan Keluar";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -835,7 +861,7 @@
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1093, 127);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1093, 142);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // chkMessageSentSubscribe
@@ -857,7 +883,7 @@
             this.lstPesanKeluar.FormattingEnabled = true;
             this.lstPesanKeluar.Location = new System.Drawing.Point(3, 29);
             this.lstPesanKeluar.Name = "lstPesanKeluar";
-            this.lstPesanKeluar.Size = new System.Drawing.Size(1087, 95);
+            this.lstPesanKeluar.Size = new System.Drawing.Size(1087, 110);
             this.lstPesanKeluar.TabIndex = 1;
             // 
             // tabPage3
@@ -865,7 +891,7 @@
             this.tabPage3.Controls.Add(this.tableLayoutPanel5);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1099, 133);
+            this.tabPage3.Size = new System.Drawing.Size(1099, 148);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Status Pesan Keluar";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -882,7 +908,7 @@
             this.tableLayoutPanel5.RowCount = 2;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(1099, 133);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(1099, 148);
             this.tableLayoutPanel5.TabIndex = 0;
             // 
             // chkMessageSentStatusSubscribe
@@ -904,7 +930,7 @@
             this.lstStatusPesanKeluar.FormattingEnabled = true;
             this.lstStatusPesanKeluar.Location = new System.Drawing.Point(3, 29);
             this.lstStatusPesanKeluar.Name = "lstStatusPesanKeluar";
-            this.lstStatusPesanKeluar.Size = new System.Drawing.Size(1093, 101);
+            this.lstStatusPesanKeluar.Size = new System.Drawing.Size(1093, 116);
             this.lstStatusPesanKeluar.TabIndex = 1;
             // 
             // groupBox2
@@ -987,7 +1013,7 @@
             this.tableLayoutPanel6.Controls.Add(this.lblState, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.lblBatteryStatus, 1, 0);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 595);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 633);
             this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
@@ -1023,7 +1049,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1113, 620);
+            this.ClientSize = new System.Drawing.Size(1113, 658);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -1033,6 +1059,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
@@ -1148,6 +1175,8 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel9;
         private System.Windows.Forms.CheckBox chkKirimPesanButtonDgGambar;
         private System.Windows.Forms.TextBox txtFileLocalAtauUrl;
+        private System.Windows.Forms.CheckBox chkHeadless;
+        private System.Windows.Forms.CheckBox chkMultiDevice;
     }
 }
 

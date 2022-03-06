@@ -58,6 +58,9 @@ Public Class FrmMain
             Return
         End If
 
+        _wa.IsMultiDevice = chkMultiDevice.Checked
+        _wa.Headless = chkHeadless.Checked
+
         Connect()
     End Sub
 
@@ -83,7 +86,11 @@ Public Class FrmMain
         ' subscribe event
         AddHandler _wa.OnStartup, AddressOf OnStartupHandler
         AddHandler _wa.OnChangeState, AddressOf OnChangeStateHandler
-        AddHandler _wa.OnChangeBattery, AddressOf OnChangeBatteryHandler
+
+        If Not _wa.IsMultiDevice Then
+            AddHandler _wa.OnChangeBattery, AddressOf OnChangeBatteryHandler
+        End If
+
         AddHandler _wa.OnReceiveMessages, AddressOf OnReceiveMessagesHandler
         AddHandler _wa.OnGroupJoin, AddressOf OnGroupJoinHandler
         AddHandler _wa.OnGroupLeave, AddressOf OnGroupLeaveHandler
@@ -150,7 +157,11 @@ Public Class FrmMain
             ' unsubscribe event
             RemoveHandler _wa.OnStartup, AddressOf OnStartupHandler
             RemoveHandler _wa.OnChangeState, AddressOf OnChangeStateHandler
-            RemoveHandler _wa.OnChangeBattery, AddressOf OnChangeBatteryHandler
+
+            If Not _wa.IsMultiDevice Then
+                RemoveHandler _wa.OnChangeBattery, AddressOf OnChangeBatteryHandler
+            End If
+
             RemoveHandler _wa.OnScanMe, AddressOf OnScanMeHandler
             RemoveHandler _wa.OnReceiveMessage, AddressOf OnReceiveMessageHandler
             RemoveHandler _wa.OnReceiveMessages, AddressOf OnReceiveMessagesHandler
@@ -426,6 +437,15 @@ Public Class FrmMain
 
     Private Sub chkKirimLokasi_CheckedChanged(sender As Object, e As EventArgs) Handles chkKirimLokasi.CheckedChanged
         If chkKirimLokasi.Checked Then
+
+            If _wa.IsMultiDevice Then
+                MessageBox.Show("Maaf fitur pesan dengan tipe location belum support untuk multi device", "Peringatan",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning)
+
+                chkKirimLokasi.Checked = False
+                Return
+            End If
+
             chkKirimPesanDgGambar.Checked = False
             chkKirimGambarDariUrl.Checked = False
             chkKirimFileAja.Checked = False
@@ -578,7 +598,8 @@ Public Class FrmMain
 
         ' koneksi ke WA GAGAL, bisa dicoba lagi
         If message.IndexOf("Failure") >= 0 OrElse message.IndexOf("Timeout") >= 0 _
-            OrElse message.IndexOf("ERR_NAME") >= 0 Then
+            OrElse message.IndexOf("ERR_NAME") >= 0 _
+            OrElse message.IndexOf("ERR_CONNECTION") >= 0 Then
 
             ' unsubscribe event
             RemoveHandler _wa.OnStartup, AddressOf OnStartupHandler
@@ -859,6 +880,15 @@ Public Class FrmMain
 
     Private Sub chkKirimPesanButton_CheckedChanged(sender As Object, e As EventArgs) Handles chkKirimPesanButton.CheckedChanged
         If chkKirimPesanButton.Checked Then
+
+            If _wa.IsMultiDevice Then
+                MessageBox.Show("Maaf fitur pesan dengan tipe button belum support untuk multi device", "Peringatan",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning)
+
+                chkKirimPesanButton.Checked = False
+                Return
+            End If
+
             chkKirimPesanDgGambar.Checked = False
             chkKirimGambarDariUrl.Checked = False
             chkKirimFileAja.Checked = False
@@ -884,6 +914,13 @@ Public Class FrmMain
     End Sub
 
     Private Sub btnSetStatus_Click(sender As Object, e As EventArgs) Handles btnSetStatus.Click
+
+        If _wa.IsMultiDevice Then
+            MessageBox.Show("Maaf fitur set status belum support untuk multi device", "Peringatan",
+                MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
         Using frm As New FrmSetStatus("Status", _wa)
 
             frm.ShowDialog()
@@ -907,6 +944,11 @@ Public Class FrmMain
     End Sub
 
     Private Sub btnBatteryStatus_Click(sender As Object, e As EventArgs) Handles btnBatteryStatus.Click
+        If _wa.IsMultiDevice Then
+            MessageBox.Show("Maaf fitur cek battery status sudah tidak support untuk multi device", "Peringatan",
+                MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
         _wa.GetBatteryStatus()
     End Sub
 
@@ -930,6 +972,15 @@ Public Class FrmMain
 
     Private Sub chkKirimPesanButtonDgGambar_CheckedChanged(sender As Object, e As EventArgs) Handles chkKirimPesanButtonDgGambar.CheckedChanged
         If chkKirimPesanButtonDgGambar.Checked Then
+
+            If _wa.IsMultiDevice Then
+                MessageBox.Show("Maaf fitur pesan dengan tipe button belum support untuk multi device", "Peringatan",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning)
+
+                chkKirimPesanButtonDgGambar.Checked = False
+                Return
+            End If
+
             chkKirimPesanDgGambar.Checked = False
             chkKirimGambarDariUrl.Checked = False
             chkKirimFileAja.Checked = False

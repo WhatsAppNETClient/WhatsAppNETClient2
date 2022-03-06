@@ -99,6 +99,8 @@ Partial Class FrmMain
         Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
         Me.lblState = New System.Windows.Forms.Label()
         Me.lblBatteryStatus = New System.Windows.Forms.Label()
+        Me.chkHeadless = New System.Windows.Forms.CheckBox()
+        Me.chkMultiDevice = New System.Windows.Forms.CheckBox()
         Me.tableLayoutPanel1.SuspendLayout()
         Me.flowLayoutPanel1.SuspendLayout()
         Me.groupBox1.SuspendLayout()
@@ -136,11 +138,11 @@ Partial Class FrmMain
         Me.tableLayoutPanel1.Name = "tableLayoutPanel1"
         Me.tableLayoutPanel1.RowCount = 5
         Me.tableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75.0!))
-        Me.tableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36.0!))
-        Me.tableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 324.0!))
+        Me.tableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58.0!))
+        Me.tableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 317.0!))
         Me.tableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.tableLayoutPanel1.Size = New System.Drawing.Size(1113, 620)
+        Me.tableLayoutPanel1.Size = New System.Drawing.Size(1113, 658)
         Me.tableLayoutPanel1.TabIndex = 1
         '
         'flowLayoutPanel1
@@ -158,10 +160,12 @@ Partial Class FrmMain
         Me.flowLayoutPanel1.Controls.Add(Me.btnWANumber)
         Me.flowLayoutPanel1.Controls.Add(Me.btnSetStatus)
         Me.flowLayoutPanel1.Controls.Add(Me.btnBatteryStatus)
+        Me.flowLayoutPanel1.Controls.Add(Me.chkHeadless)
+        Me.flowLayoutPanel1.Controls.Add(Me.chkMultiDevice)
         Me.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.flowLayoutPanel1.Location = New System.Drawing.Point(3, 78)
         Me.flowLayoutPanel1.Name = "flowLayoutPanel1"
-        Me.flowLayoutPanel1.Size = New System.Drawing.Size(1107, 30)
+        Me.flowLayoutPanel1.Size = New System.Drawing.Size(1107, 52)
         Me.flowLayoutPanel1.TabIndex = 0
         '
         'btnStart
@@ -297,9 +301,9 @@ Partial Class FrmMain
         '
         Me.groupBox1.Controls.Add(Me.tableLayoutPanel2)
         Me.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.groupBox1.Location = New System.Drawing.Point(3, 114)
+        Me.groupBox1.Location = New System.Drawing.Point(3, 136)
         Me.groupBox1.Name = "groupBox1"
-        Me.groupBox1.Size = New System.Drawing.Size(1107, 318)
+        Me.groupBox1.Size = New System.Drawing.Size(1107, 311)
         Me.groupBox1.TabIndex = 1
         Me.groupBox1.TabStop = False
         Me.groupBox1.Text = " [ Kirim Pesan ] "
@@ -333,7 +337,7 @@ Partial Class FrmMain
         Me.tableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
         Me.tableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
         Me.tableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 14.0!))
-        Me.tableLayoutPanel2.Size = New System.Drawing.Size(1101, 299)
+        Me.tableLayoutPanel2.Size = New System.Drawing.Size(1101, 292)
         Me.tableLayoutPanel2.TabIndex = 0
         '
         'label1
@@ -375,7 +379,7 @@ Partial Class FrmMain
         Me.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
         Me.flowLayoutPanel2.Location = New System.Drawing.Point(50, 260)
         Me.flowLayoutPanel2.Name = "flowLayoutPanel2"
-        Me.flowLayoutPanel2.Size = New System.Drawing.Size(1048, 36)
+        Me.flowLayoutPanel2.Size = New System.Drawing.Size(1048, 29)
         Me.flowLayoutPanel2.TabIndex = 2
         '
         'btnKirim
@@ -703,10 +707,10 @@ Partial Class FrmMain
         Me.tabControl1.Controls.Add(Me.tabPage2)
         Me.tabControl1.Controls.Add(Me.TabPage3)
         Me.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tabControl1.Location = New System.Drawing.Point(3, 438)
+        Me.tabControl1.Location = New System.Drawing.Point(3, 453)
         Me.tabControl1.Name = "tabControl1"
         Me.tabControl1.SelectedIndex = 0
-        Me.tabControl1.Size = New System.Drawing.Size(1107, 154)
+        Me.tabControl1.Size = New System.Drawing.Size(1107, 177)
         Me.tabControl1.TabIndex = 2
         '
         'tabPage1
@@ -715,7 +719,7 @@ Partial Class FrmMain
         Me.tabPage1.Location = New System.Drawing.Point(4, 22)
         Me.tabPage1.Name = "tabPage1"
         Me.tabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabPage1.Size = New System.Drawing.Size(1099, 128)
+        Me.tabPage1.Size = New System.Drawing.Size(1099, 151)
         Me.tabPage1.TabIndex = 0
         Me.tabPage1.Text = "Pesan Masuk"
         Me.tabPage1.UseVisualStyleBackColor = True
@@ -732,7 +736,7 @@ Partial Class FrmMain
         Me.tableLayoutPanel3.RowCount = 2
         Me.tableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26.0!))
         Me.tableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tableLayoutPanel3.Size = New System.Drawing.Size(1093, 122)
+        Me.tableLayoutPanel3.Size = New System.Drawing.Size(1093, 145)
         Me.tableLayoutPanel3.TabIndex = 0
         '
         'flowLayoutPanel3
@@ -773,7 +777,7 @@ Partial Class FrmMain
         Me.lstPesanMasuk.FormattingEnabled = True
         Me.lstPesanMasuk.Location = New System.Drawing.Point(3, 29)
         Me.lstPesanMasuk.Name = "lstPesanMasuk"
-        Me.lstPesanMasuk.Size = New System.Drawing.Size(1087, 90)
+        Me.lstPesanMasuk.Size = New System.Drawing.Size(1087, 113)
         Me.lstPesanMasuk.TabIndex = 1
         '
         'tabPage2
@@ -947,7 +951,7 @@ Partial Class FrmMain
         Me.TableLayoutPanel5.Controls.Add(Me.lblState, 0, 0)
         Me.TableLayoutPanel5.Controls.Add(Me.lblBatteryStatus, 1, 0)
         Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 598)
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 636)
         Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
         Me.TableLayoutPanel5.RowCount = 1
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -978,11 +982,33 @@ Partial Class FrmMain
         Me.lblBatteryStatus.Text = "Battery:"
         Me.lblBatteryStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'chkHeadless
+        '
+        Me.chkHeadless.AutoSize = True
+        Me.chkHeadless.Checked = True
+        Me.chkHeadless.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkHeadless.Location = New System.Drawing.Point(3, 32)
+        Me.chkHeadless.Name = "chkHeadless"
+        Me.chkHeadless.Size = New System.Drawing.Size(70, 17)
+        Me.chkHeadless.TabIndex = 10
+        Me.chkHeadless.Text = "Headless"
+        Me.chkHeadless.UseVisualStyleBackColor = True
+        '
+        'chkMultiDevice
+        '
+        Me.chkMultiDevice.AutoSize = True
+        Me.chkMultiDevice.Location = New System.Drawing.Point(79, 32)
+        Me.chkMultiDevice.Name = "chkMultiDevice"
+        Me.chkMultiDevice.Size = New System.Drawing.Size(85, 17)
+        Me.chkMultiDevice.TabIndex = 11
+        Me.chkMultiDevice.Text = "Multi Device"
+        Me.chkMultiDevice.UseVisualStyleBackColor = True
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1113, 620)
+        Me.ClientSize = New System.Drawing.Size(1113, 658)
         Me.Controls.Add(Me.tableLayoutPanel1)
         Me.MaximizeBox = False
         Me.Name = "FrmMain"
@@ -990,6 +1016,7 @@ Partial Class FrmMain
         Me.Text = "Demo WhatsAppAPI untuk .NET Developer (VB.NET)"
         Me.tableLayoutPanel1.ResumeLayout(False)
         Me.flowLayoutPanel1.ResumeLayout(False)
+        Me.flowLayoutPanel1.PerformLayout()
         Me.groupBox1.ResumeLayout(False)
         Me.tableLayoutPanel2.ResumeLayout(False)
         Me.tableLayoutPanel2.PerformLayout()
@@ -1103,4 +1130,6 @@ Partial Class FrmMain
     Friend WithEvents FlowLayoutPanel9 As FlowLayoutPanel
     Friend WithEvents chkKirimPesanButtonDgGambar As CheckBox
     Friend WithEvents txtFileLocalAtauUrl As TextBox
+    Friend WithEvents chkHeadless As CheckBox
+    Friend WithEvents chkMultiDevice As CheckBox
 End Class

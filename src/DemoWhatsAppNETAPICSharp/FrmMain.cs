@@ -35,6 +35,7 @@ namespace DemoWhatsAppNETAPICSharp
         {
             InitializeComponent();            
             _wa = new WhatsAppNETAPI.WhatsAppNETAPI();
+            _wa.CreateLog = true;
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -62,6 +63,9 @@ namespace DemoWhatsAppNETAPICSharp
                 txtLokasiWhatsAppNETAPINodeJs.Focus();
                 return;
             }
+
+            _wa.IsMultiDevice = chkMultiDevice.Checked;
+            _wa.Headless = chkHeadless.Checked;
 
             Connect();            
         }
@@ -92,7 +96,10 @@ namespace DemoWhatsAppNETAPICSharp
             // subscribe event
             _wa.OnStartup += OnStartupHandler;
             _wa.OnChangeState += OnChangeStateHandler;
-            _wa.OnChangeBattery += OnChangeBatteryHandler;
+
+            if (!_wa.IsMultiDevice)
+                _wa.OnChangeBattery += OnChangeBatteryHandler;
+
             _wa.OnReceiveMessages += OnReceiveMessagesHandler;
             _wa.OnGroupJoin += OnGroupJoinHandler;
             _wa.OnGroupLeave += OnGroupLeaveHandler;
@@ -196,7 +203,10 @@ namespace DemoWhatsAppNETAPICSharp
                 // unsubscribe event
                 _wa.OnStartup -= OnStartupHandler;
                 _wa.OnChangeState -= OnChangeStateHandler;
-                _wa.OnChangeBattery -= OnChangeBatteryHandler;
+
+                if (!_wa.IsMultiDevice)
+                    _wa.OnChangeBattery -= OnChangeBatteryHandler;
+
                 _wa.OnScanMe -= OnScanMeHandler;
                 _wa.OnReceiveMessage -= OnReceiveMessageHandler;
                 _wa.OnReceiveMessages -= OnReceiveMessagesHandler;
@@ -494,6 +504,14 @@ Selamat datang, silahkan klik tombol yang tersedia.";
         {
             if (chkKirimLokasi.Checked)
             {
+                if (_wa.IsMultiDevice)
+                {
+                    MessageBox.Show("Maaf fitur pesan dengan tipe location belum support untuk multi device", "Peringatan",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    chkKirimLokasi.Checked = false;
+                    return;
+                }
+
                 chkKirimPesanDgGambar.Checked = false;
                 chkKirimGambarDariUrl.Checked = false;
                 chkKirimFileAja.Checked = false;
@@ -644,7 +662,7 @@ Selamat datang, silahkan klik tombol yang tersedia.";
 
             // koneksi ke WA GAGAL, bisa dicoba lagi
             if (message.IndexOf("Failure") >= 0 || message.IndexOf("Timeout") >= 0
-                || message.IndexOf("ERR_NAME") >= 0)
+                || message.IndexOf("ERR_NAME") >= 0 || message.IndexOf("ERR_CONNECTION") >= 0)
             {
                 // unsubscribe event
                 _wa.OnStartup -= OnStartupHandler;
@@ -948,6 +966,14 @@ Selamat datang, silahkan klik tombol yang tersedia.";
         {
             if (chkKirimPesanButton.Checked)
             {
+                if (_wa.IsMultiDevice)
+                {
+                    MessageBox.Show("Maaf fitur pesan dengan tipe button belum support untuk multi device", "Peringatan",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    chkKirimPesanButton.Checked = false;
+                    return;
+                }
+
                 chkKirimPesanDgGambar.Checked = false;
                 chkKirimGambarDariUrl.Checked = false;
                 chkKirimFileAja.Checked = false;
@@ -966,6 +992,13 @@ Selamat datang, silahkan klik tombol yang tersedia.";
 
         private void btnSetStatus_Click(object sender, EventArgs e)
         {
+            if (_wa.IsMultiDevice)
+            {
+                MessageBox.Show("Maaf fitur set status belum support untuk multi device", "Peringatan",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             using (var frm = new FrmSetStatus("Status", _wa))
             {
                 frm.ShowDialog();
@@ -996,6 +1029,13 @@ Selamat datang, silahkan klik tombol yang tersedia.";
 
         private void btnBatteryStatus_Click(object sender, EventArgs e)
         {
+            if (_wa.IsMultiDevice)
+            {
+                MessageBox.Show("Maaf fitur cek battery status sudah tidak support untuk multi device", "Peringatan",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             _wa.GetBatteryStatus();
         }
 
@@ -1003,6 +1043,14 @@ Selamat datang, silahkan klik tombol yang tersedia.";
         {
             if (chkKirimPesanButtonDgGambar.Checked)
             {
+                if (_wa.IsMultiDevice)
+                {
+                    MessageBox.Show("Maaf fitur pesan dengan tipe button belum support untuk multi device", "Peringatan",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    chkKirimPesanButtonDgGambar.Checked = false;
+                    return;
+                }
+
                 chkKirimPesanDgGambar.Checked = false;
                 chkKirimGambarDariUrl.Checked = false;
                 chkKirimFileAja.Checked = false;
