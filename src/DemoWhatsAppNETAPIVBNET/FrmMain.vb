@@ -95,7 +95,7 @@ Public Class FrmMain
         AddHandler _wa.OnGroupJoin, AddressOf OnGroupJoinHandler
         AddHandler _wa.OnGroupLeave, AddressOf OnGroupLeaveHandler
         AddHandler _wa.OnClientConnected, AddressOf OnClientConnectedHandler
-
+        AddHandler _wa.OnMonitoringLog, AddressOf OnMonitoringLogHandler
         _wa.Connect()
 
         Using New StCursor(Cursors.WaitCursor, New TimeSpan(0, 0, 0, 0))
@@ -129,6 +129,7 @@ Public Class FrmMain
         btnUnreadMessages.Enabled = False
         btnAllMessages.Enabled = False
         btnBatteryStatus.Enabled = False
+        btnState.Enabled = False
         btnArchiveChat.Enabled = False
         btnDeleteChat.Enabled = False
         btnKirim.Enabled = False
@@ -170,7 +171,7 @@ Public Class FrmMain
             RemoveHandler _wa.OnGroupJoin, AddressOf OnGroupJoinHandler
             RemoveHandler _wa.OnGroupLeave, AddressOf OnGroupLeaveHandler
             RemoveHandler _wa.OnClientConnected, AddressOf OnClientConnectedHandler
-
+            RemoveHandler _wa.OnMonitoringLog, AddressOf OnMonitoringLogHandler
             If isLogout Then
                 _wa.Logout()
             Else
@@ -581,6 +582,7 @@ Public Class FrmMain
             btnUnreadMessages.Invoke(Sub() btnUnreadMessages.Enabled = True)
             btnAllMessages.Invoke(Sub() btnAllMessages.Enabled = True)
             btnBatteryStatus.Invoke(Sub() btnBatteryStatus.Enabled = True)
+            btnState.Invoke(Sub() btnState.Enabled = True)
             btnArchiveChat.Invoke(Sub() btnArchiveChat.Enabled = True)
             btnDeleteChat.Invoke(Sub() btnDeleteChat.Enabled = True)
 
@@ -608,6 +610,7 @@ Public Class FrmMain
             RemoveHandler _wa.OnReceiveMessages, AddressOf OnReceiveMessagesHandler
             RemoveHandler _wa.OnReceiveMessageStatus, AddressOf OnReceiveMessageStatusHandler
             RemoveHandler _wa.OnClientConnected, AddressOf OnClientConnectedHandler
+            RemoveHandler _wa.OnMonitoringLog, AddressOf OnMonitoringLogHandler
 
             _wa.Disconnect()
 
@@ -860,6 +863,16 @@ Public Class FrmMain
         System.Diagnostics.Debug.Print("ClientConnected on {0:yyyy-MM-dd HH:mm:ss}", DateTime.Now)
     End Sub
 
+    ''' <summary>
+    ''' Menampilkan log INFO/ERROR yang dikirim dari node js
+    ''' </summary>
+    ''' <param name="level">Berisi INFO atau ERROR</param>
+    ''' <param name="message"></param>
+    ''' <param name="sessionId"></param>
+    Private Sub OnMonitoringLogHandler(ByVal level As String, ByVal message As String, ByVal sessionId As String)
+        System.Diagnostics.Debug.Print("level: {0}, message: {1}", message)
+    End Sub
+
     Private Sub chkKirimPesanList_CheckedChanged(sender As Object, e As EventArgs) Handles chkKirimPesanList.CheckedChanged
         If chkKirimPesanList.Checked Then
             chkKirimPesanDgGambar.Checked = False
@@ -950,6 +963,10 @@ Public Class FrmMain
             Return
         End If
         _wa.GetBatteryStatus()
+    End Sub
+
+    Private Sub btnState_Click(sender As Object, e As EventArgs) Handles btnState.Click
+        _wa.GetCurrentState()
     End Sub
 
     Private Sub btnVerifyContact_Click(sender As Object, e As EventArgs) Handles btnVerifyContact.Click

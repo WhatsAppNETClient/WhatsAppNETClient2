@@ -35,7 +35,6 @@ namespace DemoWhatsAppNETAPICSharp
         {
             InitializeComponent();            
             _wa = new WhatsAppNETAPI.WhatsAppNETAPI();
-            _wa.CreateLog = true;
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -104,7 +103,7 @@ namespace DemoWhatsAppNETAPICSharp
             _wa.OnGroupJoin += OnGroupJoinHandler;
             _wa.OnGroupLeave += OnGroupLeaveHandler;
             _wa.OnClientConnected += OnClientConnectedHandler;
-            
+            _wa.OnMonitoringLog += OnMonitoringLogHandler;
             _wa.Connect();
 
             using (var frm = new FrmStartUp())
@@ -174,6 +173,7 @@ namespace DemoWhatsAppNETAPICSharp
             btnWANumber.Enabled = false;
             btnSetStatus.Enabled = false;
             btnBatteryStatus.Enabled = false;
+            btnState.Enabled = false;
             btnArchiveChat.Enabled = false;
             btnDeleteChat.Enabled = false;
             btnKirim.Enabled = false;
@@ -215,6 +215,7 @@ namespace DemoWhatsAppNETAPICSharp
                 _wa.OnGroupJoin -= OnGroupJoinHandler;
                 _wa.OnGroupLeave -= OnGroupLeaveHandler;
                 _wa.OnClientConnected -= OnClientConnectedHandler;
+                _wa.OnMonitoringLog -= OnMonitoringLogHandler;
 
                 if (isLogout)
                     _wa.Logout();
@@ -650,6 +651,7 @@ Selamat datang, silahkan klik tombol yang tersedia.";
                 btnWANumber.Invoke(new MethodInvoker(() => btnWANumber.Enabled = true));
                 btnSetStatus.Invoke(new MethodInvoker(() => btnSetStatus.Enabled = true));
                 btnBatteryStatus.Invoke(new MethodInvoker(() => btnBatteryStatus.Enabled = true));
+                btnState.Invoke(new MethodInvoker(() => btnState.Enabled = true));
 
                 chkGroup.Invoke(new MethodInvoker(() => chkGroup.Enabled = true));
                 btnKirim.Invoke(new MethodInvoker(() => btnKirim.Enabled = true));
@@ -674,6 +676,7 @@ Selamat datang, silahkan klik tombol yang tersedia.";
                 _wa.OnGroupJoin -= OnGroupJoinHandler;
                 _wa.OnGroupLeave -= OnGroupLeaveHandler;
                 _wa.OnClientConnected -= OnClientConnectedHandler;
+                _wa.OnMonitoringLog -= OnMonitoringLogHandler;
 
                 _wa.Disconnect();
 
@@ -894,6 +897,17 @@ Selamat datang, silahkan klik tombol yang tersedia.";
             System.Diagnostics.Debug.Print("ClientConnected on {0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
         }
 
+        /// <summary>
+        /// Menampilkan log INFO/ERROR yang dikirim dari node js
+        /// </summary>
+        /// <param name="level">Berisi INFO atau ERROR</param>
+        /// <param name="message"></param>
+        /// <param name="sessionId"></param>
+        private void OnMonitoringLogHandler(string level, string message, string sessionId)
+        {
+            System.Diagnostics.Debug.Print("level: {0}, message: {1}", level, message);
+        }
+
         #endregion
 
         private void btnLokasiWAAutomateNodejs_Click(object sender, EventArgs e)
@@ -1036,7 +1050,12 @@ Selamat datang, silahkan klik tombol yang tersedia.";
                 return;
             }
 
-            _wa.GetBatteryStatus();
+            _wa.GetBatteryStatus();            
+        }
+
+        private void btnState_Click(object sender, EventArgs e)
+        {
+            _wa.GetCurrentState();
         }
 
         private void chkKirimPesanButtonDgGambar_CheckedChanged(object sender, EventArgs e)
@@ -1065,6 +1084,6 @@ Selamat datang, silahkan klik tombol yang tersedia.";
                 txtLongitude.Enabled = false;
                 txtDescription.Enabled = false;
             }
-        }
+        }        
     }
 }
