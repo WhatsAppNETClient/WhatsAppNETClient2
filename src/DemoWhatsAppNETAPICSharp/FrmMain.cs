@@ -746,14 +746,22 @@ Selamat datang, silahkan klik tombol yang tersedia.";
             }
             else
             {
-                if (string.IsNullOrEmpty(fileName))
+                if (message.type == "call_log") // handle telepon masuk
                 {
-                    data = string.Format("[{0}] Pengirim: {1} [{2}], Pesan teks: {3}",
-                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, pushName, msg);
+                    data = string.Format("[{0}] Telpon masuk dari : {1} [{2}]",
+                            message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, pushName);
                 }
                 else
-                    data = string.Format("[{0}] Pengirim: {1} [{2}], Pesan gambar/dokumen: {3}, nama file: {4}",
-                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, pushName, msg, fileName);
+                {
+                    if (string.IsNullOrEmpty(fileName))
+                    {
+                        data = string.Format("[{0}] Pengirim: {1} [{2}], Pesan teks: {3}",
+                            message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, pushName, msg);
+                    }
+                    else
+                        data = string.Format("[{0}] Pengirim: {1} [{2}], Pesan gambar/dokumen: {3}, nama file: {4}",
+                            message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, pushName, msg, fileName);
+                }                
             }
 
             // khusus pesan masuk dengan tipe button dan list
