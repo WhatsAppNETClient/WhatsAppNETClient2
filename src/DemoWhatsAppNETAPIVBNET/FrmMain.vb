@@ -870,7 +870,7 @@ Public Class FrmMain
     ''' <param name="message"></param>
     ''' <param name="sessionId"></param>
     Private Sub OnMonitoringLogHandler(ByVal level As String, ByVal message As String, ByVal sessionId As String)
-        System.Diagnostics.Debug.Print("level: {0}, message: {1}", message)
+        System.Diagnostics.Debug.Print("level: {0}, message: {1}", level, message)
     End Sub
 
     Private Sub chkKirimPesanList_CheckedChanged(sender As Object, e As EventArgs) Handles chkKirimPesanList.CheckedChanged
