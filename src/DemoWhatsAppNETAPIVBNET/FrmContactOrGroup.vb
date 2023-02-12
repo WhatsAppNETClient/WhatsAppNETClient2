@@ -55,6 +55,32 @@ Public Class FrmContactOrGroup
         )
     End Sub
 
+    Public Sub OnReceiveBusinessProfilesHandler(profiles As IList(Of BusinessProfile), ByVal sessionId As String)
+        ' update UI dari thread yang berbeda
+        lstContactOrGroup.Invoke(
+            Sub()
+                For Each profile As BusinessProfile In profiles
+
+                    If Not (profile.id = "status@broadcast") Then
+                        Dim website As String = String.Empty
+
+                        If profile.website.Length > 0 Then
+                            website = profile.website(0)
+                        End If
+
+                        lstContactOrGroup.Items.Add(String.Format("{0}. {1} - {2}, {3}",
+                            noUrut, profile.email, profile.category, website))
+
+                        noUrut = noUrut + 1
+
+                    Else ' status@broadcast -> dummy id, penanda load data business profile selesai
+                        If Me.IsHandleCreated Then Me.Invoke(Sub() Me.UseWaitCursor = False)
+                    End If
+                Next
+            End Sub
+        )
+    End Sub
+
     Public Sub OnReceiveGroupsHandler(groups As IList(Of Group), ByVal sessionId As String)
         ' update UI dari thread yang berbeda
         lstContactOrGroup.Invoke(

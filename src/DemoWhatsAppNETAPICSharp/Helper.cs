@@ -15,7 +15,7 @@ namespace DemoWhatsAppNETAPICSharp
 
             using (var dlgOpen = new OpenFileDialog())
             {
-                dlgOpen.Filter = fileImageOnly ? "File gambar (*.bmp, *.jpg, *.jpeg, *.png)|*.bmp;*.jpg;*.jpeg;*.png"
+                dlgOpen.Filter = fileImageOnly ? "File gambar (*.bmp, *.jpg, *.jpeg, *.png)|*.bmp;*.jpg;*.jpeg;*.png;*.mp3;*.mp4"
                                                : "File dokumen (*.*)|*.*";
                 dlgOpen.Title = title;
 

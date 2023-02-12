@@ -32,8 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="JamesWright.SimpleHttp">
-      <HintPath>..\..\libs\WhatsAppNETAPI.2.9.0\lib\net45\JamesWright.SimpleHttp.dll</HintPath>
+    <Reference Include="JamesWright.SimpleHttp, Version=0.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\WhatsAppNETAPI.3.0.0\lib\net45\JamesWright.SimpleHttp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Client">
@@ -96,19 +97,14 @@
     <Reference Include="WaitCursor">
       <HintPath>..\..\libs\WaitCursor.dll</HintPath>
     </Reference>
-    <Reference Include="WhatsAppNETAPI">
-      <HintPath>..\..\libs\WhatsAppNETAPI.2.9.0\lib\net45\WhatsAppNETAPI.dll</HintPath>
+    <Reference Include="WhatsAppNETAPI, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\WhatsAppNETAPI.3.0.0\lib\net45\WhatsAppNETAPI.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CrossThreadExtensions.cs" />
-    <Compile Include="FrmSetStatus.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmSetStatus.Designer.cs">
-      <DependentUpon>FrmSetStatus.cs</DependentUpon>
-    </Compile>
     <Compile Include="FrmPilihGroup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,9 +132,6 @@
     <Compile Include="Helper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FrmSetStatus.resx">
-      <DependentUpon>FrmSetStatus.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmPilihGroup.resx">
       <DependentUpon>FrmPilihGroup.cs</DependentUpon>
     </EmbeddedResource>

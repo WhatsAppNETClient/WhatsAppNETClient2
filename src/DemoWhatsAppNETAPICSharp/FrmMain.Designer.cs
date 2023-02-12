@@ -36,16 +36,11 @@
             this.btnGrabContacts = new System.Windows.Forms.Button();
             this.btnGrabGroupAndMembers = new System.Windows.Forms.Button();
             this.btnVerifyContact = new System.Windows.Forms.Button();
-            this.btnUnreadMessages = new System.Windows.Forms.Button();
+            this.btnCheckBusinessProfile = new System.Windows.Forms.Button();
             this.btnAllMessages = new System.Windows.Forms.Button();
             this.btnArchiveChat = new System.Windows.Forms.Button();
             this.btnDeleteChat = new System.Windows.Forms.Button();
             this.btnWANumber = new System.Windows.Forms.Button();
-            this.btnSetStatus = new System.Windows.Forms.Button();
-            this.btnBatteryStatus = new System.Windows.Forms.Button();
-            this.btnState = new System.Windows.Forms.Button();
-            this.chkHeadless = new System.Windows.Forms.CheckBox();
-            this.chkMultiDevice = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
@@ -70,6 +65,12 @@
             this.txtKontak = new System.Windows.Forms.TextBox();
             this.chkGroup = new System.Windows.Forms.CheckBox();
             this.btnPilihGroup = new System.Windows.Forms.Button();
+            this.btnSetStatusOnlineOffline = new System.Windows.Forms.Button();
+            this.btnSendContact = new System.Windows.Forms.Button();
+            this.btnSendSticker = new System.Windows.Forms.Button();
+            this.btnSendGif = new System.Windows.Forms.Button();
+            this.btnCreateGroup = new System.Windows.Forms.Button();
+            this.btnAddRemoveGroupMember = new System.Windows.Forms.Button();
             this.flowLayoutPanel8 = new System.Windows.Forms.FlowLayoutPanel();
             this.chkKirimLokasi = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -83,6 +84,10 @@
             this.chkKirimPesanButton = new System.Windows.Forms.CheckBox();
             this.chkKirimPesanButtonDgGambar = new System.Windows.Forms.CheckBox();
             this.txtFileLocalAtauUrl = new System.Windows.Forms.TextBox();
+            this.flowLayoutPanel11 = new System.Windows.Forms.FlowLayoutPanel();
+            this.chkKirimPesanButtonCTA = new System.Windows.Forms.CheckBox();
+            this.chkKirimPesanButtonCTADgGambar = new System.Windows.Forms.CheckBox();
+            this.txtFileLocalAtauUrl2 = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -105,9 +110,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtLokasiWhatsAppNETAPINodeJs = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblState = new System.Windows.Forms.Label();
-            this.lblBatteryStatus = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -119,6 +121,7 @@
             this.flowLayoutPanel7.SuspendLayout();
             this.flowLayoutPanel8.SuspendLayout();
             this.flowLayoutPanel9.SuspendLayout();
+            this.flowLayoutPanel11.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -128,7 +131,6 @@
             this.tabPage3.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -139,17 +141,15 @@
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.tabControl1, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.groupBox2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel6, 0, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 63F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 315F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 348F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1169, 658);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(989, 671);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // flowLayoutPanel1
@@ -160,20 +160,15 @@
             this.flowLayoutPanel1.Controls.Add(this.btnGrabContacts);
             this.flowLayoutPanel1.Controls.Add(this.btnGrabGroupAndMembers);
             this.flowLayoutPanel1.Controls.Add(this.btnVerifyContact);
-            this.flowLayoutPanel1.Controls.Add(this.btnUnreadMessages);
+            this.flowLayoutPanel1.Controls.Add(this.btnCheckBusinessProfile);
             this.flowLayoutPanel1.Controls.Add(this.btnAllMessages);
             this.flowLayoutPanel1.Controls.Add(this.btnArchiveChat);
             this.flowLayoutPanel1.Controls.Add(this.btnDeleteChat);
             this.flowLayoutPanel1.Controls.Add(this.btnWANumber);
-            this.flowLayoutPanel1.Controls.Add(this.btnSetStatus);
-            this.flowLayoutPanel1.Controls.Add(this.btnBatteryStatus);
-            this.flowLayoutPanel1.Controls.Add(this.btnState);
-            this.flowLayoutPanel1.Controls.Add(this.chkHeadless);
-            this.flowLayoutPanel1.Controls.Add(this.chkMultiDevice);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 78);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1163, 57);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(983, 29);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // btnStart
@@ -241,21 +236,21 @@
             this.btnVerifyContact.UseVisualStyleBackColor = true;
             this.btnVerifyContact.Click += new System.EventHandler(this.btnVerifyContact_Click);
             // 
-            // btnUnreadMessages
+            // btnCheckBusinessProfile
             // 
-            this.btnUnreadMessages.Enabled = false;
-            this.btnUnreadMessages.Location = new System.Drawing.Point(471, 3);
-            this.btnUnreadMessages.Name = "btnUnreadMessages";
-            this.btnUnreadMessages.Size = new System.Drawing.Size(108, 23);
-            this.btnUnreadMessages.TabIndex = 4;
-            this.btnUnreadMessages.Text = "Unread Messages";
-            this.btnUnreadMessages.UseVisualStyleBackColor = true;
-            this.btnUnreadMessages.Click += new System.EventHandler(this.btnUnreadMessages_Click);
+            this.btnCheckBusinessProfile.Enabled = false;
+            this.btnCheckBusinessProfile.Location = new System.Drawing.Point(471, 3);
+            this.btnCheckBusinessProfile.Name = "btnCheckBusinessProfile";
+            this.btnCheckBusinessProfile.Size = new System.Drawing.Size(141, 23);
+            this.btnCheckBusinessProfile.TabIndex = 10;
+            this.btnCheckBusinessProfile.Text = "Check Business Profile";
+            this.btnCheckBusinessProfile.UseVisualStyleBackColor = true;
+            this.btnCheckBusinessProfile.Click += new System.EventHandler(this.btnCheckBusinessProfile_Click);
             // 
             // btnAllMessages
             // 
             this.btnAllMessages.Enabled = false;
-            this.btnAllMessages.Location = new System.Drawing.Point(585, 3);
+            this.btnAllMessages.Location = new System.Drawing.Point(618, 3);
             this.btnAllMessages.Name = "btnAllMessages";
             this.btnAllMessages.Size = new System.Drawing.Size(83, 23);
             this.btnAllMessages.TabIndex = 8;
@@ -266,7 +261,7 @@
             // btnArchiveChat
             // 
             this.btnArchiveChat.Enabled = false;
-            this.btnArchiveChat.Location = new System.Drawing.Point(674, 3);
+            this.btnArchiveChat.Location = new System.Drawing.Point(707, 3);
             this.btnArchiveChat.Name = "btnArchiveChat";
             this.btnArchiveChat.Size = new System.Drawing.Size(82, 23);
             this.btnArchiveChat.TabIndex = 4;
@@ -277,9 +272,9 @@
             // btnDeleteChat
             // 
             this.btnDeleteChat.Enabled = false;
-            this.btnDeleteChat.Location = new System.Drawing.Point(762, 3);
+            this.btnDeleteChat.Location = new System.Drawing.Point(795, 3);
             this.btnDeleteChat.Name = "btnDeleteChat";
-            this.btnDeleteChat.Size = new System.Drawing.Size(71, 23);
+            this.btnDeleteChat.Size = new System.Drawing.Size(82, 23);
             this.btnDeleteChat.TabIndex = 4;
             this.btnDeleteChat.Text = "Delete Chat";
             this.btnDeleteChat.UseVisualStyleBackColor = true;
@@ -288,76 +283,21 @@
             // btnWANumber
             // 
             this.btnWANumber.Enabled = false;
-            this.btnWANumber.Location = new System.Drawing.Point(839, 3);
+            this.btnWANumber.Location = new System.Drawing.Point(883, 3);
             this.btnWANumber.Name = "btnWANumber";
-            this.btnWANumber.Size = new System.Drawing.Size(88, 23);
+            this.btnWANumber.Size = new System.Drawing.Size(74, 23);
             this.btnWANumber.TabIndex = 7;
-            this.btnWANumber.Text = "Info Wa Num";
+            this.btnWANumber.Text = "Wa Number";
             this.btnWANumber.UseVisualStyleBackColor = true;
             this.btnWANumber.Click += new System.EventHandler(this.btnInfoWANumber_Click);
-            // 
-            // btnSetStatus
-            // 
-            this.btnSetStatus.Enabled = false;
-            this.btnSetStatus.Location = new System.Drawing.Point(933, 3);
-            this.btnSetStatus.Name = "btnSetStatus";
-            this.btnSetStatus.Size = new System.Drawing.Size(75, 23);
-            this.btnSetStatus.TabIndex = 7;
-            this.btnSetStatus.Text = "Set Status";
-            this.btnSetStatus.UseVisualStyleBackColor = true;
-            this.btnSetStatus.Click += new System.EventHandler(this.btnSetStatus_Click);
-            // 
-            // btnBatteryStatus
-            // 
-            this.btnBatteryStatus.Enabled = false;
-            this.btnBatteryStatus.Location = new System.Drawing.Point(1014, 3);
-            this.btnBatteryStatus.Name = "btnBatteryStatus";
-            this.btnBatteryStatus.Size = new System.Drawing.Size(85, 23);
-            this.btnBatteryStatus.TabIndex = 9;
-            this.btnBatteryStatus.Text = "Battery Status";
-            this.btnBatteryStatus.UseVisualStyleBackColor = true;
-            this.btnBatteryStatus.Click += new System.EventHandler(this.btnBatteryStatus_Click);
-            // 
-            // btnState
-            // 
-            this.btnState.Enabled = false;
-            this.btnState.Location = new System.Drawing.Point(1105, 3);
-            this.btnState.Name = "btnState";
-            this.btnState.Size = new System.Drawing.Size(51, 23);
-            this.btnState.TabIndex = 11;
-            this.btnState.Text = "State";
-            this.btnState.UseVisualStyleBackColor = true;
-            this.btnState.Click += new System.EventHandler(this.btnState_Click);
-            // 
-            // chkHeadless
-            // 
-            this.chkHeadless.AutoSize = true;
-            this.chkHeadless.Checked = true;
-            this.chkHeadless.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkHeadless.Location = new System.Drawing.Point(3, 32);
-            this.chkHeadless.Name = "chkHeadless";
-            this.chkHeadless.Size = new System.Drawing.Size(70, 17);
-            this.chkHeadless.TabIndex = 3;
-            this.chkHeadless.Text = "Headless";
-            this.chkHeadless.UseVisualStyleBackColor = true;
-            // 
-            // chkMultiDevice
-            // 
-            this.chkMultiDevice.AutoSize = true;
-            this.chkMultiDevice.Location = new System.Drawing.Point(79, 32);
-            this.chkMultiDevice.Name = "chkMultiDevice";
-            this.chkMultiDevice.Size = new System.Drawing.Size(85, 17);
-            this.chkMultiDevice.TabIndex = 3;
-            this.chkMultiDevice.Text = "Multi Device";
-            this.chkMultiDevice.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.tableLayoutPanel2);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 141);
+            this.groupBox1.Location = new System.Drawing.Point(3, 113);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1163, 309);
+            this.groupBox1.Size = new System.Drawing.Size(983, 342);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " [ Kirim Pesan ] ";
@@ -371,17 +311,18 @@
             this.tableLayoutPanel2.Controls.Add(this.label3, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel5, 1, 4);
             this.tableLayoutPanel2.Controls.Add(this.txtPesan, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel2, 1, 8);
+            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel2, 1, 9);
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel4, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel6, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel7, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel8, 1, 5);
             this.tableLayoutPanel2.Controls.Add(this.chkKirimPesanList, 1, 6);
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel9, 1, 7);
+            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel11, 1, 8);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 9;
+            this.tableLayoutPanel2.RowCount = 10;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 64F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
@@ -390,8 +331,9 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 14F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1157, 290);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(977, 323);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label1
@@ -424,7 +366,7 @@
             this.flowLayoutPanel5.Location = new System.Drawing.Point(47, 145);
             this.flowLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(1110, 28);
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(930, 28);
             this.flowLayoutPanel5.TabIndex = 3;
             // 
             // chkKirimFileAja
@@ -444,13 +386,13 @@
             this.txtFileDokumen.Location = new System.Drawing.Point(104, 3);
             this.txtFileDokumen.Name = "txtFileDokumen";
             this.txtFileDokumen.ReadOnly = true;
-            this.txtFileDokumen.Size = new System.Drawing.Size(962, 20);
+            this.txtFileDokumen.Size = new System.Drawing.Size(783, 20);
             this.txtFileDokumen.TabIndex = 1;
             // 
             // btnCariDokumen
             // 
             this.btnCariDokumen.Enabled = false;
-            this.btnCariDokumen.Location = new System.Drawing.Point(1072, 3);
+            this.btnCariDokumen.Location = new System.Drawing.Point(893, 3);
             this.btnCariDokumen.Name = "btnCariDokumen";
             this.btnCariDokumen.Size = new System.Drawing.Size(34, 23);
             this.btnCariDokumen.TabIndex = 2;
@@ -464,7 +406,7 @@
             this.txtPesan.Location = new System.Drawing.Point(50, 28);
             this.txtPesan.Multiline = true;
             this.txtPesan.Name = "txtPesan";
-            this.txtPesan.Size = new System.Drawing.Size(1104, 58);
+            this.txtPesan.Size = new System.Drawing.Size(924, 58);
             this.txtPesan.TabIndex = 1;
             // 
             // flowLayoutPanel2
@@ -474,15 +416,15 @@
             this.flowLayoutPanel2.Controls.Add(this.label2);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(50, 260);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(50, 288);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(1104, 27);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(924, 32);
             this.flowLayoutPanel2.TabIndex = 2;
             // 
             // btnKirim
             // 
             this.btnKirim.Enabled = false;
-            this.btnKirim.Location = new System.Drawing.Point(1026, 3);
+            this.btnKirim.Location = new System.Drawing.Point(846, 3);
             this.btnKirim.Name = "btnKirim";
             this.btnKirim.Size = new System.Drawing.Size(75, 23);
             this.btnKirim.TabIndex = 2;
@@ -492,7 +434,7 @@
             // 
             // txtJumlahPesan
             // 
-            this.txtJumlahPesan.Location = new System.Drawing.Point(995, 3);
+            this.txtJumlahPesan.Location = new System.Drawing.Point(815, 3);
             this.txtJumlahPesan.Name = "txtJumlahPesan";
             this.txtJumlahPesan.Size = new System.Drawing.Size(25, 20);
             this.txtJumlahPesan.TabIndex = 1;
@@ -502,7 +444,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(862, 0);
+            this.label2.Location = new System.Drawing.Point(682, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(127, 29);
             this.label2.TabIndex = 0;
@@ -518,7 +460,7 @@
             this.flowLayoutPanel4.Location = new System.Drawing.Point(47, 89);
             this.flowLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(1110, 28);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(930, 28);
             this.flowLayoutPanel4.TabIndex = 3;
             // 
             // chkKirimPesanDgGambar
@@ -538,13 +480,13 @@
             this.txtFileGambar.Location = new System.Drawing.Point(142, 3);
             this.txtFileGambar.Name = "txtFileGambar";
             this.txtFileGambar.ReadOnly = true;
-            this.txtFileGambar.Size = new System.Drawing.Size(924, 20);
+            this.txtFileGambar.Size = new System.Drawing.Size(745, 20);
             this.txtFileGambar.TabIndex = 1;
             // 
             // btnCariGambar
             // 
             this.btnCariGambar.Enabled = false;
-            this.btnCariGambar.Location = new System.Drawing.Point(1072, 3);
+            this.btnCariGambar.Location = new System.Drawing.Point(893, 3);
             this.btnCariGambar.Name = "btnCariGambar";
             this.btnCariGambar.Size = new System.Drawing.Size(34, 23);
             this.btnCariGambar.TabIndex = 2;
@@ -560,7 +502,7 @@
             this.flowLayoutPanel6.Location = new System.Drawing.Point(47, 117);
             this.flowLayoutPanel6.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel6.Name = "flowLayoutPanel6";
-            this.flowLayoutPanel6.Size = new System.Drawing.Size(1110, 28);
+            this.flowLayoutPanel6.Size = new System.Drawing.Size(930, 28);
             this.flowLayoutPanel6.TabIndex = 4;
             // 
             // chkKirimGambarDariUrl
@@ -580,7 +522,7 @@
             this.txtUrl.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtUrl.Location = new System.Drawing.Point(186, 3);
             this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(920, 20);
+            this.txtUrl.Size = new System.Drawing.Size(740, 20);
             this.txtUrl.TabIndex = 1;
             this.txtUrl.Text = "http://coding4ever.net/assets/images/avatar.png";
             // 
@@ -589,11 +531,17 @@
             this.flowLayoutPanel7.Controls.Add(this.txtKontak);
             this.flowLayoutPanel7.Controls.Add(this.chkGroup);
             this.flowLayoutPanel7.Controls.Add(this.btnPilihGroup);
+            this.flowLayoutPanel7.Controls.Add(this.btnSetStatusOnlineOffline);
+            this.flowLayoutPanel7.Controls.Add(this.btnSendContact);
+            this.flowLayoutPanel7.Controls.Add(this.btnSendSticker);
+            this.flowLayoutPanel7.Controls.Add(this.btnSendGif);
+            this.flowLayoutPanel7.Controls.Add(this.btnCreateGroup);
+            this.flowLayoutPanel7.Controls.Add(this.btnAddRemoveGroupMember);
             this.flowLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel7.Location = new System.Drawing.Point(47, 0);
             this.flowLayoutPanel7.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel7.Name = "flowLayoutPanel7";
-            this.flowLayoutPanel7.Size = new System.Drawing.Size(1110, 25);
+            this.flowLayoutPanel7.Size = new System.Drawing.Size(930, 25);
             this.flowLayoutPanel7.TabIndex = 5;
             // 
             // txtKontak
@@ -627,6 +575,72 @@
             this.btnPilihGroup.UseVisualStyleBackColor = true;
             this.btnPilihGroup.Click += new System.EventHandler(this.btnPilihGroup_Click);
             // 
+            // btnSetStatusOnlineOffline
+            // 
+            this.btnSetStatusOnlineOffline.Enabled = false;
+            this.btnSetStatusOnlineOffline.Location = new System.Drawing.Point(284, 3);
+            this.btnSetStatusOnlineOffline.Name = "btnSetStatusOnlineOffline";
+            this.btnSetStatusOnlineOffline.Size = new System.Drawing.Size(119, 23);
+            this.btnSetStatusOnlineOffline.TabIndex = 3;
+            this.btnSetStatusOnlineOffline.Text = "Status Online | Offline";
+            this.btnSetStatusOnlineOffline.UseVisualStyleBackColor = true;
+            this.btnSetStatusOnlineOffline.Click += new System.EventHandler(this.btnSetStatusOnlineOffline_Click);
+            // 
+            // btnSendContact
+            // 
+            this.btnSendContact.Enabled = false;
+            this.btnSendContact.Location = new System.Drawing.Point(409, 3);
+            this.btnSendContact.Name = "btnSendContact";
+            this.btnSendContact.Size = new System.Drawing.Size(85, 23);
+            this.btnSendContact.TabIndex = 5;
+            this.btnSendContact.Text = "Send contact";
+            this.btnSendContact.UseVisualStyleBackColor = true;
+            this.btnSendContact.Click += new System.EventHandler(this.btnSendContact_Click);
+            // 
+            // btnSendSticker
+            // 
+            this.btnSendSticker.Enabled = false;
+            this.btnSendSticker.Location = new System.Drawing.Point(500, 3);
+            this.btnSendSticker.Name = "btnSendSticker";
+            this.btnSendSticker.Size = new System.Drawing.Size(87, 23);
+            this.btnSendSticker.TabIndex = 6;
+            this.btnSendSticker.Text = "Send Sticker";
+            this.btnSendSticker.UseVisualStyleBackColor = true;
+            this.btnSendSticker.Click += new System.EventHandler(this.btnSendSticker_Click);
+            // 
+            // btnSendGif
+            // 
+            this.btnSendGif.Enabled = false;
+            this.btnSendGif.Location = new System.Drawing.Point(593, 3);
+            this.btnSendGif.Name = "btnSendGif";
+            this.btnSendGif.Size = new System.Drawing.Size(63, 23);
+            this.btnSendGif.TabIndex = 6;
+            this.btnSendGif.Text = "Send Gif";
+            this.btnSendGif.UseVisualStyleBackColor = true;
+            this.btnSendGif.Click += new System.EventHandler(this.btnSendGif_Click);
+            // 
+            // btnCreateGroup
+            // 
+            this.btnCreateGroup.Enabled = false;
+            this.btnCreateGroup.Location = new System.Drawing.Point(662, 3);
+            this.btnCreateGroup.Name = "btnCreateGroup";
+            this.btnCreateGroup.Size = new System.Drawing.Size(82, 23);
+            this.btnCreateGroup.TabIndex = 7;
+            this.btnCreateGroup.Text = "Create Group";
+            this.btnCreateGroup.UseVisualStyleBackColor = true;
+            this.btnCreateGroup.Click += new System.EventHandler(this.btnCreateGroup_Click);
+            // 
+            // btnAddRemoveGroupMember
+            // 
+            this.btnAddRemoveGroupMember.Enabled = false;
+            this.btnAddRemoveGroupMember.Location = new System.Drawing.Point(750, 3);
+            this.btnAddRemoveGroupMember.Name = "btnAddRemoveGroupMember";
+            this.btnAddRemoveGroupMember.Size = new System.Drawing.Size(157, 23);
+            this.btnAddRemoveGroupMember.TabIndex = 7;
+            this.btnAddRemoveGroupMember.Text = "Add/Remove Group Member";
+            this.btnAddRemoveGroupMember.UseVisualStyleBackColor = true;
+            this.btnAddRemoveGroupMember.Click += new System.EventHandler(this.btnAddRemoveGroupMember_Click);
+            // 
             // flowLayoutPanel8
             // 
             this.flowLayoutPanel8.Controls.Add(this.chkKirimLokasi);
@@ -640,7 +654,7 @@
             this.flowLayoutPanel8.Location = new System.Drawing.Point(47, 173);
             this.flowLayoutPanel8.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel8.Name = "flowLayoutPanel8";
-            this.flowLayoutPanel8.Size = new System.Drawing.Size(1110, 28);
+            this.flowLayoutPanel8.Size = new System.Drawing.Size(930, 28);
             this.flowLayoutPanel8.TabIndex = 6;
             // 
             // chkKirimLokasi
@@ -711,7 +725,7 @@
             this.txtDescription.Enabled = false;
             this.txtDescription.Location = new System.Drawing.Point(434, 3);
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(672, 20);
+            this.txtDescription.Size = new System.Drawing.Size(493, 20);
             this.txtDescription.TabIndex = 2;
             this.txtDescription.Text = "My office (Univ AMIKOM Yogyakarta)";
             // 
@@ -721,7 +735,7 @@
             this.chkKirimPesanList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chkKirimPesanList.Location = new System.Drawing.Point(50, 204);
             this.chkKirimPesanList.Name = "chkKirimPesanList";
-            this.chkKirimPesanList.Size = new System.Drawing.Size(1104, 22);
+            this.chkKirimPesanList.Size = new System.Drawing.Size(924, 22);
             this.chkKirimPesanList.TabIndex = 7;
             this.chkKirimPesanList.Text = "Kirim pesan list";
             this.chkKirimPesanList.UseVisualStyleBackColor = true;
@@ -736,7 +750,7 @@
             this.flowLayoutPanel9.Location = new System.Drawing.Point(47, 229);
             this.flowLayoutPanel9.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel9.Name = "flowLayoutPanel9";
-            this.flowLayoutPanel9.Size = new System.Drawing.Size(1110, 28);
+            this.flowLayoutPanel9.Size = new System.Drawing.Size(930, 28);
             this.flowLayoutPanel9.TabIndex = 8;
             // 
             // chkKirimPesanButton
@@ -767,9 +781,51 @@
             // 
             this.txtFileLocalAtauUrl.Location = new System.Drawing.Point(318, 3);
             this.txtFileLocalAtauUrl.Name = "txtFileLocalAtauUrl";
-            this.txtFileLocalAtauUrl.Size = new System.Drawing.Size(789, 20);
+            this.txtFileLocalAtauUrl.Size = new System.Drawing.Size(608, 20);
             this.txtFileLocalAtauUrl.TabIndex = 8;
             this.txtFileLocalAtauUrl.Text = "http://coding4ever.net/assets/images/avatar.png";
+            // 
+            // flowLayoutPanel11
+            // 
+            this.flowLayoutPanel11.Controls.Add(this.chkKirimPesanButtonCTA);
+            this.flowLayoutPanel11.Controls.Add(this.chkKirimPesanButtonCTADgGambar);
+            this.flowLayoutPanel11.Controls.Add(this.txtFileLocalAtauUrl2);
+            this.flowLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel11.Location = new System.Drawing.Point(47, 257);
+            this.flowLayoutPanel11.Margin = new System.Windows.Forms.Padding(0);
+            this.flowLayoutPanel11.Name = "flowLayoutPanel11";
+            this.flowLayoutPanel11.Size = new System.Drawing.Size(930, 28);
+            this.flowLayoutPanel11.TabIndex = 9;
+            // 
+            // chkKirimPesanButtonCTA
+            // 
+            this.chkKirimPesanButtonCTA.AutoSize = true;
+            this.chkKirimPesanButtonCTA.Location = new System.Drawing.Point(3, 3);
+            this.chkKirimPesanButtonCTA.Name = "chkKirimPesanButtonCTA";
+            this.chkKirimPesanButtonCTA.Size = new System.Drawing.Size(207, 17);
+            this.chkKirimPesanButtonCTA.TabIndex = 0;
+            this.chkKirimPesanButtonCTA.Text = "Kirim pesan button CTA (Call to action)";
+            this.chkKirimPesanButtonCTA.UseVisualStyleBackColor = true;
+            this.chkKirimPesanButtonCTA.CheckedChanged += new System.EventHandler(this.chkKirimPesanButtonCTA_CheckedChanged);
+            // 
+            // chkKirimPesanButtonCTADgGambar
+            // 
+            this.chkKirimPesanButtonCTADgGambar.AutoSize = true;
+            this.chkKirimPesanButtonCTADgGambar.Location = new System.Drawing.Point(216, 3);
+            this.chkKirimPesanButtonCTADgGambar.Name = "chkKirimPesanButtonCTADgGambar";
+            this.chkKirimPesanButtonCTADgGambar.Size = new System.Drawing.Size(214, 17);
+            this.chkKirimPesanButtonCTADgGambar.TabIndex = 0;
+            this.chkKirimPesanButtonCTADgGambar.Text = "Kirim pesan button CTA dengan gambar";
+            this.chkKirimPesanButtonCTADgGambar.UseVisualStyleBackColor = true;
+            this.chkKirimPesanButtonCTADgGambar.CheckedChanged += new System.EventHandler(this.chkKirimPesanButtonCTADgGambar_CheckedChanged);
+            // 
+            // txtFileLocalAtauUrl2
+            // 
+            this.txtFileLocalAtauUrl2.Location = new System.Drawing.Point(436, 3);
+            this.txtFileLocalAtauUrl2.Name = "txtFileLocalAtauUrl2";
+            this.txtFileLocalAtauUrl2.Size = new System.Drawing.Size(491, 20);
+            this.txtFileLocalAtauUrl2.TabIndex = 1;
+            this.txtFileLocalAtauUrl2.Text = "http://coding4ever.net/assets/images/avatar.png";
             // 
             // tabControl1
             // 
@@ -777,10 +833,10 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(3, 456);
+            this.tabControl1.Location = new System.Drawing.Point(3, 461);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1163, 174);
+            this.tabControl1.Size = new System.Drawing.Size(983, 207);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -789,7 +845,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1155, 148);
+            this.tabPage1.Size = new System.Drawing.Size(975, 181);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Pesan Masuk";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -806,7 +862,7 @@
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1149, 142);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(969, 175);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // flowLayoutPanel3
@@ -816,7 +872,7 @@
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(1143, 20);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(963, 20);
             this.flowLayoutPanel3.TabIndex = 0;
             // 
             // chkSubscribe
@@ -848,7 +904,7 @@
             this.lstPesanMasuk.FormattingEnabled = true;
             this.lstPesanMasuk.Location = new System.Drawing.Point(3, 29);
             this.lstPesanMasuk.Name = "lstPesanMasuk";
-            this.lstPesanMasuk.Size = new System.Drawing.Size(1143, 110);
+            this.lstPesanMasuk.Size = new System.Drawing.Size(963, 143);
             this.lstPesanMasuk.TabIndex = 1;
             // 
             // tabPage2
@@ -857,7 +913,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1155, 148);
+            this.tabPage2.Size = new System.Drawing.Size(975, 181);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Pesan Keluar";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -874,7 +930,7 @@
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1149, 142);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(969, 175);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // chkMessageSentSubscribe
@@ -884,7 +940,7 @@
             this.chkMessageSentSubscribe.Enabled = false;
             this.chkMessageSentSubscribe.Location = new System.Drawing.Point(3, 3);
             this.chkMessageSentSubscribe.Name = "chkMessageSentSubscribe";
-            this.chkMessageSentSubscribe.Size = new System.Drawing.Size(1143, 20);
+            this.chkMessageSentSubscribe.Size = new System.Drawing.Size(963, 20);
             this.chkMessageSentSubscribe.TabIndex = 0;
             this.chkMessageSentSubscribe.Text = "Subscribe";
             this.chkMessageSentSubscribe.UseVisualStyleBackColor = true;
@@ -896,7 +952,7 @@
             this.lstPesanKeluar.FormattingEnabled = true;
             this.lstPesanKeluar.Location = new System.Drawing.Point(3, 29);
             this.lstPesanKeluar.Name = "lstPesanKeluar";
-            this.lstPesanKeluar.Size = new System.Drawing.Size(1143, 110);
+            this.lstPesanKeluar.Size = new System.Drawing.Size(963, 143);
             this.lstPesanKeluar.TabIndex = 1;
             // 
             // tabPage3
@@ -904,7 +960,7 @@
             this.tabPage3.Controls.Add(this.tableLayoutPanel5);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1155, 148);
+            this.tabPage3.Size = new System.Drawing.Size(975, 181);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Status Pesan Keluar";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -921,7 +977,7 @@
             this.tableLayoutPanel5.RowCount = 2;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(1155, 148);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(975, 181);
             this.tableLayoutPanel5.TabIndex = 0;
             // 
             // chkMessageSentStatusSubscribe
@@ -931,7 +987,7 @@
             this.chkMessageSentStatusSubscribe.Enabled = false;
             this.chkMessageSentStatusSubscribe.Location = new System.Drawing.Point(3, 3);
             this.chkMessageSentStatusSubscribe.Name = "chkMessageSentStatusSubscribe";
-            this.chkMessageSentStatusSubscribe.Size = new System.Drawing.Size(1149, 20);
+            this.chkMessageSentStatusSubscribe.Size = new System.Drawing.Size(969, 20);
             this.chkMessageSentStatusSubscribe.TabIndex = 0;
             this.chkMessageSentStatusSubscribe.Text = "Subscribe";
             this.chkMessageSentStatusSubscribe.UseVisualStyleBackColor = true;
@@ -943,7 +999,7 @@
             this.lstStatusPesanKeluar.FormattingEnabled = true;
             this.lstStatusPesanKeluar.Location = new System.Drawing.Point(3, 29);
             this.lstStatusPesanKeluar.Name = "lstStatusPesanKeluar";
-            this.lstStatusPesanKeluar.Size = new System.Drawing.Size(1149, 116);
+            this.lstStatusPesanKeluar.Size = new System.Drawing.Size(969, 149);
             this.lstStatusPesanKeluar.TabIndex = 1;
             // 
             // groupBox2
@@ -957,14 +1013,14 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1163, 69);
+            this.groupBox2.Size = new System.Drawing.Size(983, 69);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = " [ Konfigurasi ] ";
             // 
             // btnLokasiPenyimpananFileAtauGambar
             // 
-            this.btnLokasiPenyimpananFileAtauGambar.Location = new System.Drawing.Point(1122, 40);
+            this.btnLokasiPenyimpananFileAtauGambar.Location = new System.Drawing.Point(840, 41);
             this.btnLokasiPenyimpananFileAtauGambar.Name = "btnLokasiPenyimpananFileAtauGambar";
             this.btnLokasiPenyimpananFileAtauGambar.Size = new System.Drawing.Size(34, 23);
             this.btnLokasiPenyimpananFileAtauGambar.TabIndex = 2;
@@ -974,7 +1030,7 @@
             // 
             // btnLokasiWAAutomateNodejs
             // 
-            this.btnLokasiWAAutomateNodejs.Location = new System.Drawing.Point(1122, 15);
+            this.btnLokasiWAAutomateNodejs.Location = new System.Drawing.Point(840, 15);
             this.btnLokasiWAAutomateNodejs.Name = "btnLokasiWAAutomateNodejs";
             this.btnLokasiWAAutomateNodejs.Size = new System.Drawing.Size(34, 23);
             this.btnLokasiWAAutomateNodejs.TabIndex = 2;
@@ -987,7 +1043,7 @@
             this.txtLokasiPenyimpananFileAtauGambar.Location = new System.Drawing.Point(269, 43);
             this.txtLokasiPenyimpananFileAtauGambar.Name = "txtLokasiPenyimpananFileAtauGambar";
             this.txtLokasiPenyimpananFileAtauGambar.ReadOnly = true;
-            this.txtLokasiPenyimpananFileAtauGambar.Size = new System.Drawing.Size(847, 20);
+            this.txtLokasiPenyimpananFileAtauGambar.Size = new System.Drawing.Size(565, 20);
             this.txtLokasiPenyimpananFileAtauGambar.TabIndex = 1;
             // 
             // label5
@@ -1005,7 +1061,7 @@
             this.txtLokasiWhatsAppNETAPINodeJs.Location = new System.Drawing.Point(269, 17);
             this.txtLokasiWhatsAppNETAPINodeJs.Name = "txtLokasiWhatsAppNETAPINodeJs";
             this.txtLokasiWhatsAppNETAPINodeJs.ReadOnly = true;
-            this.txtLokasiWhatsAppNETAPINodeJs.Size = new System.Drawing.Size(847, 20);
+            this.txtLokasiWhatsAppNETAPINodeJs.Size = new System.Drawing.Size(565, 20);
             this.txtLokasiWhatsAppNETAPINodeJs.TabIndex = 1;
             // 
             // label4
@@ -1018,51 +1074,11 @@
             this.label4.Text = "Lokasi WhatsApp NET API NodeJs";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // tableLayoutPanel6
-            // 
-            this.tableLayoutPanel6.ColumnCount = 2;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Controls.Add(this.lblState, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.lblBatteryStatus, 1, 0);
-            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 633);
-            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 1;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(1169, 25);
-            this.tableLayoutPanel6.TabIndex = 4;
-            // 
-            // lblState
-            // 
-            this.lblState.AutoSize = true;
-            this.lblState.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.lblState.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblState.Location = new System.Drawing.Point(3, 0);
-            this.lblState.Name = "lblState";
-            this.lblState.Size = new System.Drawing.Size(35, 25);
-            this.lblState.TabIndex = 4;
-            this.lblState.Text = "State:";
-            this.lblState.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblBatteryStatus
-            // 
-            this.lblBatteryStatus.AutoSize = true;
-            this.lblBatteryStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.lblBatteryStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblBatteryStatus.Location = new System.Drawing.Point(44, 0);
-            this.lblBatteryStatus.Name = "lblBatteryStatus";
-            this.lblBatteryStatus.Size = new System.Drawing.Size(1122, 25);
-            this.lblBatteryStatus.TabIndex = 4;
-            this.lblBatteryStatus.Text = "Battery:";
-            this.lblBatteryStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1169, 658);
+            this.ClientSize = new System.Drawing.Size(989, 671);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -1072,7 +1088,6 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
@@ -1090,6 +1105,8 @@
             this.flowLayoutPanel8.PerformLayout();
             this.flowLayoutPanel9.ResumeLayout(false);
             this.flowLayoutPanel9.PerformLayout();
+            this.flowLayoutPanel11.ResumeLayout(false);
+            this.flowLayoutPanel11.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
@@ -1103,8 +1120,6 @@
             this.tableLayoutPanel5.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1145,9 +1160,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.CheckBox chkMessageSentSubscribe;
         private System.Windows.Forms.ListBox lstPesanKeluar;
-        private System.Windows.Forms.Button btnUnreadMessages;
         private System.Windows.Forms.Button btnArchiveChat;
-        private System.Windows.Forms.Button btnDeleteChat;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtLokasiWhatsAppNETAPINodeJs;
         private System.Windows.Forms.Button btnLokasiWAAutomateNodejs;
@@ -1156,7 +1169,6 @@
         private System.Windows.Forms.TextBox txtLokasiPenyimpananFileAtauGambar;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnGrabGroupAndMembers;
-        private System.Windows.Forms.Label lblState;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel6;
         private System.Windows.Forms.CheckBox chkKirimGambarDariUrl;
         private System.Windows.Forms.TextBox txtUrl;
@@ -1174,23 +1186,28 @@
         private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.CheckBox chkKirimPesanList;
         private System.Windows.Forms.CheckBox chkKirimPesanButton;
-        private System.Windows.Forms.Button btnSetStatus;
         private System.Windows.Forms.Button btnWANumber;
         private System.Windows.Forms.Button btnAllMessages;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.CheckBox chkMessageSentStatusSubscribe;
         private System.Windows.Forms.ListBox lstStatusPesanKeluar;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
-        private System.Windows.Forms.Label lblBatteryStatus;
-        private System.Windows.Forms.Button btnBatteryStatus;
         private System.Windows.Forms.Button btnVerifyContact;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel9;
         private System.Windows.Forms.CheckBox chkKirimPesanButtonDgGambar;
         private System.Windows.Forms.TextBox txtFileLocalAtauUrl;
-        private System.Windows.Forms.CheckBox chkHeadless;
-        private System.Windows.Forms.CheckBox chkMultiDevice;
-        private System.Windows.Forms.Button btnState;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel11;
+        private System.Windows.Forms.CheckBox chkKirimPesanButtonCTA;
+        private System.Windows.Forms.CheckBox chkKirimPesanButtonCTADgGambar;
+        private System.Windows.Forms.TextBox txtFileLocalAtauUrl2;
+        private System.Windows.Forms.Button btnSetStatusOnlineOffline;
+        private System.Windows.Forms.Button btnSendContact;
+        private System.Windows.Forms.Button btnSendSticker;
+        private System.Windows.Forms.Button btnCreateGroup;
+        private System.Windows.Forms.Button btnCheckBusinessProfile;
+        private System.Windows.Forms.Button btnAddRemoveGroupMember;
+        private System.Windows.Forms.Button btnSendGif;
+        private System.Windows.Forms.Button btnDeleteChat;
     }
 }
 

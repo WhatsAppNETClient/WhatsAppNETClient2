@@ -44,10 +44,6 @@ Public Class FrmMain
 
         _wa.WaNetApiNodeJsPath = txtLokasiWhatsAppNETAPINodeJs.Text
 
-        ' TODO: aktifkan kode ini agar bisa mengirimkan file dalam format video
-        ' lokasi file chrome.exe menyesuaikan
-        ' _wa.ChromePath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
-
         If (Not _wa.IsWaNetApiNodeJsPathExists) Then
 
             MessageBox.Show("Maaf, lokasi folder 'WhatsApp NET API NodeJs' tidak ditemukan !!!", "Peringatan",
@@ -57,9 +53,6 @@ Public Class FrmMain
 
             Return
         End If
-
-        _wa.IsMultiDevice = chkMultiDevice.Checked
-        _wa.Headless = chkHeadless.Checked
 
         Connect()
     End Sub
@@ -87,10 +80,8 @@ Public Class FrmMain
         AddHandler _wa.OnStartup, AddressOf OnStartupHandler
         AddHandler _wa.OnChangeState, AddressOf OnChangeStateHandler
 
-        If Not _wa.IsMultiDevice Then
-            AddHandler _wa.OnChangeBattery, AddressOf OnChangeBatteryHandler
-        End If
-
+        AddHandler _wa.OnCreatedGroupStatus, AddressOf OnCreatedGroupStatusHandler
+        AddHandler _wa.OnUnreadMessage, AddressOf OnUnreadMessageHandler
         AddHandler _wa.OnReceiveMessages, AddressOf OnReceiveMessagesHandler
         AddHandler _wa.OnGroupJoin, AddressOf OnGroupJoinHandler
         AddHandler _wa.OnGroupLeave, AddressOf OnGroupLeaveHandler
@@ -120,50 +111,52 @@ Public Class FrmMain
 
     Private Sub Disconnect(Optional ByVal isLogout As Boolean = False)
 
-        btnStart.Enabled = True
-        btnStop.Enabled = False
-        btnLogout.Enabled = False
-        btnGrabContacts.Enabled = False
-        btnGrabGroupAndMembers.Enabled = False
-        btnVerifyContact.Enabled = False
-        btnUnreadMessages.Enabled = False
-        btnAllMessages.Enabled = False
-        btnBatteryStatus.Enabled = False
-        btnState.Enabled = False
-        btnArchiveChat.Enabled = False
-        btnDeleteChat.Enabled = False
-        btnKirim.Enabled = False
+        btnStart.Invoke(Sub() btnStart.Enabled = True)
+        btnStop.Invoke(Sub() btnStop.Enabled = False)
+        btnLogout.Invoke(Sub() btnLogout.Enabled = False)
+        btnGrabContacts.Invoke(Sub() btnGrabContacts.Enabled = False)
+        btnGrabGroupAndMembers.Invoke(Sub() btnGrabGroupAndMembers.Enabled = False)
+        btnVerifyContact.Invoke(Sub() btnVerifyContact.Enabled = False)
 
-        btnWANumber.Enabled = False
-        btnSetStatus.Enabled = False
+        btnCheckBusinessProfile.Invoke(Sub() btnCheckBusinessProfile.Enabled = False)
+        btnSetStatusOnlineOffline.Invoke(Sub() btnSetStatusOnlineOffline.Enabled = False)
+        btnSendContact.Invoke(Sub() btnSendContact.Enabled = False)
+        btnSendSticker.Invoke(Sub() btnSendSticker.Enabled = False)
+        btnSendGif.Invoke(Sub() btnSendGif.Enabled = False)
+        btnCreateGroup.Invoke(Sub() btnCreateGroup.Enabled = False)
+        btnAddRemoveGroupMember.Invoke(Sub() btnAddRemoveGroupMember.Enabled = False)
+        btnDeleteChat.Invoke(Sub() btnDeleteChat.Enabled = False)
 
-        chkGroup.Checked = False
-        chkGroup.Enabled = False
+        btnAllMessages.Invoke(Sub() btnAllMessages.Enabled = False)
+        btnArchiveChat.Invoke(Sub() btnArchiveChat.Enabled = False)
+        btnKirim.Invoke(Sub() btnKirim.Enabled = False)
+        btnWANumber.Invoke(Sub() btnWANumber.Enabled = False)
 
-        txtFileDokumen.Clear()
-        txtFileGambar.Clear()
+        chkGroup.Invoke(Sub() chkGroup.Checked = False)
+        chkGroup.Invoke(Sub() chkGroup.Enabled = False)
 
-        chkSubscribe.Checked = False
-        chkSubscribe.Enabled = False
+        txtFileDokumen.Invoke(Sub() txtFileDokumen.Clear())
+        txtFileGambar.Invoke(Sub() txtFileGambar.Clear())
 
-        chkMessageSentSubscribe.Checked = False
-        chkMessageSentSubscribe.Enabled = False
+        chkSubscribe.Invoke(Sub() chkSubscribe.Checked = False)
+        chkSubscribe.Invoke(Sub() chkSubscribe.Enabled = False)
 
-        chkAutoReplay.Checked = False
-        chkAutoReplay.Enabled = False
+        chkMessageSentSubscribe.Invoke(Sub() chkMessageSentSubscribe.Checked = False)
+        chkMessageSentSubscribe.Invoke(Sub() chkMessageSentSubscribe.Enabled = False)
 
-        lstPesanMasuk.Items.Clear()
+        chkAutoReplay.Invoke(Sub() chkAutoReplay.Checked = False)
+        chkAutoReplay.Invoke(Sub() chkAutoReplay.Enabled = False)
+
+        lstPesanMasuk.Invoke(Sub() lstPesanMasuk.Items.Clear())
 
         Using New StCursor(Cursors.WaitCursor, New TimeSpan(0, 0, 0, 0))
             ' unsubscribe event
             RemoveHandler _wa.OnStartup, AddressOf OnStartupHandler
             RemoveHandler _wa.OnChangeState, AddressOf OnChangeStateHandler
 
-            If Not _wa.IsMultiDevice Then
-                RemoveHandler _wa.OnChangeBattery, AddressOf OnChangeBatteryHandler
-            End If
-
             RemoveHandler _wa.OnScanMe, AddressOf OnScanMeHandler
+            RemoveHandler _wa.OnCreatedGroupStatus, AddressOf OnCreatedGroupStatusHandler
+            RemoveHandler _wa.OnUnreadMessage, AddressOf OnUnreadMessageHandler
             RemoveHandler _wa.OnReceiveMessage, AddressOf OnReceiveMessageHandler
             RemoveHandler _wa.OnReceiveMessages, AddressOf OnReceiveMessagesHandler
             RemoveHandler _wa.OnMessageAck, AddressOf OnMessageAckHandler
@@ -247,22 +240,12 @@ Public Class FrmMain
             If chkKirimPesanDgGambar.Checked Then
                 msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.Image, txtFileGambar.Text)
 
-                ' contoh penggunaan mention user                
-                ' Dim mentions As String() = {"081381712345", "08138174444", "tambahkan nomor yang lain"}
-                ' msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.Image, txtFileGambar.Text, mentions)
-
             ElseIf chkKirimGambarDariUrl.Checked Then
                 msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.Url, txtUrl.Text)
 
-                ' contoh penggunaan mention user                
-                ' Dim mentions As String() = {"081381712345", "08138174444", "tambahkan nomor yang lain"}
-                ' msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.Url, txtUrl.Text, mentions)
             ElseIf chkKirimFileAja.Checked Then
                 msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.File, txtFileDokumen.Text)
 
-                ' contoh penggunaan mention user                
-                ' Dim mentions As String() = {"081381712345", "08138174444", "tambahkan nomor yang lain"}
-                ' msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.File, txtFileDokumen.Text, mentions)
             ElseIf chkKirimLokasi.Checked Then
 
                 Dim location = New Location()
@@ -272,9 +255,6 @@ Public Class FrmMain
 
                 msgArgs = New MsgArgs(kontak, location)
 
-                ' contoh penggunaan mention user                
-                ' Dim mentions As String() = {"081381712345", "08138174444", "tambahkan nomor yang lain"}
-                ' msgArgs = New MsgArgs(kontak, location, mentions)
 
             ElseIf chkKirimPesanList.Checked Then
 
@@ -282,32 +262,39 @@ Public Class FrmMain
 
                 list.title = "Menu"
                 list.listText = "Pilih Menu"
-
+                list.footer = "http://wa-net.coding4ever.net/"
                 list.content = "Assalamualaikum warahmatullahi wabarakatuh" + vbCrLf + vbCrLf +
                                "Selamat datang, silahkan pilih menu yang tersedia."
 
-                Dim section As New Section With
+                Dim section1 As New Section With
                 {
-                    .title = "Daftar Menu",
+                    .title = "MENU MAKANAN",
                     .items = New ListItem() {
-                        New ListItem With {.id = "zakat", .title = "Berzakat", .description = "Zakal maal, zakat fitrah, dll"},
-                        New ListItem With {.id = "infak", .title = "Berinfak", .description = "Infak pendidikan, infak kesehatan, dll"},
-                        New ListItem With {.id = "bantuan", .title = "Bantuan", .description = "Klo masih bingung"}
+                        New ListItem With {.id = "baksoUrat", .title = "Bakso Urat", .description = "Rp. 20,000"},
+                        New ListItem With {.id = "baksoTelor", .title = "Bakso Telor", .description = "Rp. 15,000"},
+                        New ListItem With {.id = "sotoAyam", .title = "Soto Ayam", .description = "Rp. 17,000"}
                     }
                 }
 
-                list.sections = New Section() {section}
+                Dim section2 As New Section With
+                {
+                    .title = "MENU MINUMAN",
+                    .items = New ListItem() {
+                        New ListItem With {.id = "esJeruk", .title = "Es Jeruk", .description = "Rp. 7,000"},
+                        New ListItem With {.id = "esTeh", .title = "Es Teh", .description = "Rp. 5,000"},
+                        New ListItem With {.id = "jusAlpukat", .title = "Jus Alpukat", .description = "Rp. 8,000"}
+                    }
+                }
+
+                list.sections = New Section() {section1, section2}
 
                 msgArgs = New MsgArgs(kontak, list)
-
-                ' contoh penggunaan mention user                
-                ' Dim mentions As String() = {"081381712345", "08138174444", "tambahkan nomor yang lain"}
-                ' msgArgs = New MsgArgs(kontak, list, mentions)
 
             ElseIf chkKirimPesanButton.Checked Then
                 Dim button = New WhatsAppNETAPI.Button()
 
                 button.title = "Menu"
+                button.footer = "http://wa-net.coding4ever.net/"
                 button.content = "Assalamualaikum warahmatullahi wabarakatuh" + vbCrLf + vbCrLf +
                                  "Selamat datang, silahkan klik tombol yang tersedia."
 
@@ -318,13 +305,10 @@ Public Class FrmMain
 
                 msgArgs = New MsgArgs(kontak, button)
 
-                ' contoh penggunaan mention user                
-                ' Dim mentions As String() = {"081381712345", "08138174444", "tambahkan nomor yang lain"}
-                ' msgArgs = New MsgArgs(kontak, button, mentions)
-
             ElseIf chkKirimPesanButtonDgGambar.Checked Then
                 Dim button = New WhatsAppNETAPI.Button()
 
+                button.footer = "http://wa-net.coding4ever.net/"
                 button.content = "*Assalamualaikum warahmatullahi wabarakatuh*" + vbCrLf + vbCrLf +
                                  "Selamat datang, silahkan klik tombol yang tersedia."
 
@@ -335,9 +319,36 @@ Public Class FrmMain
 
                 msgArgs = New MsgArgs(kontak, button, txtFileLocalAtauUrl.Text)
 
-                ' contoh penggunaan mention user                
-                ' Dim mentions As String() = {"081381712345", "08138174444", "tambahkan nomor yang lain"}
-                ' msgArgs = New MsgArgs(kontak, button, txtFileLocalAtauUrl.Text, mentions)
+            ElseIf chkKirimPesanButtonCTA.Checked Then
+                Dim button = New WhatsAppNETAPI.Button()
+
+                button.footer = "http://wa-net.coding4ever.net/"
+                button.content = "*Assalamualaikum warahmatullahi wabarakatuh*" + vbCrLf + vbCrLf +
+                                 "Selamat datang, silahkan klik tombol yang tersedia."
+
+                button.items = New ButtonItem() {
+                    New ButtonItem With {.index = 1, .urlButton = New UrlButton With {.title = "⭐ Star WhatsApp NET Client", .url = "https://github.com/WhatsAppNETClient/WhatsAppNETClient2"}},
+                    New ButtonItem With {.index = 2, .callButton = New CallButton With {.title = "🤙 Call me!", .phoneNumber = "+6281381769915"}},
+                    New ButtonItem With {.index = 3, .quickReplyButton = New QuickReplyButton With {.id = "id-like-buttons-message", .title = "This is a reply, just like normal buttons!"}}
+                }
+
+                msgArgs = New MsgArgs(kontak, button)
+
+            ElseIf chkKirimPesanButtonCTADgGambar.Checked Then
+                Dim button = New WhatsAppNETAPI.Button()
+
+                button.footer = "http://wa-net.coding4ever.net/"
+                button.content = "*Assalamualaikum warahmatullahi wabarakatuh*" + vbCrLf + vbCrLf +
+                                 "Selamat datang, silahkan klik tombol yang tersedia."
+
+                button.items = New ButtonItem() {
+                    New ButtonItem With {.index = 1, .urlButton = New UrlButton With {.title = "⭐ Star WhatsApp NET Client", .url = "https://github.com/WhatsAppNETClient/WhatsAppNETClient2"}},
+                    New ButtonItem With {.index = 2, .callButton = New CallButton With {.title = "🤙 Call me!", .phoneNumber = "+6281381769915"}},
+                    New ButtonItem With {.index = 3, .quickReplyButton = New QuickReplyButton With {.id = "id-like-buttons-message", .title = "This is a reply, just like normal buttons!"}}
+                }
+
+                msgArgs = New MsgArgs(kontak, button, txtFileLocalAtauUrl2.Text)
+
             Else
                 msgArgs = New MsgArgs(kontak, txtPesan.Text, MsgArgsType.Text)
 
@@ -383,6 +394,8 @@ Public Class FrmMain
             chkKirimPesanList.Checked = False
             chkKirimPesanButton.Checked = False
             chkKirimPesanButtonDgGambar.Checked = False
+            chkKirimPesanButtonCTA.Checked = False
+            chkKirimPesanButtonCTADgGambar.Checked = False
 
             chkKirimLokasi.Checked = False
             txtFileDokumen.Clear()
@@ -403,6 +416,8 @@ Public Class FrmMain
             chkKirimPesanList.Checked = False
             chkKirimPesanButton.Checked = False
             chkKirimPesanButtonDgGambar.Checked = False
+            chkKirimPesanButtonCTA.Checked = False
+            chkKirimPesanButtonCTADgGambar.Checked = False
 
             txtFileGambar.Clear()
             txtFileDokumen.Clear()
@@ -423,6 +438,8 @@ Public Class FrmMain
             chkKirimPesanList.Checked = False
             chkKirimPesanButton.Checked = False
             chkKirimPesanButtonDgGambar.Checked = False
+            chkKirimPesanButtonCTA.Checked = False
+            chkKirimPesanButtonCTADgGambar.Checked = False
 
             chkKirimLokasi.Checked = False
             txtFileGambar.Clear()
@@ -439,20 +456,14 @@ Public Class FrmMain
     Private Sub chkKirimLokasi_CheckedChanged(sender As Object, e As EventArgs) Handles chkKirimLokasi.CheckedChanged
         If chkKirimLokasi.Checked Then
 
-            If _wa.IsMultiDevice Then
-                MessageBox.Show("Maaf fitur pesan dengan tipe location belum support untuk multi device", "Peringatan",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning)
-
-                chkKirimLokasi.Checked = False
-                Return
-            End If
-
             chkKirimPesanDgGambar.Checked = False
             chkKirimGambarDariUrl.Checked = False
             chkKirimFileAja.Checked = False
             chkKirimPesanList.Checked = False
             chkKirimPesanButton.Checked = False
             chkKirimPesanButtonDgGambar.Checked = False
+            chkKirimPesanButtonCTA.Checked = False
+            chkKirimPesanButtonCTADgGambar.Checked = False
 
             txtFileGambar.Clear()
             txtFileDokumen.Clear()
@@ -485,18 +496,6 @@ Public Class FrmMain
         End If
     End Sub
 
-    Private Sub btnDeleteChat_Click(sender As Object, e As EventArgs) Handles btnDeleteChat.Click
-        Dim msg = "Fungsi ini akan MENGHAPUS semua pesan." + Environment.NewLine +
-                  "Apakah ingin dilanjutkan"
-        If MessageBox.Show(msg, "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-            _wa.DeleteChat() ' hapus semua chat
-
-            ' contoh jika ingin menghapus berdasarkan phoneNumber
-            ' Dim phoneNumber As String = "0813123456789"
-            ' _wa.DeleteChat(phoneNumber)
-        End If
-    End Sub
-
     Private Sub btnArchiveChat_Click(sender As Object, e As EventArgs) Handles btnArchiveChat.Click
         Dim msg = "Fungsi ini akan MENGARSIPKAN semua pesan." + Environment.NewLine +
                   "Apakah ingin dilanjutkan"
@@ -507,10 +506,6 @@ Public Class FrmMain
             ' Dim phoneNumber As String = "0813123456789"
             ' _wa.ArchiveChat(phoneNumber)
         End If
-    End Sub
-
-    Private Sub btnUnreadMessages_Click(sender As Object, e As EventArgs) Handles btnUnreadMessages.Click
-        _wa.GetUnreadMessage()
     End Sub
 
     Private Sub btnLokasiWAAutomateNodejs_Click(sender As Object, e As EventArgs) Handles btnLokasiWAAutomateNodejs.Click
@@ -579,15 +574,20 @@ Public Class FrmMain
             btnGrabContacts.Invoke(Sub() btnGrabContacts.Enabled = True)
             btnGrabGroupAndMembers.Invoke(Sub() btnGrabGroupAndMembers.Enabled = True)
             btnVerifyContact.Invoke(Sub() btnVerifyContact.Enabled = True)
-            btnUnreadMessages.Invoke(Sub() btnUnreadMessages.Enabled = True)
-            btnAllMessages.Invoke(Sub() btnAllMessages.Enabled = True)
-            btnBatteryStatus.Invoke(Sub() btnBatteryStatus.Enabled = True)
-            btnState.Invoke(Sub() btnState.Enabled = True)
-            btnArchiveChat.Invoke(Sub() btnArchiveChat.Enabled = True)
+
+            btnCheckBusinessProfile.Invoke(Sub() btnCheckBusinessProfile.Enabled = True)
+            btnSetStatusOnlineOffline.Invoke(Sub() btnSetStatusOnlineOffline.Enabled = True)
+            btnSendContact.Invoke(Sub() btnSendContact.Enabled = True)
+            btnSendSticker.Invoke(Sub() btnSendSticker.Enabled = True)
+            btnSendGif.Invoke(Sub() btnSendGif.Enabled = True)
+            btnCreateGroup.Invoke(Sub() btnCreateGroup.Enabled = True)
+            btnAddRemoveGroupMember.Invoke(Sub() btnAddRemoveGroupMember.Enabled = True)
             btnDeleteChat.Invoke(Sub() btnDeleteChat.Enabled = True)
 
+            btnAllMessages.Invoke(Sub() btnAllMessages.Enabled = True)
+            btnArchiveChat.Invoke(Sub() btnArchiveChat.Enabled = True)
+
             btnWANumber.Invoke(Sub() btnWANumber.Enabled = True)
-            btnSetStatus.Invoke(Sub() btnSetStatus.Enabled = True)
 
             chkGroup.Invoke(Sub() chkGroup.Enabled = True)
             btnKirim.Invoke(Sub() btnKirim.Enabled = True)
@@ -601,14 +601,20 @@ Public Class FrmMain
         ' koneksi ke WA GAGAL, bisa dicoba lagi
         If message.IndexOf("Failure") >= 0 OrElse message.IndexOf("Timeout") >= 0 _
             OrElse message.IndexOf("ERR_NAME") >= 0 _
-            OrElse message.IndexOf("ERR_CONNECTION") >= 0 Then
+            OrElse message.IndexOf("ERR_CONNECTION") >= 0 _
+            OrElse message.IndexOf("close") >= 0 Then
 
             ' unsubscribe event
             RemoveHandler _wa.OnStartup, AddressOf OnStartupHandler
             RemoveHandler _wa.OnScanMe, AddressOf OnScanMeHandler
+            RemoveHandler _wa.OnCreatedGroupStatus, AddressOf OnCreatedGroupStatusHandler
+            RemoveHandler _wa.OnUnreadMessage, AddressOf OnUnreadMessageHandler
             RemoveHandler _wa.OnReceiveMessage, AddressOf OnReceiveMessageHandler
             RemoveHandler _wa.OnReceiveMessages, AddressOf OnReceiveMessagesHandler
             RemoveHandler _wa.OnReceiveMessageStatus, AddressOf OnReceiveMessageStatusHandler
+            RemoveHandler _wa.OnMessageAck, AddressOf OnMessageAckHandler
+            RemoveHandler _wa.OnGroupJoin, AddressOf OnGroupJoinHandler
+            RemoveHandler _wa.OnGroupLeave, AddressOf OnGroupLeaveHandler
             RemoveHandler _wa.OnClientConnected, AddressOf OnClientConnectedHandler
             RemoveHandler _wa.OnMonitoringLog, AddressOf OnMonitoringLogHandler
 
@@ -625,11 +631,8 @@ Public Class FrmMain
     End Sub
 
     Private Sub OnChangeStateHandler(ByVal state As WhatsAppNETAPI.WAState, ByVal sessionId As String)
-        lblState.Invoke(Sub() lblState.Text = String.Format("State: {0}", state.ToString()))
-    End Sub
-
-    Private Sub OnChangeBatteryHandler(ByVal status As BatteryStatus, ByVal sessionId As String)
-        lblBatteryStatus.Invoke(Sub() lblBatteryStatus.Text = String.Format("Battery: {0}% - Charging? {1}", status.battery, status.plugged))
+        System.Diagnostics.Debug.Print("State: {0}", state.ToString())
+        If (state = WAState.CLOSE AndAlso btnStop.Enabled) Then Disconnect()
     End Sub
 
     Private Sub OnScanMeHandler(ByVal qrcodePath As String, ByVal sessionId As String)
@@ -641,7 +644,6 @@ Public Class FrmMain
         Dim msg = message.content
 
         Dim pengirim = String.Empty
-        Dim pushName = String.Empty
         Dim group = String.Empty
 
         If message.id = "status@broadcast" Then ' status@broadcast -> dummy message, penanda load data selesai
@@ -655,10 +657,19 @@ Public Class FrmMain
 
             Dim sender = message.group.sender
             pengirim = IIf(String.IsNullOrEmpty(sender.name), message.from, sender.name)
-            pushName = sender.pushname
         Else
             pengirim = IIf(String.IsNullOrEmpty(message.sender.name), message.from, message.sender.name)
-            pushName = message.sender.pushname
+        End If
+
+        ' tandai pesan sudah dibaca
+        _wa.MarkRead(message.from)
+
+        ' hapus pesan di group dengan kondisi tertentu
+        If isGroup Then
+            ' TODO: validasi pesan yang mau dihapus
+            If msg = "saru" OrElse msg = "test" Then
+                _wa.DeleteMessage(message.group.id, message.group.sender.id)
+            End If
         End If
 
         Dim fileName = message.filename
@@ -667,31 +678,153 @@ Public Class FrmMain
 
         If isGroup Then ' pesan dari group
             If String.IsNullOrEmpty(fileName) Then
-                data = String.Format("[{0}] Group: {1}, Pesan teks: {2}, Pengirim: {3} [{4}]",
-                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), group, msg, pengirim, pushName)
+                data = String.Format("[{0}] Group: {1}, Pesan teks: {2}, Pengirim: {3}",
+                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), group, msg, pengirim)
             Else
-                data = String.Format("[{0}] Group: {1}, Pesan gambar/dokumen: {2}, Pengirim: {3} [{4}], nama file: {5}",
-                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), group, msg, pengirim, pushName, fileName)
+                data = String.Format("[{0}] Group: {1}, Pesan gambar/dokumen: {2}, Pengirim: {3}, nama file: {4}",
+                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), group, msg, pengirim, fileName)
             End If
         Else
             If message.type = "call_log" Then ' handle telepon masuk
-                data = String.Format("[{0}] Telpon masuk dari : {1} [{2}]",
-                            message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, pushName)
+                data = String.Format("[{0}] Telpon masuk dari : {1}",
+                            message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim)
             Else
                 If String.IsNullOrEmpty(fileName) Then
-                    data = String.Format("[{0}] Pengirim: {1} [{2}], Pesan teks: {3}",
-                            message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, pushName, msg)
+                    data = String.Format("[{0}] Pengirim: {1}, Pesan teks: {2}",
+                            message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg)
                 Else
-                    data = String.Format("[{0}] Pengirim: {1} [{2}], Pesan gambar/dokumen: {3}, nama file: {4}",
-                            message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, pushName, msg, fileName)
+                    data = String.Format("[{0}] Pengirim: {1}, Pesan gambar/dokumen: {2}, nama file: {3}",
+                            message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg, fileName)
                 End If
 
             End If
         End If
 
-            ' khusus pesan masuk dengan tipe button dan list
-            ' tambahkan pengecekan kode berikut untuk mendapatkan id button/list yang dipilih
-            If message.type = MessageType.ButtonResponse Then
+        ' khusus pesan masuk dengan tipe button dan list
+        ' tambahkan pengecekan kode berikut untuk mendapatkan id button/list yang dipilih
+        If message.type = MessageType.ButtonResponse Then
+            System.Diagnostics.Debug.Print("Id button yang dipilih: {0}", message.selectedButtonId)
+        ElseIf message.type = MessageType.ListResponse Then
+            System.Diagnostics.Debug.Print("Id list yang dipilih: {0}", message.selectedRowId)
+        End If
+
+        ' update UI dari thread yang berbeda
+        lstPesanMasuk.Invoke(
+            Sub()
+                lstPesanMasuk.Items.Add(data)
+
+                If message.type = MessageType.Location Then
+
+                    Dim location = message.location
+
+                    Dim dataLocation = String.Format("--> latitude: {0}, longitude: {1}, description: {2}",
+                        location.latitude, location.longitude, location.description)
+
+                    lstPesanMasuk.Items.Add(dataLocation)
+
+                ElseIf message.type = MessageType.VCard OrElse message.type = MessageType.MultiVCard Then
+                    Dim vcards = message.vcards
+                    Dim vcardFilenames = message.vcardFilenames
+
+                    Dim index = 0
+                    For Each vcard As VCard In vcards
+
+                        Dim dataVCard = String.Format("--> N: {0}, FN: {1}, WA Id: {2}, fileName: {3}",
+                            vcard.n, vcard.fn, vcard.waId, vcardFilenames(index))
+
+                        lstPesanMasuk.Items.Add(dataVCard)
+
+                        index = index + 1
+                    Next
+                End If
+
+                lstPesanMasuk.SelectedIndex = lstPesanMasuk.Items.Count - 1
+            End Sub
+        )
+
+        If chkAutoReplay.Checked Then
+
+            If chkKirimLokasi.Checked Then
+                Dim location = New Location()
+                location.latitude = txtLatitude.Text
+                location.longitude = txtLongitude.Text
+                location.description = txtDescription.Text
+
+                _wa.ReplyMessage(New ReplyMsgArgs(message.from, location, message.id))
+            Else
+                Dim msgReplay = String.Format("Bpk/Ibu *{0}*, pesan *{1}* sudah kami terima. Silahkan ditunggu.",
+                    pengirim, msg)
+
+                _wa.ReplyMessage(New ReplyMsgArgs(message.from, msgReplay, message.id))
+            End If
+
+        End If
+    End Sub
+
+    Private Sub OnUnreadMessageHandler(ByVal message As WhatsAppNETAPI.Message, ByVal sessionId As String)
+
+        Dim msg = message.content
+
+        Dim pengirim = String.Empty
+        Dim group = String.Empty
+
+        If message.id = "status@broadcast" Then ' status@broadcast -> dummy message, penanda load data selesai
+            Return
+        End If
+
+        Dim isGroup = message.group IsNot Nothing
+
+        If isGroup Then
+            group = IIf(String.IsNullOrEmpty(message.group.name), message.from, message.group.name)
+
+            Dim sender = message.group.sender
+            pengirim = IIf(String.IsNullOrEmpty(sender.name), message.from, sender.name)
+        Else
+            pengirim = IIf(String.IsNullOrEmpty(message.sender.name), message.from, message.sender.name)
+        End If
+
+        ' tandai pesan sudah dibaca
+        _wa.MarkRead(message.from)
+
+        ' hapus pesan di group dengan kondisi tertentu
+        If isGroup Then
+            ' TODO: validasi pesan yang mau dihapus
+            If msg = "saru" OrElse msg = "test" Then
+                _wa.DeleteMessage(message.group.id, message.group.sender.id)
+            End If
+        End If
+
+        Dim fileName = message.filename
+
+        Dim data = String.Empty
+
+        If isGroup Then ' pesan dari group
+            If String.IsNullOrEmpty(fileName) Then
+                data = String.Format("[{0}] Group: {1}, Pesan teks: {2}, Pengirim: {3}",
+                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), group, msg, pengirim)
+            Else
+                data = String.Format("[{0}] Group: {1}, Pesan gambar/dokumen: {2}, Pengirim: {3}, nama file: {4}",
+                        message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), group, msg, pengirim, fileName)
+            End If
+        Else
+            If message.type = "call_log" Then ' handle telepon masuk
+                data = String.Format("[{0}] Telpon masuk dari : {1}",
+                            message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim)
+            Else
+                If String.IsNullOrEmpty(fileName) Then
+                    data = String.Format("[{0}] Pengirim: {1}, Pesan teks: {2}",
+                            message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg)
+                Else
+                    data = String.Format("[{0}] Pengirim: {1}, Pesan gambar/dokumen: {2}, nama file: {3}",
+                            message.datetime.ToString("yyyy-MM-dd HH:mm:ss"), pengirim, msg, fileName)
+                End If
+
+            End If
+        End If
+
+        ' khusus pesan masuk dengan tipe button dan list
+        ' tambahkan pengecekan kode berikut untuk mendapatkan id button/list yang dipilih
+        If message.type = MessageType.ButtonResponse Then
             System.Diagnostics.Debug.Print("Id button yang dipilih: {0}", message.selectedButtonId)
         ElseIf message.type = MessageType.ListResponse Then
             System.Diagnostics.Debug.Print("Id list yang dipilih: {0}", message.selectedRowId)
@@ -835,6 +968,21 @@ Public Class FrmMain
 
     End Sub
 
+    Private Sub OnCreatedGroupStatusHandler(ByVal groupStatus As GroupStatus, ByVal sessionId As String)
+        Dim status = IIf(groupStatus.status = "true", "BERHASIL", "GAGAL")
+
+        Dim msg = String.Format("Status pembuatan group = {0}, status = {1}, groupId = {2}",
+            groupStatus.name, status, groupStatus.id)
+
+        ' update UI dari thread yang berbeda
+        lstPesanMasuk.Invoke(
+            Sub()
+                lstPesanKeluar.Items.Add(msg)
+                lstPesanKeluar.SelectedIndex = lstPesanKeluar.Items.Count - 1
+            End Sub
+        )
+    End Sub
+
     Private Sub OnGroupJoinHandler(ByVal notification As GroupNotification, ByVal sessionId As String)
 
         Dim recipients As String = String.Join(", ", notification.recipients _
@@ -884,6 +1032,11 @@ Public Class FrmMain
             chkKirimFileAja.Checked = False
             chkKirimPesanButton.Checked = False
             chkKirimPesanButtonDgGambar.Checked = False
+            chkKirimPesanButtonCTA.Checked = False
+            chkKirimPesanButtonCTADgGambar.Checked = False
+            chkKirimPesanButtonCTA.Checked = False
+            chkKirimPesanButtonCTADgGambar.Checked = False
+
             chkKirimLokasi.Checked = False
 
             txtFileGambar.Clear()
@@ -898,20 +1051,14 @@ Public Class FrmMain
     Private Sub chkKirimPesanButton_CheckedChanged(sender As Object, e As EventArgs) Handles chkKirimPesanButton.CheckedChanged
         If chkKirimPesanButton.Checked Then
 
-            If _wa.IsMultiDevice Then
-                MessageBox.Show("Maaf fitur pesan dengan tipe button belum support untuk multi device", "Peringatan",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning)
-
-                chkKirimPesanButton.Checked = False
-                Return
-            End If
-
             chkKirimPesanDgGambar.Checked = False
             chkKirimGambarDariUrl.Checked = False
             chkKirimFileAja.Checked = False
             chkKirimPesanList.Checked = False
             chkKirimLokasi.Checked = False
             chkKirimPesanButtonDgGambar.Checked = False
+            chkKirimPesanButtonCTA.Checked = False
+            chkKirimPesanButtonCTADgGambar.Checked = False
 
             txtFileGambar.Clear()
             txtFileDokumen.Clear()
@@ -923,26 +1070,10 @@ Public Class FrmMain
     End Sub
 
     Private Sub btnWANumber_Click(sender As Object, e As EventArgs) Handles btnWANumber.Click
-        Dim msg As String = "Nomor WA: " + _wa.GetCurrentNumber + Environment.NewLine +
-            "MultiDevice: " + _wa.IsMultiDevice.ToString()
+        Dim msg As String = "Nomor WA: " + _wa.GetCurrentNumber
 
         MessageBox.Show(msg, "Infomasi",
                 MessageBoxButtons.OK, MessageBoxIcon.Information)
-    End Sub
-
-    Private Sub btnSetStatus_Click(sender As Object, e As EventArgs) Handles btnSetStatus.Click
-
-        If _wa.IsMultiDevice Then
-            MessageBox.Show("Maaf fitur set status belum support untuk multi device", "Peringatan",
-                MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return
-        End If
-
-        Using frm As New FrmSetStatus("Status", _wa)
-
-            frm.ShowDialog()
-
-        End Using
     End Sub
 
     Private Sub chkMessageSentStatusSubscribe_CheckedChanged(sender As Object, e As EventArgs) Handles chkMessageSentStatusSubscribe.CheckedChanged
@@ -956,21 +1087,8 @@ Public Class FrmMain
     End Sub
 
     Private Sub btnAllMessages_Click(sender As Object, e As EventArgs) Handles btnAllMessages.Click
-        Dim phoneNumber As String = "081381769915"
+        Dim phoneNumber As String = "081381761234"
         _wa.GetAllMessage(phoneNumber, 3) 'menampilkan 3 pesan terakhir
-    End Sub
-
-    Private Sub btnBatteryStatus_Click(sender As Object, e As EventArgs) Handles btnBatteryStatus.Click
-        If _wa.IsMultiDevice Then
-            MessageBox.Show("Maaf fitur cek battery status sudah tidak support untuk multi device", "Peringatan",
-                MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return
-        End If
-        _wa.GetBatteryStatus()
-    End Sub
-
-    Private Sub btnState_Click(sender As Object, e As EventArgs) Handles btnState.Click
-        _wa.GetCurrentState()
     End Sub
 
     Private Sub btnVerifyContact_Click(sender As Object, e As EventArgs) Handles btnVerifyContact.Click
@@ -994,20 +1112,14 @@ Public Class FrmMain
     Private Sub chkKirimPesanButtonDgGambar_CheckedChanged(sender As Object, e As EventArgs) Handles chkKirimPesanButtonDgGambar.CheckedChanged
         If chkKirimPesanButtonDgGambar.Checked Then
 
-            If _wa.IsMultiDevice Then
-                MessageBox.Show("Maaf fitur pesan dengan tipe button belum support untuk multi device", "Peringatan",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning)
-
-                chkKirimPesanButtonDgGambar.Checked = False
-                Return
-            End If
-
             chkKirimPesanDgGambar.Checked = False
             chkKirimGambarDariUrl.Checked = False
             chkKirimFileAja.Checked = False
             chkKirimPesanList.Checked = False
             chkKirimLokasi.Checked = False
             chkKirimPesanButton.Checked = False
+            chkKirimPesanButtonCTA.Checked = False
+            chkKirimPesanButtonCTADgGambar.Checked = False
 
             txtFileGambar.Clear()
             txtFileDokumen.Clear()
@@ -1016,6 +1128,156 @@ Public Class FrmMain
             txtLongitude.Enabled = True
             txtDescription.Enabled = True
         End If
+    End Sub
+
+    Private Sub chkKirimPesanButtonCTA_CheckedChanged(sender As Object, e As EventArgs) Handles chkKirimPesanButtonCTA.CheckedChanged
+        If chkKirimPesanButtonCTA.Checked Then
+
+            chkKirimPesanDgGambar.Checked = False
+            chkKirimGambarDariUrl.Checked = False
+            chkKirimFileAja.Checked = False
+            chkKirimPesanList.Checked = False
+            chkKirimLokasi.Checked = False
+            chkKirimPesanButton.Checked = False
+            chkKirimPesanButtonDgGambar.Checked = False
+            chkKirimPesanButtonCTADgGambar.Checked = False
+
+            txtFileGambar.Clear()
+            txtFileDokumen.Clear()
+
+            txtLatitude.Enabled = True
+            txtLongitude.Enabled = True
+            txtDescription.Enabled = True
+        End If
+    End Sub
+
+    Private Sub chkKirimPesanButtonCTADgGambar_CheckedChanged(sender As Object, e As EventArgs) Handles chkKirimPesanButtonCTADgGambar.CheckedChanged
+        If chkKirimPesanButtonCTADgGambar.Checked Then
+
+            chkKirimPesanDgGambar.Checked = False
+            chkKirimGambarDariUrl.Checked = False
+            chkKirimFileAja.Checked = False
+            chkKirimPesanList.Checked = False
+            chkKirimLokasi.Checked = False
+            chkKirimPesanButton.Checked = False
+            chkKirimPesanButtonDgGambar.Checked = False
+            chkKirimPesanButtonCTA.Checked = False
+
+            txtFileGambar.Clear()
+            txtFileDokumen.Clear()
+
+            txtLatitude.Enabled = True
+            txtLongitude.Enabled = True
+            txtDescription.Enabled = True
+        End If
+    End Sub
+
+    Private Sub btnCheckBusinessProfile_Click(sender As Object, e As EventArgs) Handles btnCheckBusinessProfile.Click
+        ' daftar kontak yang mau di verifikasi
+        ' bisa diambil dari database atau hasil generatean
+        Dim contacts As List(Of String) = New List(Of String)({"082324565565", "089685899699"})
+
+        Using frm As New FrmContactOrGroup("Business Profiles")
+
+            AddHandler _wa.OnReceiveBusinessProfiles, AddressOf frm.OnReceiveBusinessProfilesHandler ' subscribe event
+            _wa.GetBusinessProfile(contacts)
+
+            frm.ShowDialog()
+            RemoveHandler _wa.OnReceiveBusinessProfiles, AddressOf frm.OnReceiveBusinessProfilesHandler ' unsubscribe event
+
+        End Using
+    End Sub
+
+    Private Sub btnDeleteChat_Click(sender As Object, e As EventArgs) Handles btnDeleteChat.Click
+        Dim msg = "Fungsi ini akan MENGHAPUS semua pesan." + Environment.NewLine +
+                  "Apakah ingin dilanjutkan"
+        If MessageBox.Show(msg, "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            _wa.DeleteChat() ' hapus semua chat
+
+            ' contoh jika ingin menghapus berdasarkan phoneNumber
+            ' Dim phoneNumber As String = "0813123456789"
+            ' _wa.DeleteChat(phoneNumber)
+        End If
+    End Sub
+
+    Private Sub btnSetStatusOnlineOffline_Click(sender As Object, e As EventArgs) Handles btnSetStatusOnlineOffline.Click
+        ' set status online
+        _wa.SetOnlineStatus(True)
+
+        ' set status offline
+        _wa.SetOnlineStatus(False)
+    End Sub
+
+    Private Sub btnSendContact_Click(sender As Object, e As EventArgs) Handles btnSendContact.Click
+        Dim vcard As New VCard With
+        {
+            .fn = "Kamarudin",
+            .org = "Innovation Center",
+            .title = ".NET Developer",
+            .telWork = "02748812345",
+            .mobile = "6283124312345" ' khusus mobile gunakan kode area, tanpa tanda +
+        }
+
+        Dim list As New List(Of VCard)
+        list.Add(vcard)
+
+        Dim msgArgs As MsgArgs = New MsgArgs(txtKontak.Text, list.ToArray())
+        _wa.SendMessage(msgArgs)
+    End Sub
+
+    Private Sub btnSendSticker_Click(sender As Object, e As EventArgs) Handles btnSendSticker.Click
+        Dim sticker As New Sticker With
+        {
+            .packName = "Ngopi",
+            .author = "Coding4ever",
+            .attachmentOrUrl = "C:\Users\Roedhi\Pictures\rider.png",
+            .quality = 50
+        }
+
+        Dim msgArgs As MsgArgs = New MsgArgs(txtKontak.Text, sticker)
+        _wa.SendMessage(msgArgs)
+    End Sub
+
+    Private Sub btnSendGif_Click(sender As Object, e As EventArgs) Handles btnSendGif.Click
+        Dim msgArgs As MsgArgs = New MsgArgs(txtKontak.Text, "Tes kirim gif", MsgArgsType.Gif, "C:\Users\Roedhi\Videos\running.mp4")
+        _wa.SendMessage(msgArgs)
+    End Sub
+
+    Private Sub btnCreateGroup_Click(sender As Object, e As EventArgs) Handles btnCreateGroup.Click
+        ' minimal 1 contact
+        Dim contact As New Contact With
+        {
+            .id = "081381761234"
+        }
+
+        Dim newGroup As New Group With
+        {
+            .name = "My Fav Group",
+            .greeting_message = "Selamat bergabung di My Fav Group",
+            .members = New List(Of Contact)({contact})
+        }
+
+        _wa.CreateGroup(newGroup)
+    End Sub
+
+    Private Sub btnAddRemoveGroupMember_Click(sender As Object, e As EventArgs) Handles btnAddRemoveGroupMember.Click
+
+        Dim contact As New Contact With
+        {
+            .id = "081381761234"
+        }
+
+        Dim group As New Group With
+        {
+            .id = "120363022253785177@g.us",
+            .members = New List(Of Contact)({contact})
+        }
+
+        ' add member
+        _wa.AddRemoveGroupMember(group, "add")
+
+        ' remove member
+        ' _wa.AddRemoveGroupMember(group, "remove")
     End Sub
 
 #End Region

@@ -48,8 +48,8 @@ namespace DemoWhatsAppNETAPICSharp
                 {
                     if (!(contact.id == "status@broadcast"))
                     {
-                        lstContactOrGroup.Items.Add(string.Format("{0}. {1} - {2}, {3}",
-                        noUrut, contact.id, contact.name, contact.pushname));
+                        lstContactOrGroup.Items.Add(string.Format("{0}. {1} - {2}",
+                        noUrut, contact.id, contact.name));
 
                         noUrut++;
                     }
@@ -87,6 +87,33 @@ namespace DemoWhatsAppNETAPICSharp
                         }
                     }
                     else // status@broadcast -> dummy group, penanda load data group selesai
+                    {
+                        if (this.IsHandleCreated)
+                            this.Invoke(new MethodInvoker(() => this.UseWaitCursor = false));
+                    }
+                }
+            });
+        }
+
+        public void OnReceiveBusinessProfilesHandler(IList<BusinessProfile> profiles, string sessionId)
+        {
+            // update UI dari thread yang berbeda
+            lstContactOrGroup.Invoke(() =>
+            {
+                foreach (var profile in profiles)
+                {
+                    if (!(profile.id == "status@broadcast"))
+                    {
+                        var website = string.Empty;
+                        if (profile.website.Length > 0)
+                            website = profile.website[0];
+
+                        lstContactOrGroup.Items.Add(string.Format("{0}. {1} - {2} - {3}",
+                            noUrut, profile.email, profile.category, website));
+
+                        noUrut++;
+                    }
+                    else // status@broadcast -> dummy id, penanda load data business profile selesai
                     {
                         if (this.IsHandleCreated)
                             this.Invoke(new MethodInvoker(() => this.UseWaitCursor = false));
